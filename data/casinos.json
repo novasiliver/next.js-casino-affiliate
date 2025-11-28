@@ -1,0 +1,133 @@
+[
+  {
+    "slug": "ignite-casino",
+    "name": "Ignite Casino",
+    "logo": "IGNITE",
+    "rating": 5.0,
+    "votes": 1240,
+    "established": 2021,
+    "region": "Global",
+    "payoutSpeed": "Instant",
+    "rtp": "97.4%",
+    "bonus": {
+      "title": "Welcome Package",
+      "amount": "$5,000 + 100 Free Spins",
+      "details": "Valid on your first 4 deposits",
+      "code": "IGNITE200",
+      "wagering": "35x Bonus",
+      "minDeposit": "$20.00",
+      "expiry": "30 Days"
+    },
+    "tags": ["Instant Payout", "Curacao Lic."],
+    "description": "Premium crypto casino with instant withdrawals",
+    "template": "template1",
+    "verdict": "Ignite Casino has quickly established itself as a market leader, particularly for crypto enthusiasts and players seeking instant withdrawals. With a library exceeding 4,000 games and a user interface that feels modern and snappy, it delivers a premium experience. The welcome bonus is massive, though high-rollers will benefit most from the VIP program.",
+    "prosCons": {
+      "pros": [
+        "Withdrawals processed in under 15 minutes",
+        "Massive 4,000+ slot & table game library",
+        "24/7 Live Chat support with < 1m wait",
+        "High monthly withdrawal limits ($50k+)"
+      ],
+      "cons": [
+        "No dedicated mobile app (web app only)",
+        "Sportsbook odds are average compared to specialists"
+      ]
+    },
+    "banking": [
+      {
+        "name": "Bitcoin",
+        "type": "Crypto",
+        "time": "Instant",
+        "fee": "Free",
+        "icon": "bitcoin"
+      },
+      {
+        "name": "Visa / MC",
+        "type": "Card",
+        "time": "1-3 Days",
+        "fee": "2.5%",
+        "icon": "credit-card"
+      },
+      {
+        "name": "Bank Transfer",
+        "type": "Bank",
+        "time": "3-5 Days",
+        "fee": "$10",
+        "icon": "landmark"
+      },
+      {
+        "name": "Tether",
+        "type": "Crypto",
+        "time": "Instant",
+        "fee": "Free",
+        "icon": "usdt"
+      }
+    ],
+    "gameSelection": {
+      "slots": 3200,
+      "liveTables": 150,
+      "jackpots": 50,
+      "liveAction": "24/7",
+      "providers": ["Pragmatic Play", "Evolution", "NetEnt", "NoLimit City", "Hacksaw", "Push Gaming"]
+    },
+    "ratingBreakdown": {
+      "fairness": 10,
+      "bonuses": 9.5,
+      "gameVariety": 9.0,
+      "supportSpeed": 9.8
+    },
+    "casinoInfo": {
+      "established": 2021,
+      "license": "Curacao",
+      "owner": "Ignite Gaming N.V.",
+      "minDeposit": "$20 / 0.001 BTC",
+      "vpnFriendly": true
+    },
+    "reviewContent": {
+      "userExperience": "Navigating Ignite Casino is a breeze. The dark-themed interface is easy on the eyes, and categories are intuitively organized. We tested the site on both iPhone 15 and Pixel 7, and the responsive web design performed flawlessly without lag. While there is no downloadable app, the browser experience is so polished you likely won't miss it.",
+      "customerSupport": "Support is available 24/7 via live chat and email. During our stress test, we received a response on Live Chat within 45 seconds. The agents were knowledgeable about bonus terms and KYC procedures."
+    },
+    "alternatives": [
+      {
+        "slug": "royal-fort",
+        "name": "Royal Fort",
+        "logo": "ROYAL",
+        "bonus": "300% Bonus"
+      },
+      {
+        "slug": "onyx-club",
+        "name": "Onyx Club",
+        "logo": "ONYX",
+        "bonus": "5 BTC Welcome"
+      }
+    ]
+  },
+  {
+    "slug": "royal-fort",
+    "name": "Royal Fort",
+    "logo": "ROYAL",
+    "rating": 4.8,
+    "bonus": {
+      "title": "Welcome Bonus",
+      "amount": "300% up to $3k",
+      "details": "Includes 50 Free Spins"
+    },
+    "description": "Best for high rollers & VIPs",
+    "template": "template1"
+  },
+  {
+    "slug": "onyx-club",
+    "name": "Onyx Club",
+    "logo": "ONYX",
+    "rating": 4.7,
+    "bonus": {
+      "title": "Welcome Bonus",
+      "amount": "5 BTC Bonus",
+      "details": "Unlimited Withdrawals"
+    },
+    "description": "Excellent Crypto Support",
+    "template": "template1"
+  }
+]
+
