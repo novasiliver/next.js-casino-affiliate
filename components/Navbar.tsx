@@ -20,14 +20,29 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    fetch('/api/templates')
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchTemplates = async () => {
+      try {
+        const res = await fetch('/api/templates', {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          },
+        });
+        const data = await res.json();
+        console.log('Navbar fetched templates:', data.templates);
+        console.log('Casino Review Page templates:', data.templates?.['Casino Review Page Template']);
         setTemplates(data.templates || {});
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Error fetching templates:', error);
-      });
+      }
+    };
+
+    fetchTemplates();
+    
+    // Refresh templates every 10 seconds to pick up new templates
+    const interval = setInterval(fetchTemplates, 10000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   const categoryOrder = [

@@ -228,15 +228,18 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    const templateId = formData.get('templateId') as string;
+    const templateId = formData.get('templateId') as string | null;
     const category = formData.get('category') as string;
+    
+    // For new templates, get data from form
+    const name = formData.get('name') as string | null;
+    const slug = formData.get('slug') as string | null;
+    const component = formData.get('component') as string | null;
+    const description = formData.get('description') as string | null;
+    const isActive = formData.get('isActive') === 'true';
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
-    }
-
-    if (!templateId) {
-      return NextResponse.json({ error: 'Template ID required' }, { status: 400 });
     }
 
     if (!category) {
@@ -248,13 +251,38 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'File must be an HTML file' }, { status: 400 });
     }
 
-    // Get template from database
-    const template = await prisma.template.findUnique({
-      where: { id: templateId },
-    });
+    let template;
+    let finalTemplateId: string;
 
-    if (!template) {
-      return NextResponse.json({ error: 'Template not found' }, { status: 404 });
+    // If no templateId, create a new template first
+    if (!templateId) {
+      if (!name || !slug || !component) {
+        return NextResponse.json({ 
+          error: 'Name, slug, and component are required for new templates' 
+        }, { status: 400 });
+      }
+
+      template = await prisma.template.create({
+        data: {
+          name,
+          slug,
+          component,
+          category,
+          description: description || null,
+          isActive: isActive ?? true,
+        },
+      });
+      finalTemplateId = template.id;
+    } else {
+      // Get existing template from database
+      template = await prisma.template.findUnique({
+        where: { id: templateId },
+      });
+
+      if (!template) {
+        return NextResponse.json({ error: 'Template not found' }, { status: 404 });
+      }
+      finalTemplateId = templateId;
     }
 
     // Read HTML content
@@ -269,8 +297,8 @@ export async function POST(request: NextRequest) {
       await mkdir(templatesDir, { recursive: true });
     }
 
-    // Generate component name from template slug
-    const componentName = template.slug
+    // Use component name from template or generate from slug
+    const componentName = template.component || template.slug
       .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join('');
@@ -284,8 +312,8 @@ export async function POST(request: NextRequest) {
     await writeFile(filePath, reactComponent, 'utf-8');
 
     // Update template in database with component name
-    await prisma.template.update({
-      where: { id: templateId },
+    const updatedTemplate = await prisma.template.update({
+      where: { id: finalTemplateId },
       data: {
         component: componentFileName.replace('.tsx', ''),
       },
@@ -294,6 +322,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       component: componentFileName.replace('.tsx', ''),
+      slug: updatedTemplate.slug,
+      templateId: finalTemplateId,
       message: 'Template uploaded and converted successfully',
     });
   } catch (error) {

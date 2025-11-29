@@ -27,7 +27,22 @@ export async function GET() {
       });
     });
 
-    return NextResponse.json({ templates: groupedTemplates });
+    // Debug logging
+    console.log('Templates fetched:', templates.length);
+    console.log('Grouped templates:', Object.keys(groupedTemplates));
+    console.log('Casino Review Page Template count:', groupedTemplates['Casino Review Page Template']?.length || 0);
+
+    // Return with no-cache headers to ensure fresh data
+    return NextResponse.json(
+      { templates: groupedTemplates },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
+      }
+    );
   } catch (error) {
     console.error('Error fetching templates:', error);
     return NextResponse.json(
