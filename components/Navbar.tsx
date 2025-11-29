@@ -57,7 +57,6 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
     const categoryRoutes: Record<string, string> = {
       "Casino Review Page Template": "/review/template",
       "Post Page Template": "/guides/template",
-      "Game Page Template": "/games/template",
       "Bonus Page Template": "/bonuses/template"
     };
     
@@ -175,9 +174,6 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
 
           {/* Action */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="/search" className="text-slate-400 hover:text-white transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide="search" className="lucide lucide-search w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
-            </Link>
             <Link href="/admin/login" className="group relative px-5 py-2 rounded-full bg-slate-800 border border-white/10 text-xs font-semibold text-white hover:bg-slate-700 transition-all overflow-hidden">
               <span className="relative z-10">Admin</span>
             </Link>
@@ -260,13 +256,6 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
             </Link>
 
             <div className="pt-4 border-t border-white/5 flex items-center gap-4">
-              <Link 
-                href="/search" 
-                className="text-slate-400 hover:text-white transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
-              </Link>
               <Link 
                 href="/admin/login" 
                 className="px-4 py-2 rounded-full bg-slate-800 border border-white/10 text-xs font-semibold text-white hover:bg-slate-700 transition-all"

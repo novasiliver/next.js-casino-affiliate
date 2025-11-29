@@ -29,8 +29,8 @@ const categoryInfo: Record<string, { name: string; description: string }> = {
   },
 };
 
-export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = params as { slug: string };
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const category = categoryInfo[slug] || { name: slug, description: 'Casino category' };
 
   return (

@@ -9,7 +9,7 @@
 ssh root@your-server-ip
 
 # Run automated setup script
-wget https://raw.githubusercontent.com/yourusername/next.js-casino-affiliate/main/scripts/vps-setup.sh
+wget https://raw.githubusercontent.com/novasiliver/next.js-casino-affiliate/main/scripts/vps-setup.sh
 bash vps-setup.sh
 
 # Or manually install:
@@ -38,7 +38,7 @@ EXIT;
 ```bash
 # Clone repository
 cd ~
-git clone https://github.com/yourusername/next.js-casino-affiliate.git
+git clone https://github.com/novasiliver/next.js-casino-affiliate.git
 cd next.js-casino-affiliate
 
 # Create environment file

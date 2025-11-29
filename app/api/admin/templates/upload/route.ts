@@ -123,7 +123,7 @@ function htmlToReactComponent(html: string, componentName: string, propsInterfac
     if (attr === 'lucide') {
       return match; // Keep as data-lucide
     }
-    const camelCase = attr.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+    const camelCase = attr.replace(/-([a-z])/g, (g: string) => g[1].toUpperCase());
     return ` data${camelCase.charAt(0).toUpperCase() + camelCase.slice(1)}=`;
   });
 
