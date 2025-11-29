@@ -1,0 +1,686 @@
+<html lang="en" class="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeBet Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
+        
+        /* Simple Tab Logic for Demo */
+        .view-section { display: none; animation: fadeIn 0.3s ease-out; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-300 antialiased overflow-hidden h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-white/5 flex-shrink-0 flex flex-col h-full transition-all duration-300 z-20">
+        <!-- Logo -->
+        <div class="h-16 flex items-center gap-3 px-6 border-b border-white/5">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                <span class="text-slate-950 font-bold text-lg tracking-tighter">P</span>
+            </div>
+            <span class="text-white font-semibold tracking-tight">Prime<span class="text-slate-500">Admin</span></span>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1">
+            
+            <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-2">Overview</p>
+            <button onclick="switchView('dashboard')" class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-white bg-white/5 hover:bg-white/10 transition-colors">
+                <i data-lucide="layout-dashboard" class="w-4 h-4 text-amber-400"></i>
+                Dashboard
+            </button>
+            <button class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                Analytics
+            </button>
+
+            <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Management</p>
+            <button onclick="switchView('casinos')" class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="dice-5" class="w-4 h-4"></i>
+                Casinos
+            </button>
+            <button class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                Posts
+            </button>
+            <button class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="gamepad-2" class="w-4 h-4"></i>
+                Games
+            </button>
+            <button class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="gift" class="w-4 h-4"></i>
+                Bonuses
+            </button>
+
+            <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Templates</p>
+            <button onclick="switchView('templates')" class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="layout-template" class="w-4 h-4"></i>
+                All Templates
+            </button>
+
+            <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Assets &amp; Settings</p>
+            <button class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="image" class="w-4 h-4"></i>
+                Media Library
+            </button>
+            <button class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="link" class="w-4 h-4"></i>
+                Affiliate Links
+            </button>
+            <button class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Users &amp; Roles
+            </button>
+            <button onclick="switchView('settings')" class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+                <i data-lucide="settings" class="w-4 h-4"></i>
+                Settings
+            </button>
+        </nav>
+
+        <!-- User Profile -->
+        <div class="border-t border-white/5 p-4">
+            <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="" class="w-9 h-9 rounded-full ring-2 ring-slate-800">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-white truncate">Admin User</p>
+                    <p class="text-xs text-slate-500 truncate">admin@primebet.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-950 relative">
+        <!-- Top Header -->
+        <header class="h-16 flex items-center justify-between px-6 border-b border-white/5 bg-slate-950/50 backdrop-blur z-10 sticky top-0">
+            <!-- Search -->
+            <div class="w-96 relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                <input type="text" placeholder="Search casinos, templates, or settings..." class="w-full bg-slate-900 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all">
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-slate-400 hover:text-white transition-colors">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-amber-500 border-2 border-slate-950"></span>
+                </button>
+                <div class="h-6 w-px bg-white/10"></div>
+                <a href="#" class="text-sm font-medium text-amber-500 hover:text-amber-400 flex items-center gap-2">
+                    View Live Site <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 md:p-8 relative">
+            
+            <!-- VIEW 1: DASHBOARD OVERVIEW -->
+            <div id="view-dashboard" class="view-section active space-y-6">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-white tracking-tight">Dashboard Overview</h1>
+                        <p class="text-sm text-slate-400 mt-1">Welcome back, here's what's happening today.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <select class="bg-slate-900 border border-white/10 text-slate-300 text-sm rounded-lg p-2.5 focus:ring-amber-500 focus:border-amber-500">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>This Year</option>
+                        </select>
+                        <button class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold py-2 px-4 rounded-lg text-sm flex items-center gap-2 transition-colors">
+                            <i data-lucide="download" class="w-4 h-4"></i> Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Stat Card 1 -->
+                    <div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i data-lucide="dice-5" class="w-16 h-16 text-amber-500"></i>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400">Total Casinos</p>
+                        <div class="flex items-end gap-2 mt-2">
+                            <h3 class="text-3xl font-bold text-white">142</h3>
+                            <span class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded mb-1 flex items-center">
+                                <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> +4
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 2 -->
+                    <div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i data-lucide="mouse-pointer-2" class="w-16 h-16 text-indigo-500"></i>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400">Total Clicks</p>
+                        <div class="flex items-end gap-2 mt-2">
+                            <h3 class="text-3xl font-bold text-white">24.5k</h3>
+                            <span class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded mb-1 flex items-center">
+                                <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> +12%
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 3 -->
+                    <div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i data-lucide="users" class="w-16 h-16 text-blue-500"></i>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400">Registrations (FTDs)</p>
+                        <div class="flex items-end gap-2 mt-2">
+                            <h3 class="text-3xl font-bold text-white">892</h3>
+                            <span class="text-xs font-medium text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded mb-1 flex items-center">
+                                <i data-lucide="trending-down" class="w-3 h-3 mr-1"></i> -2.4%
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 4 -->
+                    <div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i data-lucide="dollar-sign" class="w-16 h-16 text-emerald-500"></i>
+                        </div>
+                        <p class="text-sm font-medium text-slate-400">Est. Revenue</p>
+                        <div class="flex items-end gap-2 mt-2">
+                            <h3 class="text-3xl font-bold text-white">$42,500</h3>
+                            <span class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded mb-1 flex items-center">
+                                <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> +8.1%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Main Chart -->
+                    <div class="glass-panel rounded-xl p-6 lg:col-span-2">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-white">Traffic &amp; Conversion</h3>
+                            <button class="text-slate-500 hover:text-white"><i data-lucide="more-horizontal" class="w-5 h-5"></i></button>
+                        </div>
+                        <div class="h-64 w-full flex items-end justify-between gap-2 px-2">
+                            <!-- Simulated Chart Bars -->
+                            <div class="w-full bg-slate-800/50 rounded-t-sm hover:bg-amber-500/20 transition-all h-[40%] relative group"><div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-xs py-1 px-2 rounded border border-white/10">40%</div></div>
+                            <div class="w-full bg-slate-800/50 rounded-t-sm hover:bg-amber-500/20 transition-all h-[65%] relative group"><div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-xs py-1 px-2 rounded border border-white/10">65%</div></div>
+                            <div class="w-full bg-slate-800/50 rounded-t-sm hover:bg-amber-500/20 transition-all h-[55%] relative group"><div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-xs py-1 px-2 rounded border border-white/10">55%</div></div>
+                            <div class="w-full bg-slate-800/50 rounded-t-sm hover:bg-amber-500/20 transition-all h-[80%] relative group"><div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-xs py-1 px-2 rounded border border-white/10">80%</div></div>
+                            <div class="w-full bg-slate-800/50 rounded-t-sm hover:bg-amber-500/20 transition-all h-[60%] relative group"><div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-xs py-1 px-2 rounded border border-white/10">60%</div></div>
+                            <div class="w-full bg-slate-800/50 rounded-t-sm hover:bg-amber-500/20 transition-all h-[90%] relative group"><div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-xs py-1 px-2 rounded border border-white/10">90%</div></div>
+                            <div class="w-full bg-amber-500 rounded-t-sm h-[75%] relative shadow-[0_0_15px_rgba(245,158,11,0.3)]"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-950 font-bold text-xs py-1 px-2 rounded">Today</div></div>
+                        </div>
+                        <div class="flex justify-between mt-4 text-xs text-slate-500 uppercase font-medium">
+                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="glass-panel rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-white mb-6">Recent Additions</h3>
+                        <div class="space-y-4">
+                            <!-- Item 1 -->
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded bg-slate-800 border border-white/10 flex items-center justify-center text-xs font-bold text-white">IGN</div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-white">Ignite Casino</h4>
+                                    <p class="text-xs text-slate-500">Added by Admin • 2h ago</p>
+                                </div>
+                                <span class="text-xs font-medium text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-full">Live</span>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded bg-slate-800 border border-white/10 flex items-center justify-center text-xs font-bold text-white">ROY</div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-white">Royal Fort</h4>
+                                    <p class="text-xs text-slate-500">Edited by Sarah • 5h ago</p>
+                                </div>
+                                <span class="text-xs font-medium text-amber-400 bg-amber-500/10 px-2 py-1 rounded-full">Pending</span>
+                            </div>
+                            <!-- Item 3 -->
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded bg-indigo-900/30 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-white">Top 10 Crypto...</h4>
+                                    <p class="text-xs text-slate-500">New Post • 8h ago</p>
+                                </div>
+                                <span class="text-xs font-medium text-slate-400 bg-slate-700/30 px-2 py-1 rounded-full">Draft</span>
+                            </div>
+                        </div>
+                        <button class="w-full mt-6 py-2 rounded-lg border border-white/10 text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white transition-colors">
+                            View All Activity
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: CASINO LIST -->
+            <div id="view-casinos" class="view-section space-y-6">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-white tracking-tight">Casinos</h1>
+                        <p class="text-sm text-slate-400 mt-1">Manage all casino partners and reviews.</p>
+                    </div>
+                    <button onclick="switchView('add-casino')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold py-2 px-4 rounded-lg text-sm flex items-center gap-2 transition-colors">
+                        <i data-lucide="plus" class="w-4 h-4"></i> Add New Casino
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="glass-panel p-4 rounded-xl flex flex-wrap gap-4 items-center justify-between">
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500"></i>
+                            <input type="text" placeholder="Search casinos..." class="bg-slate-900 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50">
+                        </div>
+                        <select class="bg-slate-900 border border-white/10 text-slate-300 text-sm rounded-lg p-2 focus:ring-amber-500 focus:border-amber-500">
+                            <option>All Statuses</option>
+                            <option>Published</option>
+                            <option>Draft</option>
+                        </select>
+                    </div>
+                    <div class="text-sm text-slate-500">Showing 1-10 of 142</div>
+                </div>
+
+                <!-- Table -->
+                <div class="glass-panel rounded-xl overflow-hidden">
+                    <table class="w-full text-left text-sm text-slate-400">
+                        <thead class="bg-slate-900 text-xs uppercase font-semibold text-slate-500 border-b border-white/5">
+                            <tr>
+                                <th class="px-6 py-4">Casino</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4">Rating</th>
+                                <th class="px-6 py-4">Template</th>
+                                <th class="px-6 py-4">Last Updated</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-white/5 transition-colors group">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">IGN</div>
+                                        <div>
+                                            <div class="font-medium text-white">Ignite Casino</div>
+                                            <div class="text-xs">ID: #8823</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-400">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Published
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-amber-400 font-medium">5.0 / 5</td>
+                                <td class="px-6 py-4">Premium Review v2</td>
+                                <td class="px-6 py-4">Oct 24, 2024</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button class="p-1.5 rounded hover:bg-slate-700 text-slate-400 hover:text-white" title="View"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                                        <button class="p-1.5 rounded hover:bg-slate-700 text-slate-400 hover:text-white" title="Edit"><i data-lucide="pencil" class="w-4 h-4"></i></button>
+                                        <button class="p-1.5 rounded hover:bg-red-900/50 text-slate-400 hover:text-red-400" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-white/5 transition-colors group">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">ONY</div>
+                                        <div>
+                                            <div class="font-medium text-white">Onyx Club</div>
+                                            <div class="text-xs">ID: #8824</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-400">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Draft
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-amber-400 font-medium">4.7 / 5</td>
+                                <td class="px-6 py-4">Standard Review</td>
+                                <td class="px-6 py-4">Oct 22, 2024</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button class="p-1.5 rounded hover:bg-slate-700 text-slate-400 hover:text-white"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                                        <button class="p-1.5 rounded hover:bg-slate-700 text-slate-400 hover:text-white"><i data-lucide="pencil" class="w-4 h-4"></i></button>
+                                        <button class="p-1.5 rounded hover:bg-red-900/50 text-slate-400 hover:text-red-400"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="p-4 border-t border-white/5 flex items-center justify-between">
+                        <button class="px-3 py-1.5 rounded border border-white/10 text-xs font-medium hover:bg-white/5">Previous</button>
+                        <button class="px-3 py-1.5 rounded border border-white/10 text-xs font-medium hover:bg-white/5">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: ADD/EDIT CASINO (Form) -->
+            <div id="view-add-casino" class="view-section space-y-6">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-4">
+                        <button onclick="switchView('casinos')" class="p-2 rounded-lg bg-slate-900 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-800">
+                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                        </button>
+                        <div>
+                            <h1 class="text-2xl font-bold text-white tracking-tight">Add New Casino</h1>
+                            <p class="text-sm text-slate-400 mt-1">Fill in the details below to create a new review.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="px-4 py-2 rounded-lg border border-white/10 text-slate-300 hover:bg-white/5">Save Draft</button>
+                        <button class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold">Publish Casino</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Main Form Column -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Basic Info -->
+                        <div class="glass-panel p-6 rounded-xl space-y-4">
+                            <h3 class="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2">Basic Information</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Casino Name</label>
+                                    <input type="text" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Slug (URL)</label>
+                                    <input type="text" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-1">Short Description</label>
+                                <textarea rows="3" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"></textarea>
+                            </div>
+                            
+                            <!-- Rating -->
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-1">Overall Rating (0-5)</label>
+                                <input type="range" min="0" max="5" step="0.1" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-slate-500 mt-1">
+                                    <span>0</span><span>2.5</span><span>5.0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Editor -->
+                        <div class="glass-panel p-6 rounded-xl">
+                            <h3 class="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2">Review Content</h3>
+                            <div class="border border-white/10 rounded-lg overflow-hidden bg-slate-900">
+                                <div class="flex items-center gap-1 p-2 border-b border-white/10 bg-slate-800/50">
+                                    <button class="p-1.5 hover:bg-white/10 rounded text-slate-400"><i data-lucide="bold" class="w-4 h-4"></i></button>
+                                    <button class="p-1.5 hover:bg-white/10 rounded text-slate-400"><i data-lucide="italic" class="w-4 h-4"></i></button>
+                                    <button class="p-1.5 hover:bg-white/10 rounded text-slate-400"><i data-lucide="list" class="w-4 h-4"></i></button>
+                                    <button class="p-1.5 hover:bg-white/10 rounded text-slate-400"><i data-lucide="link" class="w-4 h-4"></i></button>
+                                    <div class="w-px h-4 bg-white/10 mx-1"></div>
+                                    <button class="p-1.5 hover:bg-white/10 rounded text-slate-400"><i data-lucide="image" class="w-4 h-4"></i></button>
+                                </div>
+                                <textarea rows="12" class="w-full bg-slate-900 p-4 text-white focus:outline-none" placeholder="Write the full casino review here..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Affiliate & SEO -->
+                        <div class="glass-panel p-6 rounded-xl space-y-4">
+                            <h3 class="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2">Tracking &amp; SEO</h3>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-1">Affiliate Tracking Link</label>
+                                <div class="flex gap-2">
+                                    <input type="text" placeholder="https://tracking.casino.com/..." class="flex-1 bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                    <button class="px-3 py-2 rounded-lg bg-slate-800 border border-white/10 hover:bg-slate-700 text-sm">Test</button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">SEO Title</label>
+                                    <input type="text" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Meta Keywords</label>
+                                    <input type="text" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Form Column -->
+                    <div class="space-y-6">
+                        <!-- Appearance -->
+                        <div class="glass-panel p-6 rounded-xl space-y-4">
+                            <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Appearance</h3>
+                            
+                            <!-- Template Selector -->
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-1">Page Template</label>
+                                <select class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                    <option>Premium Review v2 (Default)</option>
+                                    <option>Minimal Review</option>
+                                    <option>Landing Page Style</option>
+                                </select>
+                            </div>
+
+                            <!-- Logo Upload -->
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-2">Casino Logo</label>
+                                <div class="border-2 border-dashed border-white/10 rounded-lg p-6 flex flex-col items-center justify-center hover:border-amber-500/50 transition-colors cursor-pointer bg-slate-900/50">
+                                    <i data-lucide="upload-cloud" class="w-8 h-8 text-slate-500 mb-2"></i>
+                                    <span class="text-xs text-slate-400">Click to upload</span>
+                                </div>
+                            </div>
+
+                            <!-- Colors -->
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-1">Brand Color</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="color" class="w-8 h-8 rounded cursor-pointer bg-transparent border-none p-0" value="#f59e0b">
+                                    <input type="text" value="#f59e0b" class="flex-1 bg-slate-900 border border-white/10 rounded-lg px-3 py-1.5 text-sm text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attributes -->
+                        <div class="glass-panel p-6 rounded-xl space-y-4">
+                            <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Attributes</h3>
+                            
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-slate-300">Verified Badge</span>
+                                <button class="w-10 h-5 bg-amber-500 rounded-full relative"><span class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></span></button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-slate-300">Crypto Friendly</span>
+                                <button class="w-10 h-5 bg-slate-700 rounded-full relative"><span class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></span></button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-slate-300">Instant Payout</span>
+                                <button class="w-10 h-5 bg-slate-700 rounded-full relative"><span class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: TEMPLATES -->
+            <div id="view-templates" class="view-section space-y-6">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-white tracking-tight">Template Manager</h1>
+                        <p class="text-sm text-slate-400 mt-1">Design layouts for casinos, posts, and bonus pages.</p>
+                    </div>
+                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold py-2 px-4 rounded-lg text-sm flex items-center gap-2 transition-colors">
+                        <i data-lucide="plus" class="w-4 h-4"></i> New Template
+                    </button>
+                </div>
+
+                <!-- Template Tabs -->
+                <div class="border-b border-white/10 mb-6">
+                    <nav class="flex gap-6">
+                        <a href="#" class="pb-3 border-b-2 border-amber-500 text-amber-500 font-medium text-sm">Casino Reviews</a>
+                        <a href="#" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-white font-medium text-sm transition-colors">Blog Posts</a>
+                        <a href="#" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-white font-medium text-sm transition-colors">Bonus Cards</a>
+                        <a href="#" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-white font-medium text-sm transition-colors">Game Pages</a>
+                    </nav>
+                </div>
+
+                <!-- Template Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Template Card 1 -->
+                    <div class="glass-panel group rounded-xl overflow-hidden hover:border-amber-500/50 transition-all">
+                        <div class="aspect-video bg-slate-800 relative flex items-center justify-center border-b border-white/5">
+                            <!-- Mockup preview -->
+                            <div class="w-3/4 h-3/4 bg-slate-900 rounded border border-white/10 flex flex-col p-2 space-y-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                <div class="w-full h-2 bg-slate-700 rounded"></div>
+                                <div class="flex gap-2">
+                                    <div class="w-1/3 h-12 bg-slate-700 rounded"></div>
+                                    <div class="w-2/3 h-12 bg-slate-700 rounded"></div>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+                                <button class="px-3 py-1.5 bg-white text-slate-950 text-xs font-bold rounded">Preview</button>
+                                <button class="px-3 py-1.5 bg-amber-500 text-slate-950 text-xs font-bold rounded">Edit</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-white">Premium Review v2</h3>
+                                    <p class="text-xs text-slate-500 mt-1">Updated 2 days ago</p>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase">Active</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Template Card 2 -->
+                    <div class="glass-panel group rounded-xl overflow-hidden hover:border-amber-500/50 transition-all">
+                        <div class="aspect-video bg-slate-800 relative flex items-center justify-center border-b border-white/5">
+                             <div class="w-3/4 h-3/4 bg-slate-900 rounded border border-white/10 flex flex-col p-2 space-y-2 opacity-50 group-hover:opacity-100 transition-opacity">
+                                <div class="w-1/4 h-2 bg-slate-700 rounded mx-auto mb-2"></div>
+                                <div class="w-full h-12 bg-slate-700 rounded"></div>
+                            </div>
+                             <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+                                <button class="px-3 py-1.5 bg-white text-slate-950 text-xs font-bold rounded">Preview</button>
+                                <button class="px-3 py-1.5 bg-amber-500 text-slate-950 text-xs font-bold rounded">Edit</button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-white">Minimal Sidebar</h3>
+                                    <p class="text-xs text-slate-500 mt-1">Updated 1 month ago</p>
+                                </div>
+                                <div class="flex gap-1">
+                                    <button class="p-1 hover:text-white text-slate-500"><i data-lucide="copy" class="w-3 h-3"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Template Card 3 -->
+                     <div class="glass-panel group rounded-xl overflow-hidden hover:border-amber-500/50 transition-all">
+                        <div class="aspect-video bg-slate-800 relative flex items-center justify-center border-b border-white/5">
+                            <i data-lucide="plus" class="w-8 h-8 text-slate-600"></i>
+                        </div>
+                        <div class="p-4 text-center">
+                            <h3 class="font-semibold text-slate-400 group-hover:text-white transition-colors">Create from Scratch</h3>
+                            <p class="text-xs text-slate-600 mt-1">HTML/JSON Builder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 5: SETTINGS -->
+            <div id="view-settings" class="view-section space-y-6">
+                 <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-white tracking-tight">Global Settings</h1>
+                        <p class="text-sm text-slate-400 mt-1">Configure site identity, SEO, and API keys.</p>
+                    </div>
+                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold py-2 px-4 rounded-lg text-sm transition-colors">
+                        Save Changes
+                    </button>
+                </div>
+
+                <div class="glass-panel rounded-xl overflow-hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-4 min-h-[400px]">
+                        <!-- Settings Sidebar -->
+                        <div class="bg-slate-900/50 border-r border-white/5 p-4 space-y-1">
+                            <button class="w-full text-left px-3 py-2 rounded-lg bg-amber-500/10 text-amber-500 text-sm font-medium">General</button>
+                            <button class="w-full text-left px-3 py-2 rounded-lg text-slate-400 hover:bg-white/5 text-sm font-medium transition-colors">Design &amp; Branding</button>
+                            <button class="w-full text-left px-3 py-2 rounded-lg text-slate-400 hover:bg-white/5 text-sm font-medium transition-colors">Homepage Layout</button>
+                            <button class="w-full text-left px-3 py-2 rounded-lg text-slate-400 hover:bg-white/5 text-sm font-medium transition-colors">Footer</button>
+                            <button class="w-full text-left px-3 py-2 rounded-lg text-slate-400 hover:bg-white/5 text-sm font-medium transition-colors">API Keys</button>
+                        </div>
+
+                        <!-- Settings Content -->
+                        <div class="md:col-span-3 p-6 space-y-6">
+                            <div>
+                                <h3 class="text-lg font-medium text-white mb-4">General Information</h3>
+                                <div class="grid grid-cols-1 gap-4 max-w-lg">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-400 mb-1">Site Name</label>
+                                        <input type="text" value="PrimeBet" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-400 mb-1">Support Email</label>
+                                        <input type="email" value="support@primebet.com" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-white/5 pt-6">
+                                <h3 class="text-lg font-medium text-white mb-4">Maintenance Mode</h3>
+                                <div class="flex items-center justify-between max-w-lg p-4 rounded-lg border border-white/10 bg-slate-900">
+                                    <div>
+                                        <div class="font-medium text-white text-sm">Enable Maintenance Mode</div>
+                                        <div class="text-xs text-slate-500">Visitors will see a "Coming Soon" page.</div>
+                                    </div>
+                                    <button class="w-10 h-5 bg-slate-700 rounded-full relative transition-colors"><span class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-all"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple Tab Logic for Demo Purposes
+        function switchView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show selected view
+            const selected = document.getElementById('view-' + viewId);
+            if(selected) {
+                selected.classList.add('active');
+            }
+        }
+    </script>
+
+</body></html>

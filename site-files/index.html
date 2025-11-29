@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrimeBet - Premium Casino Reviews &amp; Bonuses</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+.glass-panel {
+background: rgba(15, 23, 42, 0.6);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+}
+.shimmer {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+transform: skewX(-20deg) translateX(-150%);
+transition: transform 0.5s;
+}
+.group:hover .shimmer {
+transform: skewX(-20deg) translateX(150%);
+transition: transform 1s;
+}
+/* Custom Scrollbar for horizontal scrolling */
+.no-scrollbar::-webkit-scrollbar {
+display: none;
+}
+.no-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+</style><link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
+<body class="bg-slate-950 text-slate-300 antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 glass-panel transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                        <span class="text-slate-950 font-bold text-lg tracking-tighter">P</span>
+                    </div>
+                    <span class="text-white font-semibold text-lg tracking-tight">PRIME<span class="text-slate-500">BET</span></span>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Top Casinos</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Bonuses</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">New Games</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Guides</a>
+                </div>
+
+                <!-- Action -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button class="text-slate-400 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" class="lucide lucide-search w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+                    </button>
+                    <a href="#" class="group relative px-5 py-2 rounded-full bg-slate-800 border border-white/10 text-xs font-semibold text-white hover:bg-slate-700 transition-all overflow-hidden">
+                        <span class="relative z-10">Sign In</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="text-slate-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu w-6 h-6"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
+            <div class="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[120px]"></div>
+            <div class="absolute top-[10%] right-[20%] w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/50 border border-amber-500/20 text-amber-400 text-xs font-medium mb-8 animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                </span>
+                Verified &amp; Trusted Reviews 2024
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-semibold text-white tracking-tighter mb-6 leading-[1.1]">
+                Play with <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">confidence.</span><br>
+                Win with style.
+            </h1>
+            
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                Curated selection of the world's most premium gaming destinations. 
+                Exclusive bonuses, instant withdrawals, and bank-grade security vetted by experts.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#top-list" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-slate-950 font-semibold text-sm hover:bg-slate-200 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] flex items-center justify-center gap-2">
+                    Explore Top 10
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-down" class="lucide lucide-arrow-down w-4 h-4"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+                </a>
+                <a href="#" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-white/10 text-white font-medium text-sm hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" class="lucide lucide-shield-check w-4 h-4 text-emerald-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                    Safety Guide
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="sticky top-16 z-40 bg-slate-950/90 backdrop-blur border-b border-white/5 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-widest">October 2024 Rankings</h2>
+            <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 no-scrollbar">
+                <button class="px-4 py-1.5 rounded-full bg-slate-800 text-white text-xs font-medium border border-white/10 whitespace-nowrap hover:border-amber-500/50 transition-colors flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flame" class="lucide lucide-flame w-3 h-3 text-amber-500"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg> Trending
+                </button>
+                <button class="px-4 py-1.5 rounded-full bg-transparent text-slate-400 text-xs font-medium border border-transparent hover:bg-slate-900 hover:text-white whitespace-nowrap transition-colors">
+                    Fast Payouts
+                </button>
+                <button class="px-4 py-1.5 rounded-full bg-transparent text-slate-400 text-xs font-medium border border-transparent hover:bg-slate-900 hover:text-white whitespace-nowrap transition-colors">
+                    Crypto Only
+                </button>
+                <button class="px-4 py-1.5 rounded-full bg-transparent text-slate-400 text-xs font-medium border border-transparent hover:bg-slate-900 hover:text-white whitespace-nowrap transition-colors">
+                    Live Dealer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content: Casino Grid -->
+    <section id="top-list" class="py-12 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+
+            <!-- Card 1: Featured -->
+            <div class="group relative rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-500/30 p-1 shadow-2xl hover:shadow-amber-900/20 transition-all duration-300 hover:-translate-y-1">
+                <div class="absolute -top-3 left-6 z-20">
+                    <span class="bg-amber-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-amber-500/20 uppercase tracking-wider flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="crown" class="lucide lucide-crown w-3 h-3"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"></path><path d="M5 21h14"></path></svg> Editor's Choice
+                    </span>
+                </div>
+                <div class="bg-slate-900/50 rounded-xl p-5 sm:p-6 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden">
+                    <div class="shimmer"></div>
+                    
+                    <!-- Rank & Logo -->
+                    <div class="flex items-center gap-6 w-full md:w-auto">
+                        <span class="text-4xl font-bold text-slate-800 font-mono">01</span>
+                        <div class="w-20 h-20 rounded-xl bg-slate-800 border border-white/5 flex items-center justify-center shrink-0">
+                            <span class="font-bold text-xl tracking-tighter text-white">IGNITE</span>
+                        </div>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="flex-1 w-full md:w-auto text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start gap-1 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <span class="text-slate-400 text-xs ml-2 font-medium">5.0/5</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white tracking-tight mb-2">Ignite Casino</h3>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                            <span class="px-2 py-1 rounded bg-slate-800 text-slate-400 text-[10px] uppercase tracking-wide font-medium border border-white/5">Instant Payout</span>
+                            <span class="px-2 py-1 rounded bg-slate-800 text-slate-400 text-[10px] uppercase tracking-wide font-medium border border-white/5">Curacao Lic.</span>
+                        </div>
+                    </div>
+
+                    <!-- Bonus -->
+                    <div class="w-full md:w-1/4 bg-slate-800/50 rounded-lg p-3 border border-white/5 text-center">
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Welcome Bonus</p>
+                        <p class="text-lg font-bold text-emerald-400">$5,000 + 100 FS</p>
+                        <p class="text-[10px] text-slate-500 mt-1">35x Wagering • Min dep $20</p>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="w-full md:w-auto flex flex-col gap-2 min-w-[160px]">
+                        <button class="w-full py-3 rounded-lg bg-white text-slate-950 font-bold text-sm hover:bg-amber-400 transition-colors shadow-lg shadow-white/5">
+                            Play Now
+                        </button>
+                        <a href="#" class="text-xs text-center text-slate-500 hover:text-white transition-colors underline decoration-slate-700 underline-offset-4">Read Review</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="group relative rounded-2xl bg-slate-900 border border-white/10 p-1 hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-1">
+                <div class="bg-slate-900/50 rounded-xl p-5 sm:p-6 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex items-center gap-6 w-full md:w-auto">
+                        <span class="text-4xl font-bold text-slate-800 font-mono">02</span>
+                        <div class="w-16 h-16 rounded-xl bg-slate-800 border border-white/5 flex items-center justify-center shrink-0">
+                            <span class="font-bold text-lg tracking-tighter text-white">ROYAL</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 w-full md:w-auto text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start gap-1 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star-half" class="lucide lucide-star-half w-3 h-3 text-amber-400"><path d="M12 18.338a2.1 2.1 0 0 0-.987.244L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 2.12 0 0 0 1.597-1.16l2.309-4.679A.53.53 0 0 1 12 2"></path></svg>
+                            <span class="text-slate-400 text-xs ml-2 font-medium">4.8/5</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white tracking-tight">Royal Fort</h3>
+                        <p class="text-xs text-slate-400 mt-1">Best for high rollers &amp; VIPs</p>
+                    </div>
+                    <div class="w-full md:w-1/4 text-center">
+                        <p class="text-xl font-bold text-white">300% up to $3k</p>
+                        <p class="text-[10px] text-slate-500">Includes 50 Free Spins</p>
+                    </div>
+                    <div class="w-full md:w-auto min-w-[160px]">
+                        <button class="w-full py-3 rounded-lg bg-slate-800 text-white font-semibold text-sm border border-white/10 hover:bg-indigo-600 hover:border-indigo-500 transition-all">
+                            Visit Casino
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="group relative rounded-2xl bg-slate-900 border border-white/10 p-1 hover:border-indigo-500/30 transition-all duration-300 hover:-translate-y-1">
+                <div class="bg-slate-900/50 rounded-xl p-5 sm:p-6 flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex items-center gap-6 w-full md:w-auto">
+                        <span class="text-4xl font-bold text-slate-800 font-mono">03</span>
+                        <div class="w-16 h-16 rounded-xl bg-slate-800 border border-white/5 flex items-center justify-center shrink-0">
+                            <span class="font-bold text-lg tracking-tighter text-white">ONYX</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 w-full md:w-auto text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start gap-1 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 text-slate-700"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                            <span class="text-slate-400 text-xs ml-2 font-medium">4.7/5</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white tracking-tight">Onyx Club</h3>
+                        <p class="text-xs text-slate-400 mt-1">Excellent Crypto Support</p>
+                    </div>
+                    <div class="w-full md:w-1/4 text-center">
+                        <p class="text-xl font-bold text-white">5 BTC Bonus</p>
+                        <p class="text-[10px] text-slate-500">Unlimited Withdrawals</p>
+                    </div>
+                    <div class="w-full md:w-auto min-w-[160px]">
+                        <button class="w-full py-3 rounded-lg bg-slate-800 text-white font-semibold text-sm border border-white/10 hover:bg-indigo-600 hover:border-indigo-500 transition-all">
+                            Visit Casino
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simplified List for 4-10 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                <!-- Card 4 -->
+                <div class="bg-slate-900 border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-slate-800/50 transition-colors group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-mono text-slate-600">04</span>
+                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">VELO</div>
+                        <div class="">
+                            <h4 class="text-sm font-semibold text-white">Velocity Bet</h4>
+                            <div class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span class="text-[10px] text-slate-400">4.6</span></div>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <span class="block text-sm font-bold text-emerald-400">$1,500 Bonus</span>
+                    </div>
+                    <button class="p-2 rounded-lg bg-slate-800 text-white hover:bg-white hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-slate-900 border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-slate-800/50 transition-colors group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-mono text-slate-600">05</span>
+                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">AURA</div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-white">Aura Casino</h4>
+                            <div class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span class="text-[10px] text-slate-400">4.5</span></div>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <span class="block text-sm font-bold text-emerald-400">100% Match</span>
+                    </div>
+                    <button class="p-2 rounded-lg bg-slate-800 text-white hover:bg-white hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-slate-900 border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-slate-800/50 transition-colors group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-mono text-slate-600">06</span>
+                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">LUNA</div>
+                        <div class="">
+                            <h4 class="text-sm font-semibold text-white">Luna Spins</h4>
+                            <div class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span class="text-[10px] text-slate-400">4.4</span></div>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <span class="block text-sm font-bold text-emerald-400">200 Free Spins</span>
+                    </div>
+                    <button class="p-2 rounded-lg bg-slate-800 text-white hover:bg-white hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="bg-slate-900 border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-slate-800/50 transition-colors group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-mono text-slate-600">07</span>
+                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">NOVA</div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-white">Nova Gaming</h4>
+                            <div class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span class="text-[10px] text-slate-400">4.3</span></div>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <span class="block text-sm font-bold text-emerald-400">$500 Cash</span>
+                    </div>
+                    <button class="p-2 rounded-lg bg-slate-800 text-white hover:bg-white hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+                
+                 <!-- Card 8 -->
+                 <div class="bg-slate-900 border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-slate-800/50 transition-colors group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-mono text-slate-600">08</span>
+                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">ZEN</div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-white">Zen Casino</h4>
+                            <div class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span class="text-[10px] text-slate-400">4.2</span></div>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <span class="block text-sm font-bold text-emerald-400">50% Back</span>
+                    </div>
+                    <button class="p-2 rounded-lg bg-slate-800 text-white hover:bg-white hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+
+                 <!-- Card 9 -->
+                 <div class="bg-slate-900 border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-slate-800/50 transition-colors group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-mono text-slate-600">09</span>
+                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">SOL</div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-white">Solarium</h4>
+                            <div class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span class="text-[10px] text-slate-400">4.1</span></div>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <span class="block text-sm font-bold text-emerald-400">1 BTC Bonus</span>
+                    </div>
+                    <button class="p-2 rounded-lg bg-slate-800 text-white hover:bg-white hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+
+                 <!-- Card 10 -->
+                 <div class="bg-slate-900 border border-white/5 rounded-xl p-4 flex items-center justify-between hover:bg-slate-800/50 transition-colors group">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-mono text-slate-600">10</span>
+                        <div class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center text-xs font-bold text-white">MAX</div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-white">BetMax</h4>
+                            <div class="flex gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-3 h-3 fill-amber-400 text-amber-400"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span class="text-[10px] text-slate-400">4.0</span></div>
+                        </div>
+                    </div>
+                    <div class="text-right hidden sm:block">
+                        <span class="block text-sm font-bold text-emerald-400">$100 No Dep</span>
+                    </div>
+                    <button class="p-2 rounded-lg bg-slate-800 text-white hover:bg-white hover:text-black transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center pt-8">
+                <button class="px-6 py-3 rounded-full border border-white/10 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all">
+                    Load More Casinos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Browse Categories Section -->
+    <section class="py-16 bg-slate-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-semibold text-white tracking-tight mb-8">Browse by Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <!-- Category 1 -->
+                <a href="#" class="group bg-slate-900 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-amber-500/20 text-slate-400 group-hover:text-amber-500 flex items-center justify-center mb-3 transition-colors border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="dice-5" class="lucide lucide-dice-5 w-6 h-6"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><path d="M16 8h.01"></path><path d="M8 8h.01"></path><path d="M8 16h.01"></path><path d="M16 16h.01"></path><path d="M12 12h.01"></path></svg>
+                    </div>
+                    <span class="text-sm font-medium text-slate-300 group-hover:text-white">Slots</span>
+                </a>
+                
+                <!-- Category 2 -->
+                <a href="#" class="group bg-slate-900 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-amber-500/20 text-slate-400 group-hover:text-amber-500 flex items-center justify-center mb-3 transition-colors border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users w-6 h-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <span class="text-sm font-medium text-slate-300 group-hover:text-white">Live Dealer</span>
+                </a>
+
+                <!-- Category 3 -->
+                <a href="#" class="group bg-slate-900 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-amber-500/20 text-slate-400 group-hover:text-amber-500 flex items-center justify-center mb-3 transition-colors border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bitcoin" class="lucide lucide-bitcoin w-6 h-6"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-7.943C16.96 9.475 15.655 3.328 10.687 4.195"></path><path d="M6 19.5v-15"></path><path d="M9.5 4V2.5"></path><path d="M10 21.5v-1.8"></path><path d="M6 15h4.81"></path><path d="M6 9h4"></path></svg>
+                    </div>
+                    <span class="text-sm font-medium text-slate-300 group-hover:text-white">Crypto</span>
+                </a>
+
+                <!-- Category 4 -->
+                <a href="#" class="group bg-slate-900 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-amber-500/20 text-slate-400 group-hover:text-amber-500 flex items-center justify-center mb-3 transition-colors border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="rocket" class="lucide lucide-rocket w-6 h-6"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.1 4-1 4-1s.38 2.38-1 4z"></path><path d="M12 15v5s3.03-.55 4-2c1.1-1.62 1-4 1-4s-2.38-.38-4 1z"></path></svg>
+                    </div>
+                    <span class="text-sm font-medium text-slate-300 group-hover:text-white">Crash Games</span>
+                </a>
+
+                <!-- Category 5 -->
+                <a href="#" class="group bg-slate-900 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-amber-500/20 text-slate-400 group-hover:text-amber-500 flex items-center justify-center mb-3 transition-colors border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="trophy" class="lucide lucide-trophy w-6 h-6"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17"></path><path d="M14 14.66V17"></path><path d="M18 2h-6c-1.78 0-3 1.6-3 3.83V6.2c0 1.9 1.3 3.4 3 3.4h6c1.7 0 3-1.5 3-3.4V5.8c0-2.2-1.2-3.8-3-3.8Z"></path></svg>
+                    </div>
+                    <span class="text-sm font-medium text-slate-300 group-hover:text-white">Sportsbook</span>
+                </a>
+
+                <!-- Category 6 -->
+                <a href="#" class="group bg-slate-900 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-amber-500/20 text-slate-400 group-hover:text-amber-500 flex items-center justify-center mb-3 transition-colors border border-white/5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="clover" class="lucide lucide-clover w-6 h-6"><path d="M16.17 7.83 2 22"></path><path d="M4.02 12a2.828 2.828 0 1 1 4-4 2.828 2.828 0 0 1-4 4Z"></path><path d="M10.85 4.02a2.828 2.828 0 1 1 4 4 2.828 2.828 0 0 1-4-4Z"></path><path d="M19.98 12a2.828 2.828 0 1 1-4 4 2.828 2.828 0 0 1 4-4Z"></path><path d="M13.15 19.98a2.828 2.828 0 1 1-4-4 2.828 2.828 0 0 1 4 4Z"></path></svg>
+                    </div>
+                    <span class="text-sm font-medium text-slate-300 group-hover:text-white">Poker</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Bonus Section -->
+    <section class="py-20 bg-slate-950 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="relative rounded-3xl overflow-hidden border border-amber-500/20 bg-slate-900">
+                <div class="absolute inset-0 bg-gradient-to-r from-amber-900/10 via-slate-900/80 to-slate-900/95 z-0"></div>
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 p-8 md:p-12 items-center relative z-10">
+                    <div>
+                        <div class="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 rounded-full text-xs font-bold tracking-wider mb-4 border border-amber-500/20">
+                            EXCLUSIVE OFFER
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4">
+                            Claim 200% Bonus at <span class="text-amber-400">Ignite</span>
+                        </h2>
+                        <p class="text-slate-400 text-sm md:text-base mb-8 leading-relaxed max-w-md">
+                            Register today through PrimeBet and unlock an exclusive VIP welcome package not available anywhere else. Includes weekly cashback and dedicated support.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div class="bg-slate-950/50 p-4 rounded-xl border border-white/5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" class="lucide lucide-zap w-5 h-5 text-amber-400 mb-2"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
+                                <div class="text-xl font-bold text-white">15 Min</div>
+                                <div class="text-xs text-slate-500">Avg. Payout Time</div>
+                            </div>
+                            <div class="bg-slate-950/50 p-4 rounded-xl border border-white/5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield" class="lucide lucide-shield w-5 h-5 text-amber-400 mb-2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                                <div class="text-xl font-bold text-white">Verified</div>
+                                <div class="text-xs text-slate-500">License &amp; Security</div>
+                            </div>
+                        </div>
+
+                        <button class="group relative px-8 py-4 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl text-slate-950 font-bold text-sm overflow-hidden hover:shadow-lg hover:shadow-amber-500/25 transition-all">
+                            <span class="relative z-10 flex items-center gap-2">
+                                Claim Bonus Now 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                            </span>
+                            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                        </button>
+                    </div>
+                    
+                    <div class="hidden lg:block relative">
+                         <!-- Abstract card UI representation -->
+                         <div class="relative w-full aspect-square max-w-md mx-auto">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-slate-800 to-slate-700 rounded-2xl rotate-3 opacity-50"></div>
+                            <div class="absolute inset-0 bg-slate-900 rounded-2xl border border-white/10 shadow-2xl flex flex-col items-center justify-center p-8 text-center -rotate-3 hover:rotate-0 transition-transform duration-500">
+                                <div class="w-24 h-24 rounded-full bg-slate-800 mb-6 flex items-center justify-center border border-amber-500/20">
+                                    <span class="text-3xl font-bold text-white">IGN</span>
+                                </div>
+                                <div class="text-4xl font-bold text-white mb-2 tracking-tight">$5,000</div>
+                                <div class="text-sm text-slate-400 mb-6 uppercase tracking-widest">Welcome Package</div>
+                                <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden mb-2">
+                                    <div class="w-3/4 h-full bg-amber-500"></div>
+                                </div>
+                                <div class="flex justify-between w-full text-xs text-slate-500">
+                                    <span>Bonus Left</span>
+                                    <span>75% Claimed</span>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Providers & How We Rate -->
+    <section class="py-20 bg-slate-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- How We Rate -->
+                <div>
+                    <h2 class="text-2xl font-semibold text-white tracking-tight mb-6">How We Rate Casinos</h2>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-8">
+                        Our review process is rigorous and data-driven. We don't just look at the bonuses; we test the withdrawal speeds, verify licenses, and ensure the RNG is audited.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-amber-500 border border-white/5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="lock" class="lucide lucide-lock w-4 h-4"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            </div>
+                            <h4 class="font-medium text-white">Security &amp; Trust</h4>
+                            <p class="text-xs text-slate-500">SSL encryption and valid gaming licenses are non-negotiable.</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-amber-500 border border-white/5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="gamepad-2" class="lucide lucide-gamepad-2 w-4 h-4"><line x1="6" x2="10" y1="12" y2="12"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="15" x2="15.01" y1="13" y2="13"></line><line x1="18" x2="18.01" y1="11" y2="11"></line><rect width="20" height="12" x="2" y="6" rx="2"></rect></svg>
+                            </div>
+                            <h4 class="font-medium text-white">Game Variety</h4>
+                            <p class="text-xs text-slate-500">Libraries must exceed 1,000+ games from top providers.</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-amber-500 border border-white/5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="wallet" class="lucide lucide-wallet w-4 h-4"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path></svg>
+                            </div>
+                            <h4 class="font-medium text-white">Fast Payouts</h4>
+                            <p class="text-xs text-slate-500">We prioritize casinos that process withdrawals under 24 hours.</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-amber-500 border border-white/5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="headphones" class="lucide lucide-headphones w-4 h-4"><path d="M3 14v3a2 2 0 0 0 2 2h2v-5H3z"></path><path d="M17 14v5h2a2 2 0 0 0 2-2v-3h-4z"></path><path d="M5.1 8.5A8.9 8.9 0 0 1 20 8.5v5.5"></path></svg>
+                            </div>
+                            <h4 class="font-medium text-white">24/7 Support</h4>
+                            <p class="text-xs text-slate-500">Live chat availability and helpfulness are tested anonymously.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Providers -->
+                <div class="bg-slate-900/50 rounded-2xl p-8 border border-white/5 flex flex-col justify-center">
+                    <h3 class="text-lg font-medium text-white mb-6">Trusted Software Providers</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                         <div class="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">NetEnt</div>
+                         <div class="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">Evolution</div>
+                         <div class="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">Pragmatic</div>
+                         <div class="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">Play'n Go</div>
+                         <div class="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">NoLimit</div>
+                         <div class="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">Hacksaw</div>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-white/5">
+                        <p class="text-xs text-slate-500">
+                            We only list casinos that host games from certified, fair, and audited software developers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News / Guides Section -->
+    <section class="py-20 bg-slate-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-white tracking-tight mb-2">Latest Insights</h2>
+                    <p class="text-slate-400 text-sm">Expert strategies and industry news.</p>
+                </div>
+                <a href="#" class="text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1">
+                    View all <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="group cursor-pointer">
+                    <div class="aspect-video w-full rounded-xl bg-slate-900 mb-4 overflow-hidden border border-white/5 relative">
+                        <div class="group-hover:scale-105 transition-transform duration-500 absolute inset-0">
+  <img src="https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80" class="w-full h-full object-cover" alt="Strategy Guide">
+  <div class="absolute inset-0 bg-gradient-to-br from-purple-900/50 to-slate-900/50"></div>
+</div>
+                        <div class="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-md text-[10px] uppercase font-bold text-white tracking-wider border border-white/10">Strategy</div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                        <span>Oct 12, 2024</span>
+                        <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                        <span>5 min read</span>
+                    </div>
+                    <h3 class="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
+                        Mastering High Volatility Slots: A Comprehensive Guide
+                    </h3>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="group cursor-pointer">
+                    <div class="aspect-video w-full rounded-xl bg-slate-900 mb-4 overflow-hidden border border-white/5 relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/40 to-slate-900/40 group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-md text-[10px] uppercase font-bold text-white tracking-wider border border-white/10">Industry</div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                        <span>Oct 10, 2024</span>
+                        <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                        <span>3 min read</span>
+                    </div>
+                    <h3 class="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
+                        New Crypto Regulations: What It Means for Players
+                    </h3>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="group cursor-pointer">
+                    <div class="aspect-video w-full rounded-xl bg-slate-900 mb-4 overflow-hidden border border-white/5 relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-900/40 to-slate-900/40 group-hover:scale-105 transition-transform duration-500"></div>
+                        <div class="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-md text-[10px] uppercase font-bold text-white tracking-wider border border-white/10">Reviews</div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                        <span>Oct 08, 2024</span>
+                        <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                        <span>7 min read</span>
+                    </div>
+                    <h3 class="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
+                        Top 5 Live Dealer Experiences for 2025
+                    </h3>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-slate-950 border-t border-white/5">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-semibold text-white tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+            
+            <div class="space-y-4">
+                <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-slate-900 p-4 text-slate-300 border border-white/5 hover:bg-slate-800 transition-colors">
+                        <span class="font-medium text-sm">How do I know these casinos are safe?</span>
+                        <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </summary>
+                    <div class="mt-2 px-4 leading-relaxed text-slate-400 text-sm">
+                        <p>We strictly review casinos that hold valid licenses from reputable authorities like the MGA, UKGC, or Curacao eGaming. We also verify their SSL encryption and third-party fair play audits (eCOGRA, iTechLabs).</p>
+                    </div>
+                </details>
+
+                <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-slate-900 p-4 text-slate-300 border border-white/5 hover:bg-slate-800 transition-colors">
+                        <span class="font-medium text-sm">What is the best welcome bonus available?</span>
+                        <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </summary>
+                    <div class="mt-2 px-4 leading-relaxed text-slate-400 text-sm">
+                        <p>Currently, Ignite Casino offers our top-rated exclusive bonus of 200% up to $5,000. However, the "best" bonus depends on your playstyle—wager-free spins might be better for casual players.</p>
+                    </div>
+                </details>
+
+                <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-slate-900 p-4 text-slate-300 border border-white/5 hover:bg-slate-800 transition-colors">
+                        <span class="font-medium text-sm">Are crypto withdrawals faster than bank transfers?</span>
+                        <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </summary>
+                    <div class="mt-2 px-4 leading-relaxed text-slate-400 text-sm">
+                        <p>Yes, significantly. Crypto withdrawals via Bitcoin, Ethereum, or Litecoin are typically processed within minutes to an hour, whereas traditional bank transfers can take 3-5 business days.</p>
+                    </div>
+                </details>
+
+                <details class="group [&amp;_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-slate-900 p-4 text-slate-300 border border-white/5 hover:bg-slate-800 transition-colors">
+                        <span class="font-medium text-sm">Can I play on mobile devices?</span>
+                        <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </summary>
+                    <div class="mt-2 px-4 leading-relaxed text-slate-400 text-sm">
+                        <p>Absolutely. All casinos listed on PrimeBet are fully optimized for mobile play on iOS and Android browsers. Many also offer dedicated apps for a smoother experience.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-white/5 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-6 h-6 rounded bg-amber-500 flex items-center justify-center">
+                            <span class="text-slate-950 font-bold text-xs">P</span>
+                        </div>
+                        <span class="text-white font-semibold tracking-tight">PRIMEBET</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        The definitive source for premium online gaming reviews. We prioritize safety, speed, and fairness.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-medium mb-4 text-sm">Discover</h4>
+                    <ul class="space-y-3 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">Top 10 Casinos</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">New Bonuses</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">Crypto Gambling</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">Mobile Apps</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-medium mb-4 text-sm">Support</h4>
+                    <ul class="space-y-3 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">Responsible Gaming</a></li>
+                        <li><a href="#" class="hover:text-amber-400 transition-colors">Sitemap</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-medium mb-4 text-sm">Newsletter</h4>
+                    <p class="text-xs text-slate-500 mb-4">Get exclusive bonuses delivered to your inbox.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Email address" class="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500/50 transition-colors">
+                        <button class="bg-amber-500 text-slate-950 px-3 py-2 rounded-lg font-medium text-sm hover:bg-amber-400 transition-colors">Go</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-6 opacity-50 grayscale hover:grayscale-0 transition-all">
+                    <div class="border border-white/20 px-2 py-1 rounded text-[10px] font-bold text-white">18+</div>
+                    <div class="text-[10px] font-bold text-white">GAMBLEAWARE</div>
+                    <div class="text-[10px] font-bold text-white">SSL SECURE</div>
+                </div>
+                <div class="text-xs text-slate-600 text-center md:text-right">
+                    <p>© 2024 PrimeBet Media. All rights reserved.</p>
+                    <div class="flex gap-4 justify-center md:justify-end mt-2">
+                        <a href="#" class="hover:text-slate-400">Privacy</a>
+                        <a href="#" class="hover:text-slate-400">Terms</a>
+                        <a href="#" class="hover:text-slate-400">Cookies</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-4 rounded-xl bg-slate-900/50 border border-white/5 text-[10px] text-slate-500 leading-relaxed text-justify">
+                 Gambling involves risk. Please gamble responsibly. PrimeBet is an affiliate website and does not offer real money gambling services. We receive compensation from the companies advertised on this site, which may impact how and where they appear. We do not guarantee the accuracy of information as bonuses and terms can change. Users must be 18+.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body></html>
