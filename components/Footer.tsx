@@ -23,8 +23,6 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-slate-500">
               <li><Link href="/#top-list" className="hover:text-amber-400 transition-colors">Top 10 Casinos</Link></li>
               <li><Link href="/bonuses" className="hover:text-amber-400 transition-colors">New Bonuses</Link></li>
-              <li><Link href="/crypto" className="hover:text-amber-400 transition-colors">Crypto Gambling</Link></li>
-              <li><Link href="/mobile-apps" className="hover:text-amber-400 transition-colors">Mobile Apps</Link></li>
             </ul>
           </div>
 
@@ -33,8 +31,6 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-slate-500">
               <li><Link href="/contact" className="hover:text-amber-400 transition-colors">Contact Us</Link></li>
               <li><Link href="/about" className="hover:text-amber-400 transition-colors">About Us</Link></li>
-              <li><Link href="/responsible-gaming" className="hover:text-amber-400 transition-colors">Responsible Gaming</Link></li>
-              <li><Link href="/sitemap" className="hover:text-amber-400 transition-colors">Sitemap</Link></li>
             </ul>
           </div>
 

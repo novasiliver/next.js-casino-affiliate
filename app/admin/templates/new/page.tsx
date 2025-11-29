@@ -1,16 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function EditTemplatePage() {
+export default function NewTemplatePage() {
   const router = useRouter();
-  const params = useParams();
-  const id = params.id as string;
-  const isNew = id === 'new';
-
-  const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -23,38 +18,13 @@ export default function EditTemplatePage() {
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
 
-  useEffect(() => {
-    if (!isNew) {
-      fetch('/api/admin/templates')
-        .then((res) => res.json())
-        .then((data) => {
-          const template = data.templates.find((t: any) => t.id === id);
-          if (template) {
-            setFormData({
-              name: template.name,
-              slug: template.slug,
-              component: template.component,
-              category: template.category || '',
-              description: template.description || '',
-              isActive: template.isActive,
-            });
-          }
-          setLoading(false);
-        })
-        .catch(() => setLoading(false));
-    }
-  }, [id, isNew]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
 
-    const url = isNew ? '/api/admin/templates' : `/api/admin/templates/${id}`;
-    const method = isNew ? 'POST' : 'PUT';
-
     try {
-      const res = await fetch(url, {
-        method,
+      const res = await fetch('/api/admin/templates', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
@@ -72,21 +42,13 @@ export default function EditTemplatePage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-slate-400">Loading...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="mb-8">
         <Link href="/admin/templates" className="text-amber-400 hover:text-amber-300 text-sm mb-4 inline-block">
           ← Back to Templates
         </Link>
-        <h1 className="text-3xl font-bold text-white">{isNew ? 'Create Template' : 'Edit Template'}</h1>
+        <h1 className="text-3xl font-bold text-white">Create Template</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-slate-900 border border-white/5 rounded-xl p-8 space-y-6">
@@ -154,13 +116,9 @@ export default function EditTemplatePage() {
 
         {/* Template Upload Section */}
         <div className="border-t border-white/5 pt-6">
-          <h3 className="text-lg font-semibold text-white mb-4">
-            {isNew ? 'Upload Template HTML (Optional)' : 'Upload Template HTML'}
-          </h3>
+          <h3 className="text-lg font-semibold text-white mb-4">Upload Template HTML (Optional)</h3>
           <p className="text-sm text-slate-400 mb-4">
-            {isNew 
-              ? 'Upload an HTML file to automatically convert it to a React component. The template will be created and the component will be generated automatically.'
-              : 'Upload an HTML file to automatically convert it to a React component. The HTML will be processed and saved as a template component.'}
+            Upload an HTML file to automatically convert it to a React component. The template will be created and the component will be generated automatically.
           </p>
           <input
             type="file"
@@ -169,13 +127,13 @@ export default function EditTemplatePage() {
               const file = e.target.files?.[0];
               if (!file) return;
 
-              // For new templates, require category and name
-              if (isNew && !formData.category) {
+              // Require category and name
+              if (!formData.category) {
                 alert('Please select a category first');
                 return;
               }
 
-              if (isNew && !formData.name) {
+              if (!formData.name) {
                 alert('Please enter a template name first');
                 return;
               }
@@ -187,34 +145,27 @@ export default function EditTemplatePage() {
                 const uploadFormData = new FormData();
                 uploadFormData.append('file', file);
                 
-                // For new templates, we'll create it first, then upload
-                if (isNew) {
-                  // Auto-generate slug from filename if not provided
-                  const fileName = file.name.replace('.html', '');
-                  const autoSlug = formData.slug || fileName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                  const autoComponent = formData.component || fileName
-                    .split(/[-_\s]+/)
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join('');
+                // Auto-generate slug from filename if not provided
+                const fileName = file.name.replace('.html', '');
+                const autoSlug = formData.slug || fileName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                const autoComponent = formData.component || fileName
+                  .split(/[-_\s]+/)
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join('');
 
-                  // Update form data with auto-generated values
-                  setFormData(prev => ({
-                    ...prev,
-                    slug: prev.slug || autoSlug,
-                    component: prev.component || autoComponent,
-                  }));
+                // Update form data with auto-generated values
+                setFormData(prev => ({
+                  ...prev,
+                  slug: prev.slug || autoSlug,
+                  component: prev.component || autoComponent,
+                }));
 
-                  uploadFormData.append('name', formData.name);
-                  uploadFormData.append('slug', formData.slug || autoSlug);
-                  uploadFormData.append('component', formData.component || autoComponent);
-                  uploadFormData.append('category', formData.category);
-                  uploadFormData.append('description', formData.description || '');
-                  uploadFormData.append('isActive', formData.isActive.toString());
-                } else {
-                  uploadFormData.append('templateId', id);
-                }
-                
+                uploadFormData.append('name', formData.name);
+                uploadFormData.append('slug', formData.slug || autoSlug);
+                uploadFormData.append('component', formData.component || autoComponent);
                 uploadFormData.append('category', formData.category);
+                uploadFormData.append('description', formData.description || '');
+                uploadFormData.append('isActive', formData.isActive.toString());
 
                 const res = await fetch('/api/admin/templates/upload', {
                   method: 'POST',
@@ -225,22 +176,18 @@ export default function EditTemplatePage() {
                 const data = await res.json();
 
                 if (res.ok) {
-                  setUploadMessage(`✅ Template ${isNew ? 'created and ' : ''}uploaded successfully! Component: ${data.component}`);
-                  if (isNew) {
-                    // Update form with the created template data
-                    setFormData(prev => ({ 
-                      ...prev, 
-                      slug: data.slug || prev.slug,
-                      component: data.component || prev.component 
-                    }));
-                    // Redirect to edit page with the new ID after a short delay
-                    if (data.templateId) {
-                      setTimeout(() => {
-                        router.push(`/admin/templates/${data.templateId}/edit`);
-                      }, 1500);
-                    }
-                  } else {
-                    setFormData({ ...formData, component: data.component });
+                  setUploadMessage(`✅ Template created and uploaded successfully! Component: ${data.component}`);
+                  // Update form with the created template data
+                  setFormData(prev => ({ 
+                    ...prev, 
+                    slug: data.slug || prev.slug,
+                    component: data.component || prev.component 
+                  }));
+                  // Redirect to edit page with the new ID after a short delay
+                  if (data.templateId) {
+                    setTimeout(() => {
+                      router.push(`/admin/templates/${data.templateId}/edit`);
+                    }, 1500);
                   }
                 } else {
                   setUploadMessage(`❌ ${data.error || 'Failed to upload template'}`);
@@ -254,12 +201,12 @@ export default function EditTemplatePage() {
             }}
             className="hidden"
             id="template-upload"
-            disabled={uploading || (isNew && (!formData.category || !formData.name))}
+            disabled={uploading || !formData.category || !formData.name}
           />
           <label
             htmlFor="template-upload"
             className={`border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
-              uploading || (isNew && (!formData.category || !formData.name))
+              uploading || !formData.category || !formData.name
                 ? 'border-slate-700 bg-slate-800/50 cursor-not-allowed'
                 : 'border-white/10 bg-slate-900/50 hover:border-amber-500/50'
             }`}
@@ -267,11 +214,9 @@ export default function EditTemplatePage() {
             {uploading ? (
               <>
                 <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-2"></div>
-                <span className="text-xs text-slate-400">
-                  {isNew ? 'Creating template and converting...' : 'Uploading and converting...'}
-                </span>
+                <span className="text-xs text-slate-400">Creating template and converting...</span>
               </>
-            ) : (isNew && (!formData.category || !formData.name)) ? (
+            ) : (!formData.category || !formData.name) ? (
               <>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-slate-500 mb-2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -289,9 +234,7 @@ export default function EditTemplatePage() {
                   <polyline points="17 8 12 3 7 8"></polyline>
                   <line x1="12" x2="12" y1="3" y2="15"></line>
                 </svg>
-                <span className="text-xs text-slate-400">
-                  {isNew ? 'Click to upload HTML and create template' : 'Click to upload HTML template file'}
-                </span>
+                <span className="text-xs text-slate-400">Click to upload HTML and create template</span>
               </>
             )}
           </label>
@@ -336,4 +279,3 @@ export default function EditTemplatePage() {
     </div>
   );
 }
-
