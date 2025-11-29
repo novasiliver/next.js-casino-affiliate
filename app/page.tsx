@@ -181,7 +181,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           {displayCasinos.length > 0 ? (
             <>
-              {displayCasinos.slice(0, 10).map((casino) => (
+              {displayCasinos.slice(0, 10).map((casino: any) => (
                 <CasinoCard key={casino.rank} {...casino} />
               ))}
 

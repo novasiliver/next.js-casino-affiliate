@@ -69,6 +69,7 @@ export default function NewCasinoPage() {
     gameVarietyRating: 5,
     supportSpeedRating: 5,
     // Review Content
+    content: '',
     verdict: '',
     userExperience: '',
     customerSupport: '',

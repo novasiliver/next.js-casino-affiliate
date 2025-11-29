@@ -76,7 +76,7 @@ In MySQL prompt:
 CREATE DATABASE casino_affiliate CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- Create user
-CREATE USER 'casino_user'@'localhost' IDENTIFIED BY 'your_strong_password_here';
+CREATE USER 'casino_user'@'localhost' IDENTIFIED BY 'casino_user123';
 
 -- Grant privileges
 GRANT ALL PRIVILEGES ON casino_affiliate.* TO 'casino_user'@'localhost';
