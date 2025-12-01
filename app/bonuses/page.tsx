@@ -2,8 +2,31 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CasinoLogo from "@/components/CasinoLogo";
+
+interface Bonus {
+  id: string;
+  title: string;
+  slug: string;
+  casinoId?: string;
+  casinoSlug?: string;
+  casinoName: string;
+  casinoLogo: string;
+  casinoRating: number;
+  amount: string;
+  type: string;
+  wagering?: string;
+  minDeposit?: string;
+  code?: string;
+  expiry?: string;
+  isExclusive: boolean;
+  isHotPick: boolean;
+  provider?: string;
+  features: string[];
+}
 
 export default function BonusesPage() {
   const [wagering, setWagering] = useState(35);
@@ -14,11 +37,96 @@ export default function BonusesPage() {
     reload: false,
     cashback: false,
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [bonuses, setBonuses] = useState<Bonus[]>([]);
+
+  useEffect(() => {
+    fetchBonuses();
+  }, [selectedFilter]);
+
+  const fetchBonuses = async () => {
+    try {
+      setLoading(true);
+      const typeParam = selectedFilter !== 'all' ? `&type=${selectedFilter}` : '';
+      const res = await fetch(`/api/bonuses?active=true${typeParam}`, {
+        cache: 'no-store',
+      });
+      if (!res.ok) {
+        setBonuses([]);
+        return;
+      }
+      const data = await res.json();
+      setBonuses(data.bonuses || []);
+    } catch (error) {
+      console.error('Error fetching bonuses:', error);
+      setBonuses([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
     // You could add a toast notification here
+  };
+
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const stars = [];
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <svg key={i} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-3 h-3 text-amber-500">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      );
+    }
+
+    if (hasHalfStar) {
+      stars.push(
+        <svg key="half" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-3 h-3 text-amber-500 opacity-50">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      );
+    }
+
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(
+        <svg key={`empty-${i}`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-3 h-3 text-slate-700">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      );
+    }
+
+    return stars;
+  };
+
+  const getTypeLabel = (type: string) => {
+    const labels: Record<string, string> = {
+      'welcome': 'Welcome Bonus',
+      'reload': 'Reload Bonus',
+      'cashback': 'Cashback',
+      'no-deposit': 'No Deposit',
+      'free-spins': 'Free Spins',
+      'crypto': 'Crypto',
+      'high-roller': 'High Roller',
+    };
+    return labels[type] || type;
+  };
+
+  const getTypeColor = (type: string) => {
+    const colors: Record<string, string> = {
+      'welcome': 'text-green-400 bg-green-400/10 border-green-400/20',
+      'reload': 'text-slate-400 bg-slate-800 border-white/10',
+      'cashback': 'text-slate-400 bg-slate-800 border-white/10',
+      'no-deposit': 'text-amber-400 bg-amber-400/10 border-amber-400/20',
+      'free-spins': 'text-blue-400 bg-blue-400/10 border-blue-400/20',
+      'crypto': 'text-orange-400 bg-orange-400/10 border-orange-400/20',
+      'high-roller': 'text-rose-400 bg-rose-400/10 border-rose-400/20',
+    };
+    return colors[type] || 'text-slate-400 bg-slate-800 border-white/10';
   };
 
   return (
@@ -123,6 +231,16 @@ export default function BonusesPage() {
                 }`}
               >
                 Cashback
+              </button>
+              <button 
+                onClick={() => setSelectedFilter("reload")}
+                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                  selectedFilter === "reload" 
+                    ? "bg-amber-500 text-slate-950" 
+                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
+                }`}
+              >
+                Reload
               </button>
             </div>
           </div>
@@ -268,239 +386,136 @@ export default function BonusesPage() {
 
             {/* Bonus Listings */}
             <main className="col-span-1 lg:col-span-3 space-y-4">
-              
-              {/* Card 1: Featured */}
-              <div className="group relative rounded-2xl bg-slate-900/60 border border-white/5 overflow-hidden hover:shadow-[0_0_40px_-10px_rgba(251,191,36,0.1)] hover:border-amber-500/30 transition-all duration-300">
-                <div className="absolute top-0 right-0 p-3">
-                  <div className="bg-amber-500 text-slate-950 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 fill-slate-950">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
-                    Exclusive
-                  </div>
+              {loading ? (
+                <div className="text-center py-20">
+                  <div className="inline-block w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+                  <p className="text-slate-400 mt-4">Loading bonuses...</p>
                 </div>
-                
-                <div className="flex flex-col md:flex-row p-6 gap-6">
-                  {/* Casino Logo Area */}
-                  <div className="flex-shrink-0 flex flex-col items-center justify-center gap-3 md:w-32">
-                    <div className="w-20 h-20 rounded-xl bg-[#1a1a1a] flex items-center justify-center border border-white/5 shadow-inner">
-                      <span className="font-bold text-xl text-white italic">Roobet</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <div className="flex text-amber-500">
-                        {[...Array(5)].map((_, i) => (
-                          <svg key={i} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-3 h-3">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                          </svg>
-                        ))}
+              ) : bonuses.length > 0 ? (
+                bonuses.map((bonus) => (
+                  <div key={bonus.id} className="group relative rounded-2xl bg-slate-900/60 border border-white/5 overflow-hidden hover:shadow-[0_0_40px_-10px_rgba(251,191,36,0.1)] hover:border-amber-500/30 transition-all duration-300">
+                    {(bonus.isExclusive || bonus.isHotPick) && (
+                      <div className="absolute top-0 right-0 p-3 z-10">
+                        {bonus.isExclusive && (
+                          <div className="bg-amber-500 text-slate-950 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide flex items-center gap-1 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 fill-slate-950">
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            Exclusive
+                          </div>
+                        )}
+                        {bonus.isHotPick && (
+                          <div className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">
+                            Hot Pick
+                          </div>
+                        )}
                       </div>
-                      <span className="text-xs text-slate-400 font-semibold">9.8</span>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-grow flex flex-col justify-center">
-                    <div className="mb-1">
-                      <span className="text-xs font-semibold text-green-400 bg-green-400/10 px-2 py-0.5 rounded border border-green-400/20">New Arrival</span>
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                      100% Up To <span className="text-amber-400">$2,500</span> + 50 Free Spins
-                    </h3>
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Wagering</span>
-                        <span className="text-sm font-medium text-slate-300">35x (B+D)</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Min Dep</span>
-                        <span className="text-sm font-medium text-slate-300">$20</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Code</span>
-                        <div className="flex items-center gap-1 cursor-pointer hover:text-white group/code" onClick={() => handleCopyCode("PRIME20")}>
-                          <span className="text-sm font-mono text-slate-300 border-b border-dashed border-slate-600">PRIME20</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-copy w-3 h-3 opacity-0 group-hover/code:opacity-100 transition-opacity">
-                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
-                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
-                          </svg>
+                    )}
+                    
+                    <div className="flex flex-col md:flex-row p-6 gap-6">
+                      {/* Casino Logo Area */}
+                      <div className="flex-shrink-0 flex flex-col items-center justify-center gap-3 md:w-32">
+                        <CasinoLogo logo={bonus.casinoLogo} name={bonus.casinoName} size="medium" />
+                        <div className="flex items-center gap-1">
+                          <div className="flex">
+                            {renderStars(bonus.casinoRating)}
+                          </div>
+                          <span className="text-xs text-slate-400 font-semibold">{bonus.casinoRating.toFixed(1)}</span>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-4 text-xs text-slate-500">
-                      <div className="flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
-                          <line x1="6" x2="10" y1="11" y2="11"></line>
-                          <line x1="8" x2="8" y1="9" y2="13"></line>
-                          <line x1="15" x2="15.01" y1="13" y2="13"></line>
-                          <line x1="18" x2="18.01" y1="11" y2="11"></line>
-                          <rect width="20" height="12" x="2" y="6" rx="2"></rect>
-                        </svg>
-                        Pragmatic Play
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
-                          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
-                        Instant Payouts
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Action */}
-                  <div className="flex-shrink-0 flex flex-col justify-center gap-3 w-full md:w-auto mt-4 md:mt-0">
-                    <button className="w-full md:w-32 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 px-4 rounded-lg shadow-lg shadow-amber-500/20 transition-all text-sm">
-                      Claim Bonus
-                    </button>
-                    <Link href="#" className="text-center text-xs text-slate-400 hover:text-white transition-colors">Read Review</Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="group relative rounded-2xl bg-slate-900/60 border border-white/5 overflow-hidden hover:shadow-[0_0_40px_-10px_rgba(251,191,36,0.1)] hover:border-amber-500/30 transition-all duration-300">
-                <div className="flex flex-col md:flex-row p-6 gap-6">
-                  <div className="flex-shrink-0 flex flex-col items-center justify-center gap-3 md:w-32">
-                    <div className="w-20 h-20 rounded-xl bg-purple-900/20 flex items-center justify-center border border-white/5 shadow-inner">
-                      <span className="font-bold text-xl text-purple-400">Stake</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <div className="flex text-amber-500/80">
-                        {[...Array(4)].map((_, i) => (
-                          <svg key={i} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-3 h-3">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                          </svg>
-                        ))}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-3 h-3 opacity-30">
-                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                      </div>
-                      <span className="text-xs text-slate-400 font-semibold">9.5</span>
-                    </div>
-                  </div>
-
-                  <div className="flex-grow flex flex-col justify-center">
-                    <div className="mb-1">
-                      <span className="text-xs font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-white/10">Cashback</span>
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                      Daily Rakeback + $25 Free
-                    </h3>
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Wagering</span>
-                        <span className="text-sm font-medium text-slate-300">None</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Min Dep</span>
-                        <span className="text-sm font-medium text-slate-300">$10</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Code</span>
-                        <div className="flex items-center gap-1 cursor-pointer hover:text-white group/code" onClick={() => handleCopyCode("STAKEUS")}>
-                          <span className="text-sm font-mono text-slate-300 border-b border-dashed border-slate-600">STAKEUS</span>
+                      {/* Content */}
+                      <div className="flex-grow flex flex-col justify-center">
+                        <div className="mb-1">
+                          <span className={`text-xs font-semibold px-2 py-0.5 rounded border ${getTypeColor(bonus.type)}`}>
+                            {getTypeLabel(bonus.type)}
+                          </span>
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                          {bonus.title}
+                        </h3>
+                        <div className="grid grid-cols-3 gap-4 mb-4">
+                          <div className="flex flex-col">
+                            <span className="text-[10px] text-slate-500 uppercase tracking-wider">Wagering</span>
+                            <span className="text-sm font-medium text-slate-300">{bonus.wagering || 'N/A'}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[10px] text-slate-500 uppercase tracking-wider">Min Dep</span>
+                            <span className="text-sm font-medium text-slate-300">{bonus.minDeposit || 'N/A'}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[10px] text-slate-500 uppercase tracking-wider">Code</span>
+                            {bonus.code ? (
+                              <div className="flex items-center gap-1 cursor-pointer hover:text-white group/code" onClick={() => handleCopyCode(bonus.code!)}>
+                                <span className="text-sm font-mono text-slate-300 border-b border-dashed border-slate-600">{bonus.code}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-copy w-3 h-3 opacity-0 group-hover/code:opacity-100 transition-opacity">
+                                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                                </svg>
+                              </div>
+                            ) : (
+                              <span className="text-sm font-medium text-slate-500">N/A</span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4 text-xs text-slate-500 flex-wrap">
+                          {bonus.provider && (
+                            <div className="flex items-center gap-1">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
+                                <line x1="6" x2="10" y1="11" y2="11"></line>
+                                <line x1="8" x2="8" y1="9" y2="13"></line>
+                                <line x1="15" x2="15.01" y1="13" y2="13"></line>
+                                <line x1="18" x2="18.01" y1="11" y2="11"></line>
+                                <rect width="20" height="12" x="2" y="6" rx="2"></rect>
+                              </svg>
+                              {bonus.provider}
+                            </div>
+                          )}
+                          {bonus.features.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-1">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                              </svg>
+                              {feature}
+                            </div>
+                          ))}
                         </div>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-4 text-xs text-slate-500">
-                      <div className="flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
-                          <path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.279 5.308m5.908 1.042-.347 1.97M7.589 20.25l.347-1.97m0-13.1.347-1.97M1 10.25l1.97.348m20.06 3.522l-1.97-.348"></path>
-                        </svg>
-                        Crypto Only
+
+                      {/* Action */}
+                      <div className="flex-shrink-0 flex flex-col justify-center gap-3 w-full md:w-auto mt-4 md:mt-0">
+                        {bonus.casinoSlug ? (
+                          <Link 
+                            href={`/review/${bonus.casinoSlug}`}
+                            className="w-full md:w-32 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 px-4 rounded-lg shadow-lg shadow-amber-500/20 transition-all text-sm text-center"
+                          >
+                            Claim Bonus
+                          </Link>
+                        ) : (
+                          <button 
+                            disabled
+                            className="w-full md:w-32 bg-slate-700 text-slate-400 font-bold py-3 px-4 rounded-lg transition-all text-sm cursor-not-allowed"
+                          >
+                            Claim Bonus
+                          </button>
+                        )}
+                        {bonus.casinoSlug ? (
+                          <Link href={`/review/${bonus.casinoSlug}`} className="text-center text-xs text-slate-400 hover:text-white transition-colors">
+                            Read Review
+                          </Link>
+                        ) : (
+                          <span className="text-center text-xs text-slate-500">No review available</span>
+                        )}
                       </div>
                     </div>
                   </div>
-
-                  <div className="flex-shrink-0 flex flex-col justify-center gap-3 w-full md:w-auto mt-4 md:mt-0">
-                    <button className="w-full md:w-32 bg-slate-800 hover:bg-slate-700 text-white border border-white/10 font-bold py-3 px-4 rounded-lg transition-all text-sm">
-                      Claim Bonus
-                    </button>
-                    <Link href="#" className="text-center text-xs text-slate-400 hover:text-white transition-colors">Read Review</Link>
-                      </div>
-                    </div>
-                  </div>
-
-              {/* Card 3 */}
-              <div className="group relative rounded-2xl bg-slate-900/60 border border-white/5 overflow-hidden hover:shadow-[0_0_40px_-10px_rgba(251,191,36,0.1)] hover:border-amber-500/30 transition-all duration-300">
-                <div className="absolute top-0 right-0 p-3">
-                  <div className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">
-                    Hot Pick
-                  </div>
+                ))
+              ) : (
+                <div className="text-center py-20">
+                  <p className="text-slate-400 mb-4">No bonuses found.</p>
+                  <p className="text-sm text-slate-500">Try adjusting your filters or check back later.</p>
                 </div>
-                <div className="flex flex-col md:flex-row p-6 gap-6">
-                  <div className="flex-shrink-0 flex flex-col items-center justify-center gap-3 md:w-32">
-                    <div className="w-20 h-20 rounded-xl bg-blue-900/20 flex items-center justify-center border border-white/5 shadow-inner">
-                      <span className="font-bold text-xl text-blue-400">BC.Game</span>
-                  </div>
-                    <div className="flex items-center gap-1">
-                      <div className="flex text-amber-500">
-                        {[...Array(5)].map((_, i) => (
-                          <svg key={i} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" className="w-3 h-3">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                          </svg>
-              ))}
-            </div>
-                      <span className="text-xs text-slate-400 font-semibold">9.9</span>
-                    </div>
-                  </div>
-
-                  <div className="flex-grow flex flex-col justify-center">
-                    <div className="mb-1">
-                      <span className="text-xs font-semibold text-slate-400 bg-slate-800 px-2 py-0.5 rounded border border-white/10">Deposit Match</span>
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                      300% Bonus up to $20,000
-                    </h3>
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Wagering</span>
-                        <span className="text-sm font-medium text-slate-300">40x</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Min Dep</span>
-                        <span className="text-sm font-medium text-slate-300">$30</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Code</span>
-                        <div className="flex items-center gap-1 cursor-pointer hover:text-white group/code" onClick={() => handleCopyCode("AUTO")}>
-                          <span className="text-sm font-mono text-slate-300 border-b border-dashed border-slate-600">AUTO</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex-shrink-0 flex flex-col justify-center gap-3 w-full md:w-auto mt-4 md:mt-0">
-                    <button className="w-full md:w-32 bg-slate-800 hover:bg-slate-700 text-white border border-white/10 font-bold py-3 px-4 rounded-lg transition-all text-sm">
-                      Claim Bonus
-                    </button>
-                    <Link href="#" className="text-center text-xs text-slate-400 hover:text-white transition-colors">Read Review</Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Load More */}
-              <div className="pt-8 text-center">
-                <button 
-                  onClick={() => {
-                    setLoading(true);
-                    // Simulate loading
-                    setTimeout(() => setLoading(false), 1000);
-                  }}
-                  disabled={loading}
-                  className="px-8 py-3 rounded-xl bg-slate-900 border border-white/10 text-sm font-medium text-white hover:bg-slate-800 hover:border-white/20 transition-all flex items-center gap-2 mx-auto disabled:opacity-50"
-                >
-                  {loading ? (
-                    <>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 animate-spin">
-                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
-                      </svg>
-                      Loading...
-                    </>
-                  ) : (
-                    "Load More Bonuses"
-                  )}
-                </button>
-              </div>
+              )}
 
               {/* SEO Content */}
               <div className="pt-12 mt-12 border-t border-white/5 prose prose-invert prose-slate max-w-none">

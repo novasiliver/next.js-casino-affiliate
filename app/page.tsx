@@ -54,7 +54,17 @@ export default async function Home() {
     slug: casino.slug,
     description: casino.data?.description,
     data: casino.data, // Include full data for filtering
+    affiliateLink: casino.data?.affiliateLink, // Include affiliate link if available
   }));
+
+  // Get featured casino for hero section
+  const featuredCasino = casinos.length > 0 ? casinos[0] : {
+    name: "Ignite",
+    slug: "ignite-casino",
+    logo: "IGN",
+    bonus: "$5,000",
+    affiliateLink: null,
+  };
 
   // Fallback data if API fails
   const fallbackCasinos = [
@@ -338,7 +348,7 @@ export default async function Home() {
                   EXCLUSIVE OFFER
                 </div>
                 <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4">
-                  Claim 200% Bonus at <span className="text-amber-400">Ignite</span>
+                  Claim 200% Bonus at <span className="text-amber-400">{featuredCasino.name}</span>
                 </h2>
                 <p className="text-slate-400 text-sm md:text-base mb-8 leading-relaxed max-w-md">
                   Register today through Bonusory and unlock an exclusive VIP welcome package not available anywhere else. Includes weekly cashback and dedicated support.
@@ -357,13 +367,31 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <button className="group relative px-8 py-4 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl text-slate-950 font-bold text-sm overflow-hidden hover:shadow-lg hover:shadow-amber-500/25 transition-all">
-                  <span className="relative z-10 flex items-center gap-2">
-                    Claim Bonus Now 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide="arrow-right" className="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                  </span>
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                </button>
+                {featuredCasino.affiliateLink ? (
+                  <a 
+                    href={featuredCasino.affiliateLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group relative px-8 py-4 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl text-slate-950 font-bold text-sm overflow-hidden hover:shadow-lg hover:shadow-amber-500/25 transition-all inline-block"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Claim Bonus Now 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide="arrow-right" className="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </span>
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                  </a>
+                ) : (
+                  <Link 
+                    href={`/review/${featuredCasino.slug}`}
+                    className="group relative px-8 py-4 bg-gradient-to-r from-amber-400 to-amber-500 rounded-xl text-slate-950 font-bold text-sm overflow-hidden hover:shadow-lg hover:shadow-amber-500/25 transition-all inline-block"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Claim Bonus Now 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide="arrow-right" className="lucide lucide-arrow-right w-4 h-4 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </span>
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                  </Link>
+                )}
               </div>
               
               <div className="hidden lg:block relative">

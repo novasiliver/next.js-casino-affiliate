@@ -145,7 +145,14 @@ export default function AdminLayout({
             </svg>
             Games
           </button>
-          <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
+          <Link
+            href="/admin/bonuses"
+            className={`w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+              isActive('/admin/bonuses')
+                ? 'text-white bg-white/5'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
               <polyline points="20 12 20 22 4 22 4 12"></polyline>
               <rect width="20" height="8" x="2" y="6"></rect>
@@ -155,7 +162,7 @@ export default function AdminLayout({
               <line x1="18" x2="18.01" y1="6" y2="6"></line>
             </svg>
             Bonuses
-          </button>
+          </Link>
 
           <p className="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Templates</p>
           <Link
