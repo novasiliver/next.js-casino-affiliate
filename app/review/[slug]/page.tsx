@@ -3,23 +3,50 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { loadTemplate, loadDefaultTemplate } from "@/lib/template-loader";
 import { Casino } from "@/types/casino";
-import casinosData from "@/data/casinos.json";
+import { prisma } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
 
 async function getCasinoBySlug(slug: string): Promise<Casino | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/casinos/${slug}`, {
-      cache: 'no-store',
+    const casino = await prisma.casino.findUnique({
+      where: { slug },
     });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data as Casino;
+
+    if (!casino || !casino.isActive) {
+      return null;
+    }
+
+    // Parse the data JSON string
+    let parsedData = {};
+    try {
+      parsedData = casino.data ? JSON.parse(casino.data) : {};
+    } catch (error) {
+      console.error('Error parsing casino data:', error);
+      parsedData = {};
+    }
+    
+    // Merge the data object into the main casino object
+    // This flattens the structure so templates can access casino.bonus instead of casino.data.bonus
+    const casinoResponse: Casino = {
+      id: casino.id,
+      slug: casino.slug,
+      name: casino.name,
+      logo: casino.logo,
+      rating: casino.rating,
+      template: casino.template,
+      isActive: casino.isActive,
+      rank: casino.rank,
+      createdAt: casino.createdAt,
+      updatedAt: casino.updatedAt,
+      // Merge all fields from the data object (bonus, verdict, prosCons, banking, etc.)
+      ...parsedData,
+    } as Casino;
+
+    return casinoResponse;
   } catch (error) {
     console.error('Error fetching casino:', error);
-    // Fallback to JSON data
-    return (casinosData as Casino[]).find((casino) => casino.slug === slug) || null;
+    return null;
   }
 }
 
@@ -62,29 +89,18 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
 // Generate static params for known casinos (optional, for static generation)
 export async function generateStaticParams() {
   try {
-    // Try to fetch from database first
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/casinos`, {
-      cache: 'no-store',
+    const casinos = await prisma.casino.findMany({
+      where: { isActive: true },
+      select: { slug: true },
     });
     
-    if (res.ok) {
-      const data = await res.json();
-      const casinos = data.casinos || [];
-      return casinos
-        .filter((casino: any) => casino.isActive)
-        .map((casino: any) => ({
-          slug: casino.slug,
-        }));
-    }
+    return casinos.map((casino) => ({
+      slug: casino.slug,
+    }));
   } catch (error) {
     console.error('Error fetching casinos for static params:', error);
+    return [];
   }
-  
-  // Fallback to static data
-  return (casinosData as Casino[]).map((casino) => ({
-    slug: casino.slug,
-  }));
 }
 
 // Generate metadata for SEO
