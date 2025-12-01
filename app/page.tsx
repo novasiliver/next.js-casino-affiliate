@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CasinoListWithFilters from "@/components/CasinoListWithFilters";
 
+export const dynamic = 'force-dynamic';
+
 async function getCasinos() {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';

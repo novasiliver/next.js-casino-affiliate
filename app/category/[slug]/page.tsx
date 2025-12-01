@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CasinoCard from "@/components/CasinoCard";
 
+export const dynamic = 'force-dynamic';
+
 const categoryInfo: Record<string, { name: string; description: string }> = {
   slots: {
     name: 'Slots',

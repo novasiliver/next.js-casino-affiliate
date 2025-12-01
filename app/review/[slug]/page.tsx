@@ -5,6 +5,8 @@ import { loadTemplate, loadDefaultTemplate } from "@/lib/template-loader";
 import { Casino } from "@/types/casino";
 import casinosData from "@/data/casinos.json";
 
+export const dynamic = 'force-dynamic';
+
 async function getCasinoBySlug(slug: string): Promise<Casino | null> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
