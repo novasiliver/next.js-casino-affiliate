@@ -28,7 +28,7 @@ async function getCasinoBySlug(slug: string): Promise<Casino | null> {
     
     // Merge the data object into the main casino object
     // This flattens the structure so templates can access casino.bonus instead of casino.data.bonus
-    const casinoResponse: Casino = {
+    const casinoResponse = {
       id: casino.id,
       slug: casino.slug,
       name: casino.name,
@@ -41,7 +41,7 @@ async function getCasinoBySlug(slug: string): Promise<Casino | null> {
       updatedAt: casino.updatedAt,
       // Merge all fields from the data object (bonus, verdict, prosCons, banking, etc.)
       ...parsedData,
-    } as Casino;
+    } as unknown as Casino;
 
     return casinoResponse;
   } catch (error) {
