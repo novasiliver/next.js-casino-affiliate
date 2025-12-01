@@ -29,7 +29,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-              PrimeBet was founded by industry veterans and data scientists with a single mission: to provide the most accurate, data-driven casino reviews on the internet. No fluff, just facts.
+              Bonusory was founded by industry veterans and data scientists with a single mission: to provide the most accurate, data-driven casino reviews on the internet. No fluff, just facts.
             </p>
 
             {/* Stats Row */}
@@ -178,7 +178,7 @@ export default function AboutPage() {
               <div>
                 <h2 className="text-3xl font-semibold text-white tracking-tight mb-6">Our 5-Step Review Standard</h2>
                 <p className="text-slate-400 mb-8">
-                  Most sites just copy-paste information. We don&apos;t. Every casino listed on PrimeBet goes through a rigorous manual auditing process that takes an average of 40 hours per brand.
+                  Most sites just copy-paste information. We don&apos;t. Every casino listed on Bonusory goes through a rigorous manual auditing process that takes an average of 40 hours per brand.
                 </p>
                 
                 <div className="space-y-6">

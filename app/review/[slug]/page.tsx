@@ -92,14 +92,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   if (!casino) {
     return {
-      title: "Casino Not Found - PrimeBet",
+      title: "Casino Not Found - Bonusory",
     };
   }
 
   const bonusText = casino.bonus?.amount || 'exclusive welcome bonus';
   
   return {
-    title: `${casino.name} Review 2024 - PrimeBet`,
+    title: `${casino.name} Review 2024 - Bonusory`,
     description: `Read our comprehensive review of ${casino.name}. ${bonusText}, ${casino.rating}/5 rating, and expert analysis.`,
   };
 }

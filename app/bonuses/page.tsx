@@ -44,8 +44,8 @@ export default function BonusesPage() {
                 <p className="text-base text-slate-400 font-light max-w-xl">
                   Explore the latest welcome offers, exclusive no-deposit deals, and free spins added daily. We verify every bonus manually.
                 </p>
-              </div>
-              
+          </div>
+
               {/* Sort Dropdown Trigger (Visual Only) */}
               <div className="flex items-center gap-3">
                 <span className="text-xs text-slate-500">Sorted by:</span>
@@ -57,7 +57,7 @@ export default function BonusesPage() {
                 </button>
               </div>
             </div>
-          </div>
+            </div>
         </section>
 
         {/* Quick Filters (Horizontal Scroll) */}
@@ -126,7 +126,7 @@ export default function BonusesPage() {
               </button>
             </div>
           </div>
-        </div>
+                    </div>
 
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
@@ -136,7 +136,7 @@ export default function BonusesPage() {
             <aside className="hidden lg:block lg:col-span-1 space-y-8">
               
               {/* Filter Group */}
-              <div>
+                    <div>
                 <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
                     <line x1="21" x2="14" y1="4" y2="4"></line>
@@ -416,9 +416,9 @@ export default function BonusesPage() {
                       Claim Bonus
                     </button>
                     <Link href="#" className="text-center text-xs text-slate-400 hover:text-white transition-colors">Read Review</Link>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
               {/* Card 3 */}
               <div className="group relative rounded-2xl bg-slate-900/60 border border-white/5 overflow-hidden hover:shadow-[0_0_40px_-10px_rgba(251,191,36,0.1)] hover:border-amber-500/30 transition-all duration-300">
@@ -431,7 +431,7 @@ export default function BonusesPage() {
                   <div className="flex-shrink-0 flex flex-col items-center justify-center gap-3 md:w-32">
                     <div className="w-20 h-20 rounded-xl bg-blue-900/20 flex items-center justify-center border border-white/5 shadow-inner">
                       <span className="font-bold text-xl text-blue-400">BC.Game</span>
-                    </div>
+                  </div>
                     <div className="flex items-center gap-1">
                       <div className="flex text-amber-500">
                         {[...Array(5)].map((_, i) => (

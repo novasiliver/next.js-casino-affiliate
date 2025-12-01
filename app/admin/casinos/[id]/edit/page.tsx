@@ -685,6 +685,23 @@ export default function EditCasinoPage() {
                 </select>
               </div>
 
+              {/* Rank Input */}
+              <div>
+                <label className="block text-xs font-medium text-slate-400 mb-1">Rank (Optional)</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={formData.rank === null ? '' : formData.rank}
+                  onChange={(e) => {
+                    const value = e.target.value === '' ? null : parseInt(e.target.value, 10);
+                    setFormData({ ...formData, rank: value });
+                  }}
+                  className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                  placeholder="Enter rank number"
+                />
+                <p className="text-xs text-slate-500 mt-1">Set the ranking position for this casino</p>
+              </div>
+
               {/* Logo Upload */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-2">Casino Logo</label>

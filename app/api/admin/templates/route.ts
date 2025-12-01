@@ -43,6 +43,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validated = templateSchema.parse(body);
 
+    // Check if template with this slug already exists
+    const existingTemplate = await prisma.template.findUnique({
+      where: { slug: validated.slug },
+    });
+
+    if (existingTemplate) {
+      return NextResponse.json(
+        { error: 'Template with this slug already exists', template: existingTemplate },
+        { status: 409 }
+      );
+    }
+
     const template = await prisma.template.create({
       data: {
         ...validated,
@@ -56,6 +68,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Invalid input', details: error.errors },
         { status: 400 }
+      );
+    }
+
+    // Handle Prisma unique constraint errors
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'P2002') {
+      return NextResponse.json(
+        { error: 'Template with this slug already exists' },
+        { status: 409 }
       );
     }
 

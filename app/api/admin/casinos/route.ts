@@ -9,7 +9,7 @@ const casinoSchema = z.object({
   logo: z.string().min(1),
   rating: z.number().min(0).max(5),
   data: z.any(),
-  template: z.string(),
+  template: z.string().min(1),
   isActive: z.boolean().optional(),
   rank: z.number().optional(),
 });

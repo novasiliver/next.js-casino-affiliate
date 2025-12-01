@@ -27,6 +27,35 @@ export default function TemplatesPage() {
       .catch(() => setLoading(false));
   }, []);
 
+  const handleDelete = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to delete the template "${name}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/admin/templates/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      if (res.ok) {
+        setTemplates(templates.filter((t) => t.id !== id));
+      } else {
+        const data = await res.json().catch(() => ({ error: 'Failed to delete template' }));
+        if (res.status === 409 && data.casinos) {
+          // Template is in use by casinos
+          const casinoList = data.casinos.map((c: any) => `- ${c.name} (${c.slug})`).join('\n');
+          alert(`${data.error}\n\nCasinos using this template:\n${casinoList}`);
+        } else {
+          alert(data.error || 'Failed to delete template');
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting template:', error);
+      alert('Error deleting template');
+    }
+  };
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,12 +100,20 @@ export default function TemplatesPage() {
             )}
             <div className="text-xs text-slate-500 mb-2">Category: {template.category}</div>
             <div className="text-xs text-slate-500 mb-4">Component: {template.component}</div>
-            <Link
-              href={`/admin/templates/${template.id}/edit`}
-              className="text-amber-400 hover:text-amber-300 text-sm"
-            >
-              Edit Template →
-            </Link>
+            <div className="flex items-center justify-between">
+              <Link
+                href={`/admin/templates/${template.id}/edit`}
+                className="text-amber-400 hover:text-amber-300 text-sm"
+              >
+                Edit Template →
+              </Link>
+              <button
+                onClick={() => handleDelete(template.id, template.name)}
+                className="text-rose-400 hover:text-rose-300 text-sm"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         ))}
       </div>

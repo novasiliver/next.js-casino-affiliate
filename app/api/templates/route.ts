@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const templates = await prisma.template.findMany({
       where: { isActive: true },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'asc' },
     });
 
     // Group templates by category

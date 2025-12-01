@@ -8,6 +8,7 @@ interface Template {
   id: string;
   name: string;
   slug: string;
+  component: string;
   category: string;
 }
 
@@ -83,6 +84,7 @@ export default function NewCasinoPage() {
   const [newCon, setNewCon] = useState('');
   const [newTag, setNewTag] = useState('');
   const [newProvider, setNewProvider] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     // Fetch templates
@@ -96,35 +98,80 @@ export default function NewCasinoPage() {
         );
         setTemplates(casinoTemplates);
         if (casinoTemplates.length > 0) {
-          setFormData(prev => ({ ...prev, template: casinoTemplates[0].slug }));
+          setFormData(prev => ({ ...prev, template: casinoTemplates[0].component }));
+        } else {
+          setErrors((prev) => ({ ...prev, template: 'No templates available. Please create a template first.' }));
         }
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error('Error loading templates:', error);
+        setErrors((prev) => ({ ...prev, template: 'Failed to load templates. Please refresh the page.' }));
+      });
+
+    // Fetch existing casinos to calculate default rank
+    fetch('/api/admin/casinos', { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => {
+        const casinos = data.casinos || [];
+        // Find the maximum rank
+        const ranks = casinos
+          .map((c: any) => c.rank)
+          .filter((r: number | null) => r !== null && r !== undefined)
+          .map((r: number) => Number(r));
+        
+        const maxRank = ranks.length > 0 ? Math.max(...ranks) : 0;
+        const defaultRank = maxRank + 1;
+        
+        // Set default rank only if rank is still null (not manually set)
+        setFormData(prev => {
+          if (prev.rank === null) {
+            return { ...prev, rank: defaultRank };
+          }
+          return prev;
+        });
+      })
+      .catch((error) => {
+        console.error('Error loading casinos for rank calculation:', error);
+        // Set default to 1 if fetch fails
+        setFormData(prev => {
+          if (prev.rank === null) {
+            return { ...prev, rank: 1 };
+          }
+          return prev;
+        });
+      });
   }, []);
 
   const handleSubmit = async (e: React.FormEvent, publish: boolean = false) => {
     e.preventDefault();
     setSaving(true);
+    setErrors({}); // Clear previous errors
 
     try {
+      // Helper to convert empty strings to undefined
+      const cleanValue = (value: any) => {
+        if (value === '' || value === null) return undefined;
+        return value;
+      };
+
       const casinoDataObj = {
         bonus: {
           title: formData.bonusTitle || 'Welcome Bonus',
-          amount: formData.bonusAmount,
-          details: formData.bonusDetails || undefined,
-          code: formData.bonusCode || undefined,
-          wagering: formData.bonusWagering || undefined,
-          minDeposit: formData.bonusMinDeposit || undefined,
-          expiry: formData.bonusExpiry || undefined,
+          amount: formData.bonusAmount || 'N/A',
+          details: cleanValue(formData.bonusDetails),
+          code: cleanValue(formData.bonusCode),
+          wagering: cleanValue(formData.bonusWagering),
+          minDeposit: cleanValue(formData.bonusMinDeposit),
+          expiry: cleanValue(formData.bonusExpiry),
         },
-        description: formData.description,
-        tags: formData.tags,
-        votes: formData.votes || undefined,
+        description: cleanValue(formData.description),
+        tags: formData.tags.length > 0 ? formData.tags : undefined,
+        votes: formData.votes > 0 ? formData.votes : undefined,
         established: formData.established ? parseInt(formData.established) : undefined,
-        region: formData.region || undefined,
-        payoutSpeed: formData.payoutSpeed || undefined,
-        rtp: formData.rtp || undefined,
-        verdict: formData.verdict || undefined,
+        region: cleanValue(formData.region),
+        payoutSpeed: cleanValue(formData.payoutSpeed),
+        rtp: cleanValue(formData.rtp),
+        verdict: cleanValue(formData.verdict),
         prosCons: formData.pros.length > 0 || formData.cons.length > 0 ? {
           pros: formData.pros,
           cons: formData.cons,
@@ -134,8 +181,8 @@ export default function NewCasinoPage() {
           slots: formData.slots,
           liveTables: formData.liveTables,
           jackpots: formData.jackpots,
-          liveAction: formData.liveAction,
-          providers: formData.providers,
+          liveAction: cleanValue(formData.liveAction),
+          providers: formData.providers.length > 0 ? formData.providers : undefined,
         } : undefined,
         ratingBreakdown: {
           fairness: formData.fairnessRating,
@@ -151,26 +198,59 @@ export default function NewCasinoPage() {
           vpnFriendly: formData.vpnFriendly,
         } : undefined,
         reviewContent: formData.userExperience || formData.customerSupport ? {
-          userExperience: formData.userExperience || undefined,
-          customerSupport: formData.customerSupport || undefined,
+          userExperience: cleanValue(formData.userExperience),
+          customerSupport: cleanValue(formData.customerSupport),
         } : undefined,
         alternatives: formData.alternatives.length > 0 ? formData.alternatives : undefined,
-        affiliateLink: formData.affiliateLink || undefined,
-        seoTitle: formData.seoTitle || undefined,
-        metaDescription: formData.metaDescription || undefined,
-        metaKeywords: formData.metaKeywords ? formData.metaKeywords.split(',').map(k => k.trim()) : undefined,
+        affiliateLink: cleanValue(formData.affiliateLink),
+        seoTitle: cleanValue(formData.seoTitle),
+        metaDescription: cleanValue(formData.metaDescription),
+        metaKeywords: formData.metaKeywords ? formData.metaKeywords.split(',').map(k => k.trim()).filter(k => k) : undefined,
       };
+
+      // Validate required fields before submission
+      const validationErrors: Record<string, string> = {};
+      
+      if (!formData.name || formData.name.trim() === '') {
+        validationErrors.name = 'Casino name is required';
+      }
+
+      if (!formData.template || formData.template.trim() === '') {
+        validationErrors.template = 'Template is required';
+      }
+
+      // Logo is required - check if we have logoUrl, logo, or can generate from name
+      const logoValue = formData.logoUrl || formData.logo || (formData.name ? formData.name.substring(0, 3).toUpperCase() : '');
+      if (!logoValue || logoValue.trim() === '') {
+        validationErrors.logo = 'Logo is required. Please upload an image or enter a logo text.';
+      }
+
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        setSaving(false);
+        // Scroll to first error
+        const firstErrorField = Object.keys(validationErrors)[0];
+        if (firstErrorField) {
+          setTimeout(() => {
+            const element = document.querySelector(`[data-field="${firstErrorField}"]`);
+            element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+        }
+        return;
+      }
 
       const casinoData = {
         slug: formData.slug || formData.name.toLowerCase().replace(/\s+/g, '-'),
-        name: formData.name,
-        logo: formData.logoUrl || formData.logo || formData.name.substring(0, 3).toUpperCase(),
-        rating: formData.rating,
+        name: formData.name.trim(),
+        logo: logoValue,
+        rating: Number(formData.rating), // Ensure it's a number
         template: formData.template,
-        isActive: publish,
-        rank: formData.rank,
+        isActive: Boolean(publish),
+        rank: formData.rank !== null && formData.rank !== undefined ? Number(formData.rank) : undefined,
         data: casinoDataObj, // Send as object, API will stringify it
       };
+
+      console.log('Submitting casino data:', { ...casinoData, data: '[object]' }); // Log for debugging
 
       const res = await fetch('/api/admin/casinos', {
         method: 'POST',
@@ -179,18 +259,75 @@ export default function NewCasinoPage() {
         body: JSON.stringify(casinoData),
       });
 
+      console.log('Response status:', res.status); // Log for debugging
+
+      // Read response once
+      const responseData = await res.json().catch(() => ({ error: 'Failed to parse response' }));
+
       if (res.ok) {
-        const data = await res.json();
-        router.push(`/admin/casinos/${data.id}/edit`);
+        console.log('Casino created successfully:', responseData.id);
+        router.push(`/admin/casinos/${responseData.id}/edit`);
       } else {
-        const error = await res.json();
-        alert(error.error || 'Failed to create casino');
+        console.error('API Error:', responseData); // Log for debugging
+        console.error('Error Details:', responseData.details); // Log detailed errors
+        
+        const errorData = responseData;
+        
+        // Parse validation errors from API
+        if (errorData.details && Array.isArray(errorData.details)) {
+          const fieldErrors: Record<string, string> = {};
+          errorData.details.forEach((err: any) => {
+            console.error('Validation error:', err); // Log each error
+            // Handle nested paths like "data.bonus.amount"
+            const path = err.path || [];
+            const field = Array.isArray(path) ? path[0] : path;
+            const message = err.message || 'Invalid value';
+            
+            // Map nested paths to form fields
+            if (field === 'data' && path.length > 1) {
+              // For nested data errors, show in general error
+              fieldErrors.general = `Error in ${path.join('.')}: ${message}`;
+            } else {
+              fieldErrors[field] = message;
+            }
+          });
+          
+          // If we have field-specific errors, set them
+          if (Object.keys(fieldErrors).length > 0) {
+            setErrors(fieldErrors);
+            
+            // Scroll to first error
+            const firstErrorField = Object.keys(fieldErrors).find(f => f !== 'general');
+            if (firstErrorField) {
+              setTimeout(() => {
+                const element = document.querySelector(`[data-field="${firstErrorField}"]`);
+                element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 100);
+            }
+          } else {
+            setErrors({ general: 'Validation failed. Please check all required fields.' });
+          }
+        } else {
+          // General error
+          setErrors({ general: errorData.error || 'Failed to create casino' });
+        }
       }
     } catch (error) {
       console.error('Error creating casino:', error);
-      alert('Failed to create casino');
+      setErrors({ general: 'An unexpected error occurred. Please try again.' });
     } finally {
       setSaving(false);
+    }
+  };
+
+  // Helper function to clear error when user starts typing
+  const clearError = (field: string) => {
+    if (errors[field]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
     }
   };
 
@@ -215,6 +352,7 @@ export default function NewCasinoPage() {
         </div>
         <div className="flex gap-3">
           <button
+            type="button"
             onClick={(e) => handleSubmit(e, false)}
             disabled={saving}
             className="px-4 py-2 rounded-lg border border-white/10 text-slate-300 hover:bg-white/5 transition-colors disabled:opacity-50"
@@ -222,6 +360,7 @@ export default function NewCasinoPage() {
             Save Draft
           </button>
           <button
+            type="button"
             onClick={(e) => handleSubmit(e, true)}
             disabled={saving}
             className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold transition-colors disabled:opacity-50"
@@ -232,6 +371,13 @@ export default function NewCasinoPage() {
       </div>
 
       <form onSubmit={(e) => handleSubmit(e, true)}>
+        {/* General Error Message */}
+        {errors.general && (
+          <div className="mb-6 p-4 bg-rose-500/10 border border-rose-500/50 rounded-lg">
+            <p className="text-sm text-rose-400">{errors.general}</p>
+          </div>
+        )}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Form Column */}
           <div className="lg:col-span-2 space-y-6">
@@ -244,22 +390,40 @@ export default function NewCasinoPage() {
                   <input
                     type="text"
                     required
+                    data-field="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                    onChange={(e) => {
+                      setFormData({ ...formData, name: e.target.value });
+                      clearError('name');
+                    }}
+                    className={`w-full bg-slate-900 border rounded-lg px-3 py-2 text-white focus:outline-none ${
+                      errors.name ? 'border-rose-500 focus:border-rose-500' : 'border-white/10 focus:border-amber-500'
+                    }`}
                     placeholder="Casino Name"
                   />
+                  {errors.name && (
+                    <p className="text-xs text-rose-400 mt-1">{errors.name}</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1">Slug (URL) *</label>
                   <input
                     type="text"
                     required
+                    data-field="slug"
                     value={formData.slug}
-                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                    className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                    onChange={(e) => {
+                      setFormData({ ...formData, slug: e.target.value });
+                      clearError('slug');
+                    }}
+                    className={`w-full bg-slate-900 border rounded-lg px-3 py-2 text-white focus:outline-none ${
+                      errors.slug ? 'border-rose-500 focus:border-rose-500' : 'border-white/10 focus:border-amber-500'
+                    }`}
                     placeholder="casino-slug"
                   />
+                  {errors.slug && (
+                    <p className="text-xs text-rose-400 mt-1">{errors.slug}</p>
+                  )}
                 </div>
               </div>
               <div>
@@ -283,15 +447,24 @@ export default function NewCasinoPage() {
                   min="0"
                   max="5"
                   step="0.1"
+                  data-field="rating"
                   value={formData.rating}
-                  onChange={(e) => setFormData({ ...formData, rating: parseFloat(e.target.value) })}
-                  className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  onChange={(e) => {
+                    setFormData({ ...formData, rating: parseFloat(e.target.value) });
+                    clearError('rating');
+                  }}
+                  className={`w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer ${
+                    errors.rating ? 'accent-rose-500' : 'accent-amber-500'
+                  }`}
                 />
                 <div className="flex justify-between text-xs text-slate-500 mt-1">
                   <span>0</span>
                   <span>2.5</span>
                   <span>5.0</span>
                 </div>
+                {errors.rating && (
+                  <p className="text-xs text-rose-400 mt-1">{errors.rating}</p>
+                )}
               </div>
             </div>
 
@@ -610,25 +783,61 @@ export default function NewCasinoPage() {
                 <label className="block text-xs font-medium text-slate-400 mb-1">Page Template *</label>
                 <select
                   required
+                  data-field="template"
                   value={formData.template}
-                  onChange={(e) => setFormData({ ...formData, template: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                  onChange={(e) => {
+                    setFormData({ ...formData, template: e.target.value });
+                    clearError('template');
+                  }}
+                  className={`w-full bg-slate-900 border rounded-lg px-3 py-2 text-white focus:outline-none ${
+                    errors.template ? 'border-rose-500 focus:border-rose-500' : 'border-white/10 focus:border-amber-500'
+                  }`}
                 >
                   {templates.length === 0 ? (
-                    <option>Loading templates...</option>
+                    <option value="">Loading templates...</option>
                   ) : (
-                    templates.map((template) => (
-                      <option key={template.id} value={template.slug}>
-                        {template.name}
-                      </option>
-                    ))
+                    <>
+                      <option value="">Select a template</option>
+                      {templates.map((template) => (
+                        <option key={template.id} value={template.component}>
+                          {template.name}
+                        </option>
+                      ))}
+                    </>
                   )}
                 </select>
+                {errors.template && (
+                  <p className="text-xs text-rose-400 mt-1">{errors.template}</p>
+                )}
+              </div>
+
+              {/* Rank Input */}
+              <div>
+                <label className="block text-xs font-medium text-slate-400 mb-1">Rank (Optional)</label>
+                <input
+                  type="number"
+                  min="1"
+                  data-field="rank"
+                  value={formData.rank === null ? '' : formData.rank}
+                  onChange={(e) => {
+                    const value = e.target.value === '' ? null : parseInt(e.target.value, 10);
+                    setFormData({ ...formData, rank: value });
+                    clearError('rank');
+                  }}
+                  className={`w-full bg-slate-900 border rounded-lg px-3 py-2 text-white focus:outline-none ${
+                    errors.rank ? 'border-rose-500 focus:border-rose-500' : 'border-white/10 focus:border-amber-500'
+                  }`}
+                  placeholder="Auto (next available)"
+                />
+                {errors.rank && (
+                  <p className="text-xs text-rose-400 mt-1">{errors.rank}</p>
+                )}
+                <p className="text-xs text-slate-500 mt-1">Leave empty to use the next available rank</p>
               </div>
 
               {/* Logo Upload */}
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-2">Casino Logo</label>
+                <label className="block text-xs font-medium text-slate-400 mb-2">Casino Logo *</label>
                 <input
                   type="file"
                   accept="image/*"
@@ -650,13 +859,14 @@ export default function NewCasinoPage() {
                       if (res.ok) {
                         const data = await res.json();
                         setFormData({ ...formData, logoUrl: data.url });
+                        clearError('logo');
                       } else {
                         const error = await res.json();
-                        alert(error.error || 'Failed to upload image');
+                        setErrors((prev) => ({ ...prev, logo: error.error || 'Failed to upload image' }));
                       }
                     } catch (error) {
                       console.error('Upload error:', error);
-                      alert('Failed to upload image');
+                      setErrors((prev) => ({ ...prev, logo: 'Failed to upload image' }));
                     } finally {
                       setUploading(false);
                     }
@@ -694,6 +904,12 @@ export default function NewCasinoPage() {
                     </>
                   )}
                 </label>
+                {errors.logo && (
+                  <p className="text-xs text-rose-400 mt-1">{errors.logo}</p>
+                )}
+                {!formData.logoUrl && !formData.logo && (
+                  <p className="text-xs text-slate-500 mt-1">Logo is required. Upload an image or it will use casino name initials.</p>
+                )}
               </div>
 
               {/* Colors */}

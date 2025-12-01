@@ -38,7 +38,7 @@ export default function CookiesPage() {
                 Cookies Policy
               </h1>
               <p className="text-lg text-slate-400 leading-relaxed font-light">
-                We believe in being transparent about how we collect and use data. This policy provides detailed information about how and when we use cookies on PrimeBet.
+                We believe in being transparent about how we collect and use data. This policy provides detailed information about how and when we use cookies on Bonusory.
               </p>
             </div>
           </div>

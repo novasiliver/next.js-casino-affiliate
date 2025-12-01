@@ -77,7 +77,7 @@ Paste:
 ```nginx
 server {
     listen 80;
-    server_name yourdomain.com www.yourdomain.com;
+    server_name bonusory.com www.bonusory.com;
 
     location / {
         proxy_pass http://localhost:3000;
@@ -103,7 +103,7 @@ sudo systemctl reload nginx
 ### Step 5: Setup SSL (2 minutes)
 
 ```bash
-sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+sudo certbot --nginx -d bonusory.com -d www.bonusory.com
 ```
 
 ### Step 6: Create Admin User (1 minute)

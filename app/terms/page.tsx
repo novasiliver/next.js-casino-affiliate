@@ -35,7 +35,7 @@ export default function TermsPage() {
                 Terms & Conditions
               </h1>
               <p className="text-lg text-slate-400 leading-relaxed font-light">
-                Please read these terms carefully before using our services. They outline the rules and regulations for the use of PrimeBet&apos;s Website and services.
+                Please read these terms carefully before using our services. They outline the rules and regulations for the use of Bonusory&apos;s Website and services.
               </p>
             </div>
           </div>
@@ -106,10 +106,10 @@ export default function TermsPage() {
                   </div>
                   <div className="space-y-6 text-slate-400 leading-relaxed font-light">
                     <p>
-                      Welcome to PrimeBet (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). By accessing or using our website, you agree to be bound by these Terms and Conditions (&quot;Terms&quot;) and our Privacy Policy. If you do not agree to these Terms, you must not access or use our services.
+                      Welcome to Bonusory (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). By accessing or using our website, you agree to be bound by these Terms and Conditions (&quot;Terms&quot;) and our Privacy Policy. If you do not agree to these Terms, you must not access or use our services.
                     </p>
                     <p>
-                      These Terms constitute a legally binding agreement between you and PrimeBet regarding your use of the website. We reserve the right to modify these Terms at any time without prior notice. Your continued use of the site following any changes indicates your acceptance of the new Terms.
+                      These Terms constitute a legally binding agreement between you and Bonusory regarding your use of the website. We reserve the right to modify these Terms at any time without prior notice. Your continued use of the site following any changes indicates your acceptance of the new Terms.
                     </p>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export default function TermsPage() {
                   <ul className="space-y-4 text-slate-400 leading-relaxed font-light list-none pl-0">
                     <li className="bg-slate-900/30 p-4 rounded-xl border border-white/5">
                       <strong className="text-white font-medium block mb-1">&quot;Service&quot;</strong>
-                      Refers to the PrimeBet website, content, and any related features provided by us.
+                      Refers to the Bonusory website, content, and any related features provided by us.
                     </li>
                     <li className="bg-slate-900/30 p-4 rounded-xl border border-white/5">
                       <strong className="text-white font-medium block mb-1">&quot;User&quot;</strong>
@@ -148,7 +148,7 @@ export default function TermsPage() {
                   </div>
                   <div className="space-y-6 text-slate-400 leading-relaxed font-light">
                     <p>
-                      You must be at least 18 years of age, or the legal age of majority in your jurisdiction, to use our Service. By using PrimeBet, you represent and warrant that you meet this requirement.
+                      You must be at least 18 years of age, or the legal age of majority in your jurisdiction, to use our Service. By using Bonusory, you represent and warrant that you meet this requirement.
                     </p>
                     <div className="p-5 rounded-lg border border-amber-500/20 bg-amber-500/5 flex gap-4 items-start">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-amber-500 shrink-0 mt-0.5">
@@ -176,13 +176,13 @@ export default function TermsPage() {
                   </div>
                   <div className="space-y-6 text-slate-400 leading-relaxed font-light">
                     <p>
-                      PrimeBet operates as an affiliate marketing website. This means we are not a casino operator and do not process any gambling transactions. Instead, we provide reviews and information about third-party gambling platforms.
+                      Bonusory operates as an affiliate marketing website. This means we are not a casino operator and do not process any gambling transactions. Instead, we provide reviews and information about third-party gambling platforms.
                     </p>
                     <p>
                       When you click on links to various merchants on this site and make a purchase or deposit, this can result in this site earning a commission. Affiliate programs and affiliations include, but are not limited to, the casino partners listed on our site.
                     </p>
                     <p>
-                      This compensation may impact how and where products appear on this site (including, for example, the order in which they appear). PrimeBet does not include all card companies or all card offers available in the marketplace.
+                      This compensation may impact how and where products appear on this site (including, for example, the order in which they appear). Bonusory does not include all card companies or all card offers available in the marketplace.
                     </p>
                   </div>
                 </div>
@@ -197,10 +197,10 @@ export default function TermsPage() {
                   </div>
                   <div className="space-y-6 text-slate-400 leading-relaxed font-light">
                     <p>
-                      The Service and its original content, features, and functionality are and will remain the exclusive property of PrimeBet and its licensors. The Service is protected by copyright, trademark, and other laws of both the United States and foreign countries.
+                      The Service and its original content, features, and functionality are and will remain the exclusive property of Bonusory and its licensors. The Service is protected by copyright, trademark, and other laws of both the United States and foreign countries.
                     </p>
                     <p>
-                      Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of PrimeBet.
+                      Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Bonusory.
                     </p>
                   </div>
                 </div>
@@ -215,7 +215,7 @@ export default function TermsPage() {
                   </div>
                   <div className="space-y-6 text-slate-400 leading-relaxed font-light">
                     <p>
-                      In no event shall PrimeBet, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:
+                      In no event shall Bonusory, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:
                     </p>
                     <ul className="list-disc pl-5 space-y-2 marker:text-amber-500">
                       <li>Your access to or use of or inability to access or use the Service;</li>

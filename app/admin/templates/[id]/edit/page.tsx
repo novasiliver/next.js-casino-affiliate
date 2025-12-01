@@ -22,6 +22,39 @@ export default function EditTemplatePage() {
   });
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    if (!confirm(`Are you sure you want to delete the template "${formData.name}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/templates/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      if (res.ok) {
+        router.push('/admin/templates');
+      } else {
+        const data = await res.json().catch(() => ({ error: 'Failed to delete template' }));
+        if (res.status === 409 && data.casinos) {
+          // Template is in use by casinos
+          const casinoList = data.casinos.map((c: any) => `- ${c.name} (${c.slug})`).join('\n');
+          alert(`${data.error}\n\nCasinos using this template:\n${casinoList}`);
+        } else {
+          alert(data.error || 'Failed to delete template');
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting template:', error);
+      alert('Error deleting template');
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   useEffect(() => {
     if (!isNew) {
@@ -222,28 +255,29 @@ export default function EditTemplatePage() {
                   body: uploadFormData,
                 });
 
-                const data = await res.json();
+                if (!res.ok) {
+                  const errorData = await res.json().catch(() => ({ error: 'Failed to upload template' }));
+                  setUploadMessage(`❌ ${errorData.error || 'Failed to upload template'}`);
+                  return;
+                }
 
-                if (res.ok) {
-                  setUploadMessage(`✅ Template ${isNew ? 'created and ' : ''}uploaded successfully! Component: ${data.component}`);
-                  if (isNew) {
-                    // Update form with the created template data
-                    setFormData(prev => ({ 
-                      ...prev, 
-                      slug: data.slug || prev.slug,
-                      component: data.component || prev.component 
-                    }));
-                    // Redirect to edit page with the new ID after a short delay
-                    if (data.templateId) {
-                      setTimeout(() => {
-                        router.push(`/admin/templates/${data.templateId}/edit`);
-                      }, 1500);
-                    }
-                  } else {
-                    setFormData({ ...formData, component: data.component });
+                const data = await res.json();
+                setUploadMessage(`✅ Template ${isNew ? 'created and ' : ''}uploaded successfully! Component: ${data.component}`);
+                if (isNew) {
+                  // Update form with the created template data
+                  setFormData(prev => ({ 
+                    ...prev, 
+                    slug: data.slug || prev.slug,
+                    component: data.component || prev.component 
+                  }));
+                  // Redirect to edit page with the new ID after a short delay
+                  if (data.templateId) {
+                    setTimeout(() => {
+                      router.push(`/admin/templates/${data.templateId}/edit`);
+                    }, 1500);
                   }
                 } else {
-                  setUploadMessage(`❌ ${data.error || 'Failed to upload template'}`);
+                  setFormData({ ...formData, component: data.component });
                 }
               } catch (error) {
                 console.error('Upload error:', error);
@@ -317,20 +351,32 @@ export default function EditTemplatePage() {
           </label>
         </div>
 
-        <div className="flex gap-4">
-          <button
-            type="submit"
-            disabled={saving}
-            className="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded-lg hover:bg-amber-400 transition-colors disabled:opacity-50"
-          >
-            {saving ? 'Saving...' : 'Save Template'}
-          </button>
-          <Link
-            href="/admin/templates"
-            className="px-6 py-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700 transition-colors"
-          >
-            Cancel
-          </Link>
+        <div className="flex gap-4 justify-between">
+          <div className="flex gap-4">
+            <button
+              type="submit"
+              disabled={saving}
+              className="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded-lg hover:bg-amber-400 transition-colors disabled:opacity-50"
+            >
+              {saving ? 'Saving...' : 'Save Template'}
+            </button>
+            <Link
+              href="/admin/templates"
+              className="px-6 py-3 bg-slate-800 text-white font-semibold rounded-lg hover:bg-slate-700 transition-colors"
+            >
+              Cancel
+            </Link>
+          </div>
+          {!isNew && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={deleting}
+              className="px-6 py-3 bg-rose-600 text-white font-semibold rounded-lg hover:bg-rose-700 transition-colors disabled:opacity-50"
+            >
+              {deleting ? 'Deleting...' : 'Delete Template'}
+            </button>
+          )}
         </div>
       </form>
     </div>

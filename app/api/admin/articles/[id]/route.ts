@@ -27,6 +27,20 @@ export async function PUT(
     const body = await request.json();
     const validated = articleSchema.parse(body);
 
+    // Check for duplicate slug if slug is being updated
+    if (validated.slug) {
+      const existingArticle = await prisma.article.findUnique({
+        where: { slug: validated.slug },
+      });
+
+      if (existingArticle && existingArticle.id !== id) {
+        return NextResponse.json(
+          { error: 'An article with this slug already exists', details: [{ path: ['slug'], message: 'Slug must be unique' }] },
+          { status: 409 }
+        );
+      }
+    }
+
     const updateData: any = { ...validated };
     if (validated.publishedAt !== undefined) {
       updateData.publishedAt = validated.publishedAt ? new Date(validated.publishedAt) : null;

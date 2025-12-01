@@ -63,8 +63,8 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-white font-medium text-lg mb-1">General Support</h3>
                   <p className="text-sm text-slate-400 mb-4">For player complaints and general inquiries.</p>
-                  <a href="mailto:support@primebet.com" className="text-sm text-amber-400 hover:text-amber-300 font-medium flex items-center gap-2 transition-colors">
-                    support@primebet.com 
+                  <a href="mailto:support@bonusory.com" className="text-sm text-amber-400 hover:text-amber-300 font-medium flex items-center gap-2 transition-colors">
+                    support@bonusory.com 
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right">
                       <path d="M5 12h14"></path>
                       <path d="m12 5 7 7-7 7"></path>
@@ -82,8 +82,8 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-white font-medium text-lg mb-1">Partnerships</h3>
                   <p className="text-sm text-slate-400 mb-4">For casinos wishing to be reviewed (strict criteria apply).</p>
-                  <a href="mailto:partners@primebet.com" className="text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-2 transition-colors">
-                    partners@primebet.com 
+                  <a href="mailto:partners@bonusory.com" className="text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-2 transition-colors">
+                    partners@bonusory.com 
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right">
                       <path d="M5 12h14"></path>
                       <path d="m12 5 7 7-7 7"></path>

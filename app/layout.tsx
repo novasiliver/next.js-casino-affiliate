@@ -3,7 +3,7 @@ import "./globals.css";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "PrimeBet - Premium Casino Reviews & Bonuses",
+  title: "Bonusory - Premium Casino Reviews & Bonuses",
   description: "Curated selection of the world's most premium gaming destinations. Exclusive bonuses, instant withdrawals, and bank-grade security vetted by experts.",
 };
 
