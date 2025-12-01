@@ -298,10 +298,30 @@ export async function POST(request: NextRequest) {
     }
 
     // Use component name from template or generate from slug
-    const componentName = template.component || template.slug
+    // Sanitize to ensure valid TypeScript identifier (no spaces, PascalCase)
+    let componentName = template.component || template.slug
       .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join('');
+    
+    // Remove spaces and ensure PascalCase
+    componentName = componentName
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+    
+    // Remove any non-alphanumeric characters except underscore
+    componentName = componentName.replace(/[^a-zA-Z0-9_]/g, '');
+    
+    // Ensure it starts with a letter
+    if (componentName && !/^[a-zA-Z]/.test(componentName)) {
+      componentName = 'Template' + componentName;
+    }
+    
+    // Fallback if empty
+    if (!componentName) {
+      componentName = 'Template';
+    }
     
     // Convert HTML to React component
     const reactComponent = htmlToReactComponent(htmlContent, componentName, 'Casino');

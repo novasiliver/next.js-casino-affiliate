@@ -4,11 +4,11 @@ import { Casino } from "@/types/casino";
 import Link from "next/link";
 import Image from "next/image";
 
-interface template2Props {
+interface Template2Props {
   casino: Casino;
 }
 
-export default function template2({ casino }: template2Props) {
+export default function Template2({ casino }: Template2Props) {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300">
         <div className="pt-24 pb-8 border-b border-white/5 bg-slate-950 relative overflow-hidden">
