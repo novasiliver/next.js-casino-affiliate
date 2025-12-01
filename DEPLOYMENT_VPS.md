@@ -185,7 +185,8 @@ Add the following (adjust values):
 
 ```env
 # Database
-DATABASE_URL="mysql://casino_user:your_strong_password_here@localhost:3306/casino_affiliate"
+DATABASE_URL="mysql://casino_user:casino_user123@localhost:3306/casino_affiliate"
+
 
 # Application
 NODE_ENV=production
