@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 // Category to tag mapping
 const categoryTagMap: Record<string, string[]> = {
   'crypto': ['Crypto', 'Bitcoin', 'Crypto Friendly', 'Cryptocurrency'],
