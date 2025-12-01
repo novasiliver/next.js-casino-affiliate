@@ -72,9 +72,9 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/40 transition-all">
-              <span className="text-slate-950 font-bold text-lg tracking-tighter">P</span>
+              <span className="text-slate-950 font-bold text-lg tracking-tighter">B</span>
             </div>
-            <span className="text-white font-semibold text-lg tracking-tight">PRIME<span className="text-slate-500">BET</span></span>
+            <span className="text-white font-semibold text-lg tracking-tight">BONUS<span className="text-slate-500">ORY</span></span>
           </Link>
 
           {/* Desktop Nav */}
@@ -172,12 +172,6 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
             </Link>
           </div>
 
-          {/* Action */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link href="/admin/login" className="group relative px-5 py-2 rounded-full bg-slate-800 border border-white/10 text-xs font-semibold text-white hover:bg-slate-700 transition-all overflow-hidden">
-              <span className="relative z-10">Admin</span>
-            </Link>
-          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -255,15 +249,6 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
               Bonuses
             </Link>
 
-            <div className="pt-4 border-t border-white/5 flex items-center gap-4">
-              <Link 
-                href="/admin/login" 
-                className="px-4 py-2 rounded-full bg-slate-800 border border-white/10 text-xs font-semibold text-white hover:bg-slate-700 transition-all"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Admin
-              </Link>
-            </div>
           </div>
         )}
       </div>

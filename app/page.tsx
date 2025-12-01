@@ -1,8 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import FilterBar from "@/components/FilterBar";
-import CasinoCard from "@/components/CasinoCard";
+import CasinoListWithFilters from "@/components/CasinoListWithFilters";
 
 async function getCasinos() {
   try {
@@ -19,12 +19,29 @@ async function getCasinos() {
   }
 }
 
+async function getLatestArticles() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/articles?limit=3`, {
+      cache: 'no-store',
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.articles || [];
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    return [];
+  }
+}
+
 export default async function Home() {
   const casinosData = await getCasinos();
+  const articlesData = await getLatestArticles();
   
   // Transform API data to match CasinoCard props
+  // Include full data object for filtering
   const casinos = casinosData.map((casino: any, index: number) => ({
-    rank: index + 1,
+    rank: casino.rank || index + 1,
     name: casino.name,
     logo: casino.logo,
     rating: casino.rating,
@@ -34,6 +51,7 @@ export default async function Home() {
     isFeatured: index === 0,
     slug: casino.slug,
     description: casino.data?.description,
+    data: casino.data, // Include full data for filtering
   }));
 
   // Fallback data if API fails
@@ -48,6 +66,12 @@ export default async function Home() {
     tags: ["Instant Payout", "Curacao Lic."],
     isFeatured: true,
     slug: "ignite-casino",
+    data: {
+      tags: ["Instant Payout", "Curacao Lic."],
+      payoutSpeed: "Instant",
+      cryptoFriendly: true,
+      gameSelection: { liveTables: 50 },
+    },
   },
   {
     rank: 2,
@@ -58,6 +82,11 @@ export default async function Home() {
     bonusDetails: "Includes 50 Free Spins",
     slug: "royal-fort",
     description: "Best for high rollers & VIPs",
+    data: {
+      tags: ["VIP", "High Roller"],
+      payoutSpeed: "Fast",
+      gameSelection: { liveTables: 30 },
+    },
   },
   {
     rank: 3,
@@ -68,6 +97,11 @@ export default async function Home() {
     bonusDetails: "Unlimited Withdrawals",
     slug: "onyx-club",
     description: "Excellent Crypto Support",
+    data: {
+      tags: ["Crypto", "Bitcoin", "Cryptocurrency"],
+      cryptoFriendly: true,
+      gameSelection: { liveTables: 25 },
+    },
   },
   {
     rank: 4,
@@ -76,6 +110,11 @@ export default async function Home() {
     rating: 4.6,
     bonus: "$1,500 Bonus",
     slug: "velocity-bet",
+    data: {
+      tags: ["Fast Payout"],
+      payoutSpeed: "Under 24h",
+      gameSelection: { liveTables: 20 },
+    },
   },
   {
     rank: 5,
@@ -84,6 +123,10 @@ export default async function Home() {
     rating: 4.5,
     bonus: "100% Match",
     slug: "aura-casino",
+    data: {
+      tags: ["Live Casino"],
+      gameSelection: { liveTables: 40 },
+    },
   },
   {
     rank: 6,
@@ -92,6 +135,10 @@ export default async function Home() {
     rating: 4.4,
     bonus: "200 Free Spins",
     slug: "luna-spins",
+    data: {
+      tags: ["Slots"],
+      gameSelection: { liveTables: 15 },
+    },
   },
   {
     rank: 7,
@@ -100,6 +147,11 @@ export default async function Home() {
     rating: 4.3,
     bonus: "$500 Cash",
     slug: "nova-gaming",
+    data: {
+      tags: ["Instant Withdrawal"],
+      payoutSpeed: "Instant",
+      gameSelection: { liveTables: 10 },
+    },
   },
   {
     rank: 8,
@@ -108,6 +160,10 @@ export default async function Home() {
     rating: 4.2,
     bonus: "50% Back",
     slug: "zen-casino",
+    data: {
+      tags: ["Live Dealer"],
+      gameSelection: { liveTables: 35 },
+    },
   },
   {
     rank: 9,
@@ -116,6 +172,11 @@ export default async function Home() {
     rating: 4.1,
     bonus: "1 BTC Bonus",
     slug: "solarium",
+    data: {
+      tags: ["Crypto Friendly", "Bitcoin"],
+      cryptoFriendly: true,
+      gameSelection: { liveTables: 18 },
+    },
   },
   {
     rank: 10,
@@ -124,6 +185,11 @@ export default async function Home() {
     rating: 4.0,
     bonus: "$100 No Dep",
     slug: "betmax",
+    data: {
+      tags: ["Quick Withdrawal"],
+      payoutSpeed: "Fast",
+      gameSelection: { liveTables: 12 },
+    },
   },
 ];
 
@@ -174,25 +240,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <FilterBar />
-
-      {/* Main Content: Casino Grid */}
-      <section id="top-list" className="py-12 bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          {displayCasinos.length > 0 ? (
-            <>
-              {displayCasinos.slice(0, 10).map((casino: any) => (
-                <CasinoCard key={casino.rank} {...casino} />
-              ))}
-
-            </>
-          ) : (
-            <div className="text-center py-20">
-              <p className="text-slate-400">No casinos available at the moment.</p>
-            </div>
-          )}
-        </div>
-      </section>
+      <CasinoListWithFilters casinos={displayCasinos} />
 
       {/* Browse Categories Section */}
       <section className="py-16 bg-slate-950 border-t border-white/5">
@@ -291,7 +339,7 @@ export default async function Home() {
                   Claim 200% Bonus at <span className="text-amber-400">Ignite</span>
                 </h2>
                 <p className="text-slate-400 text-sm md:text-base mb-8 leading-relaxed max-w-md">
-                  Register today through PrimeBet and unlock an exclusive VIP welcome package not available anywhere else. Includes weekly cashback and dedicated support.
+                  Register today through Bonusory and unlock an exclusive VIP welcome package not available anywhere else. Includes weekly cashback and dedicated support.
                 </p>
                 
                 <div className="grid grid-cols-2 gap-4 mb-8">
@@ -432,33 +480,100 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-              { category: "Strategy", date: "Oct 12, 2024", readTime: "5 min read", title: "Mastering High Volatility Slots: A Comprehensive Guide", gradient: "from-purple-900/50 to-slate-900/50", image: "https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80", slug: "mastering-high-volatility-slots" },
-              { category: "Industry", date: "Oct 10, 2024", readTime: "3 min read", title: "New Crypto Regulations: What It Means for Players", gradient: "from-emerald-900/40 to-slate-900/40", slug: "crypto-regulations" },
-              { category: "Reviews", date: "Oct 08, 2024", readTime: "7 min read", title: "Top 5 Live Dealer Experiences for 2025", gradient: "from-amber-900/40 to-slate-900/40", slug: "top-live-dealer" },
-            ].map((article, idx) => (
-              <Link key={idx} href={`/guides/${article.slug}`} className="group block">
-                <div className="aspect-video w-full rounded-xl bg-slate-900 mb-4 overflow-hidden border border-white/5 relative">
-                  {article.image ? (
-                    <div className="group-hover:scale-105 transition-transform duration-500 absolute inset-0">
-                      <img src={article.image} className="w-full h-full object-cover" alt={article.title} />
-                      <div className={`absolute inset-0 bg-gradient-to-br ${article.gradient}`}></div>
+            {articlesData.length > 0 ? (
+              articlesData.slice(0, 3).map((article: any) => {
+                const formatDate = (dateString: string | null) => {
+                  if (!dateString) return '';
+                  return new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                };
+
+                const getReadTime = (content: string) => {
+                  if (!content) return '3 min read';
+                  const words = content.split(/\s+/).length;
+                  const minutes = Math.ceil(words / 200);
+                  return `${minutes} min read`;
+                };
+
+                const getCategoryGradient = (category: string) => {
+                  const gradients: Record<string, string> = {
+                    'Strategy': 'from-purple-900/50 to-slate-900/50',
+                    'Industry': 'from-emerald-900/40 to-slate-900/40',
+                    'Industry News': 'from-emerald-900/40 to-slate-900/40',
+                    'Guides': 'from-indigo-900/40 to-slate-900/40',
+                    'Reviews': 'from-amber-900/40 to-slate-900/40',
+                    'News': 'from-blue-900/40 to-slate-900/40',
+                  };
+                  return gradients[category] || 'from-slate-800/50 to-slate-900/50';
+                };
+
+                return (
+                  <Link key={article.id} href={`/guides/${article.slug}`} className="group block">
+                    <div className="aspect-video w-full rounded-xl bg-slate-900 mb-4 overflow-hidden border border-white/5 relative">
+                      {article.imageUrl ? (
+                        <div className="group-hover:scale-105 transition-transform duration-500 absolute inset-0">
+                          <Image
+                            src={article.imageUrl}
+                            alt={article.title}
+                            width={800}
+                            height={450}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryGradient(article.category)}`}></div>
+                        </div>
+                      ) : (
+                        <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryGradient(article.category)} group-hover:scale-105 transition-transform duration-500`}></div>
+                      )}
+                      <div className="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-md text-[10px] uppercase font-bold text-white tracking-wider border border-white/10">
+                        {article.category}
+                      </div>
                     </div>
-                  ) : (
-                    <div className={`absolute inset-0 bg-gradient-to-br ${article.gradient} group-hover:scale-105 transition-transform duration-500`}></div>
-                  )}
-                  <div className="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-md text-[10px] uppercase font-bold text-white tracking-wider border border-white/10">{article.category}</div>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
-                  <span>{article.date}</span>
-                  <span className="w-1 h-1 rounded-full bg-slate-700"></span>
-                  <span>{article.readTime}</span>
-                </div>
-                <h3 className="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
-                  {article.title}
-                </h3>
-              </Link>
-            ))}
+                    <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                      <span>{formatDate(article.publishedAt)}</span>
+                      <span className="w-1 h-1 rounded-full bg-slate-700"></span>
+                      <span>{getReadTime(article.content)}</span>
+                    </div>
+                    <h3 className="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
+                      {article.title}
+                    </h3>
+                  </Link>
+                );
+              })
+            ) : (
+              // Fallback articles if no articles in database
+              [
+                { category: "Strategy", date: "Oct 12, 2024", readTime: "5 min read", title: "Mastering High Volatility Slots: A Comprehensive Guide", gradient: "from-purple-900/50 to-slate-900/50", image: "https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80", slug: "mastering-high-volatility-slots" },
+                { category: "Industry", date: "Oct 10, 2024", readTime: "3 min read", title: "New Crypto Regulations: What It Means for Players", gradient: "from-emerald-900/40 to-slate-900/40", slug: "crypto-regulations" },
+                { category: "Reviews", date: "Oct 08, 2024", readTime: "7 min read", title: "Top 5 Live Dealer Experiences for 2025", gradient: "from-amber-900/40 to-slate-900/40", slug: "top-live-dealer" },
+              ].map((article, idx) => (
+                <Link key={idx} href={`/guides/${article.slug}`} className="group block">
+                  <div className="aspect-video w-full rounded-xl bg-slate-900 mb-4 overflow-hidden border border-white/5 relative">
+                    {article.image ? (
+                      <div className="group-hover:scale-105 transition-transform duration-500 absolute inset-0">
+                        <Image
+                          src={article.image}
+                          alt={article.title}
+                          width={800}
+                          height={450}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className={`absolute inset-0 bg-gradient-to-br ${article.gradient}`}></div>
+                      </div>
+                    ) : (
+                      <div className={`absolute inset-0 bg-gradient-to-br ${article.gradient} group-hover:scale-105 transition-transform duration-500`}></div>
+                    )}
+                    <div className="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-md text-[10px] uppercase font-bold text-white tracking-wider border border-white/10">{article.category}</div>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                    <span>{article.date}</span>
+                    <span className="w-1 h-1 rounded-full bg-slate-700"></span>
+                    <span>{article.readTime}</span>
+                  </div>
+                  <h3 className="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
+                    {article.title}
+                  </h3>
+                </Link>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -484,7 +599,7 @@ export default async function Home() {
               },
               {
                 question: "Can I play on mobile devices?",
-                answer: "Absolutely. All casinos listed on PrimeBet are fully optimized for mobile play on iOS and Android browsers. Many also offer dedicated apps for a smoother experience."
+                answer: "Absolutely. All casinos listed on Bonusory are fully optimized for mobile play on iOS and Android browsers. Many also offer dedicated apps for a smoother experience."
               },
             ].map((faq, idx) => (
               <details key={idx} className="group [&_summary::-webkit-details-marker]:hidden">

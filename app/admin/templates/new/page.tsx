@@ -17,9 +17,16 @@ export default function NewTemplatePage() {
   });
   const [uploading, setUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Prevent form submission if template was already created via upload
+    if (uploadSuccess) {
+      return;
+    }
+    
     setSaving(true);
 
     try {
@@ -32,10 +39,17 @@ export default function NewTemplatePage() {
       if (res.ok) {
         router.push('/admin/templates');
       } else {
-        const data = await res.json();
-        alert(data.error || 'Failed to save template');
+        const data = await res.json().catch(() => ({ error: 'Failed to save template' }));
+        // Don't show alert for duplicate template (409) - template already exists via upload
+        if (res.status !== 409) {
+          alert(data.error || 'Failed to save template');
+        } else {
+          // If template already exists, redirect to templates list
+          router.push('/admin/templates');
+        }
       }
     } catch (error) {
+      console.error('Error saving template:', error);
       alert('Error saving template');
     } finally {
       setSaving(false);
@@ -173,24 +187,26 @@ export default function NewTemplatePage() {
                   body: uploadFormData,
                 });
 
-                const data = await res.json();
+                if (!res.ok) {
+                  const errorData = await res.json().catch(() => ({ error: 'Failed to upload template' }));
+                  setUploadMessage(`❌ ${errorData.error || 'Failed to upload template'}`);
+                  return;
+                }
 
-                if (res.ok) {
-                  setUploadMessage(`✅ Template created and uploaded successfully! Component: ${data.component}`);
-                  // Update form with the created template data
-                  setFormData(prev => ({ 
-                    ...prev, 
-                    slug: data.slug || prev.slug,
-                    component: data.component || prev.component 
-                  }));
-                  // Redirect to edit page with the new ID after a short delay
-                  if (data.templateId) {
-                    setTimeout(() => {
-                      router.push(`/admin/templates/${data.templateId}/edit`);
-                    }, 1500);
-                  }
-                } else {
-                  setUploadMessage(`❌ ${data.error || 'Failed to upload template'}`);
+                const data = await res.json();
+                setUploadMessage(`✅ Template created and uploaded successfully! Component: ${data.component}`);
+                setUploadSuccess(true); // Mark upload as successful to prevent form submission
+                // Update form with the created template data
+                setFormData(prev => ({ 
+                  ...prev, 
+                  slug: data.slug || prev.slug,
+                  component: data.component || prev.component 
+                }));
+                // Redirect to edit page with the new ID after a short delay
+                if (data.templateId) {
+                  setTimeout(() => {
+                    router.push(`/admin/templates/${data.templateId}/edit`);
+                  }, 1500);
                 }
               } catch (error) {
                 console.error('Upload error:', error);
@@ -263,10 +279,10 @@ export default function NewTemplatePage() {
         <div className="flex gap-4">
           <button
             type="submit"
-            disabled={saving}
+            disabled={saving || uploadSuccess || uploading}
             className="px-6 py-3 bg-amber-500 text-slate-950 font-semibold rounded-lg hover:bg-amber-400 transition-colors disabled:opacity-50"
           >
-            {saving ? 'Saving...' : 'Save Template'}
+            {saving ? 'Saving...' : uploadSuccess ? 'Template Created' : 'Save Template'}
           </button>
           <Link
             href="/admin/templates"

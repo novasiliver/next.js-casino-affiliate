@@ -44,6 +44,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validated = articleSchema.parse(body);
 
+    // Check for duplicate slug
+    const existingArticle = await prisma.article.findUnique({
+      where: { slug: validated.slug },
+    });
+
+    if (existingArticle) {
+      return NextResponse.json(
+        { error: 'An article with this slug already exists', details: [{ path: ['slug'], message: 'Slug must be unique' }] },
+        { status: 409 }
+      );
+    }
+
     const article = await prisma.article.create({
       data: {
         ...validated,

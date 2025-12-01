@@ -60,7 +60,7 @@ export default function PrivacyPage() {
                 <div className="mt-8 p-5 rounded-xl bg-slate-900 border border-white/5">
                   <h4 className="text-sm font-medium text-white mb-2">Have questions?</h4>
                   <p className="text-xs text-slate-500 mb-4">Our Data Protection Officer is available to assist you.</p>
-                  <a href="mailto:dpo@primebet.com" className="text-xs font-bold text-amber-500 hover:text-amber-400 flex items-center gap-1">
+                  <a href="mailto:dpo@bonusory.com" className="text-xs font-bold text-amber-500 hover:text-amber-400 flex items-center gap-1">
                     Contact DPO 
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
                       <path d="M5 12h14"></path>
@@ -78,10 +78,10 @@ export default function PrivacyPage() {
                   <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">1. Introduction</h2>
                   <div className="prose prose-invert prose-slate max-w-none text-slate-400 leading-relaxed space-y-4">
                     <p>
-                      Welcome to PrimeBet (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.
+                      Welcome to Bonusory (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.
                     </p>
                     <p>
-                      PrimeBet operates as an independent casino review and information portal. We are not a gambling operator and do not process gambling transactions. Our role is to provide transparent, unbiased information to help you make informed decisions.
+                      Bonusory operates as an independent casino review and information portal. We are not a gambling operator and do not process gambling transactions. Our role is to provide transparent, unbiased information to help you make informed decisions.
                     </p>
                   </div>
                 </section>

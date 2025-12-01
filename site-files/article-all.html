@@ -1,0 +1,167 @@
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrimeBet Insights - Strategies &amp; News</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+.glass-panel {
+background: rgba(15, 23, 42, 0.6);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+}
+.shimmer {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+transform: skewX(-20deg) translateX(-150%);
+transition: transform 0.5s;
+}
+.group:hover .shimmer {
+transform: skewX(-20deg) translateX(150%);
+transition: transform 1s;
+}
+</style></head>
+<body class="bg-slate-950 text-slate-300 antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+    <!-- Page Header -->
+    <section class="relative pt-32 pb-12 overflow-hidden border-b border-white/5">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none">
+            <div class="absolute top-[-20%] left-[30%] w-[600px] h-[600px] bg-amber-600/5 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-[-10%] right-[10%] w-[400px] h-[400px] bg-indigo-900/10 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/50 border border-white/10 text-slate-400 text-xs font-medium mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        Insights &amp; Analysis
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-4">
+                        Master the game. <br>
+                        <span class="text-slate-500">Stay ahead of the curve.</span>
+                    </h1>
+                    <p class="text-slate-400 text-lg leading-relaxed font-light">
+                        Expert strategies, deep-dive reviews, and breaking news from the global gambling industry.
+                    </p>
+                </div>
+                
+                <div class="flex items-center gap-2 bg-slate-900/50 p-1 rounded-lg border border-white/10">
+                    <button class="px-4 py-2 rounded-md bg-slate-800 text-white text-xs font-medium shadow-lg transition-all">All Posts</button>
+                    <button class="px-4 py-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-medium transition-all">Strategy</button>
+                    <button class="px-4 py-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-medium transition-all">Industry News</button>
+                    <button class="px-4 py-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-medium transition-all">Guides</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Grid -->
+    <section class="pb-20 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Article 1: Industry News -->
+                <article class="group flex flex-col h-full bg-slate-900/30 rounded-xl border border-white/5 hover:border-white/10 hover:bg-slate-900 transition-all duration-300">
+                    <div class="aspect-[16/9] w-full overflow-hidden rounded-t-xl relative">
+                        <div class="absolute top-4 left-4 z-10 px-2.5 py-1 bg-slate-950/80 backdrop-blur rounded text-[10px] font-bold text-white uppercase tracking-wider border border-white/10">Industry News</div>
+                        <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Crypto" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 text-xs text-slate-500 mb-3">
+                            <span>Oct 24, 2024</span>
+                            <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                            <span>3 min read</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-3 leading-snug group-hover:text-amber-400 transition-colors">
+                            Bitcoin Halving Effects on Crypto Casinos: What to Expect in 2025
+                        </h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6 line-clamp-3">
+                            With the upcoming halving event, major crypto gambling platforms are restructuring their bonus offers. Here is our analysis of market trends.
+                        </p>
+                        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500 group-hover:text-white transition-colors">Read Article</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-500 group-hover:translate-x-1 group-hover:text-white transition-all"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2: Strategy -->
+                <article class="group flex flex-col h-full bg-slate-900/30 rounded-xl border border-white/5 hover:border-white/10 hover:bg-slate-900 transition-all duration-300">
+                    <div class="aspect-[16/9] w-full overflow-hidden rounded-t-xl relative">
+                        <div class="absolute top-4 left-4 z-10 px-2.5 py-1 bg-slate-950/80 backdrop-blur rounded text-[10px] font-bold text-emerald-400 uppercase tracking-wider border border-white/10">Strategy</div>
+                        <img src="https://images.unsplash.com/photo-1605870445919-838d190e8e1b?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Cards" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 text-xs text-slate-500 mb-3">
+                            <span>Oct 22, 2024</span>
+                            <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                            <span>8 min read</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-3 leading-snug group-hover:text-amber-400 transition-colors">
+                            Counting Cards in Live Dealer Blackjack: Fact vs. Fiction
+                        </h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6 line-clamp-3">
+                            Is it still possible to gain an edge in online live dealer games? We break down deck penetration, shuffle machines, and pit boss software.
+                        </p>
+                        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500 group-hover:text-white transition-colors">Read Guide</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-500 group-hover:translate-x-1 group-hover:text-white transition-all"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3: Guide -->
+                <article class="group flex flex-col h-full bg-slate-900/30 rounded-xl border border-white/5 hover:border-white/10 hover:bg-slate-900 transition-all duration-300">
+                    <div class="aspect-[16/9] w-full overflow-hidden rounded-t-xl relative">
+                        <div class="absolute top-4 left-4 z-10 px-2.5 py-1 bg-slate-950/80 backdrop-blur rounded text-[10px] font-bold text-indigo-400 uppercase tracking-wider border border-white/10">Beginner Guide</div>
+                        <img src="https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Slot Machine" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 text-xs text-slate-500 mb-3">
+                            <span>Oct 20, 2024</span>
+                            <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                            <span>5 min read</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-3 leading-snug group-hover:text-amber-400 transition-colors">
+                            RTP &amp; Volatility: Understanding Slot Mechanics
+                        </h3>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-6 line-clamp-3">
+                            Why do some slots pay often but little, while others pay huge but rarely? Understanding the math behind the spin button.
+                        </p>
+                        <div class="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs font-medium text-slate-500 group-hover:text-white transition-colors">Read Guide</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-slate-500 group-hover:translate-x-1 group-hover:text-white transition-all"></i>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-16 flex items-center justify-center gap-2">
+                <button class="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-800 transition-colors disabled:opacity-50">
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button class="w-10 h-10 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center text-white font-medium text-sm">1</button>
+                <button class="w-10 h-10 rounded-lg border border-transparent flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-800 transition-colors text-sm">2</button>
+                <button class="w-10 h-10 rounded-lg border border-transparent flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-800 transition-colors text-sm">3</button>
+                <span class="text-slate-600 px-2">...</span>
+                <button class="w-10 h-10 rounded-lg border border-transparent flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-800 transition-colors text-sm">12</button>
+                <button class="w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-800 transition-colors">
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body></html>

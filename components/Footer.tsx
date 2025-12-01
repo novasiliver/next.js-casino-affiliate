@@ -9,9 +9,9 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-2 mb-6">
               <div className="w-6 h-6 rounded bg-amber-500 flex items-center justify-center">
-                <span className="text-slate-950 font-bold text-xs">P</span>
+                <span className="text-slate-950 font-bold text-xs">B</span>
               </div>
-              <span className="text-white font-semibold tracking-tight">PRIMEBET</span>
+              <span className="text-white font-semibold tracking-tight">BONUSORY</span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
               The definitive source for premium online gaming reviews. We prioritize safety, speed, and fairness.
@@ -48,7 +48,7 @@ export default function Footer() {
             <div className="text-[10px] font-bold text-white">SSL SECURE</div>
           </div>
           <div className="text-xs text-slate-600 text-center md:text-right">
-            <p>© 2024 PrimeBet Media. All rights reserved.</p>
+            <p>© 2024 Bonusory Media. All rights reserved.</p>
             <div className="flex gap-4 justify-center md:justify-end mt-2">
               <Link href="/privacy" className="hover:text-slate-400">Privacy</Link>
               <Link href="/terms" className="hover:text-slate-400">Terms</Link>
@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-8 p-4 rounded-xl bg-slate-900/50 border border-white/5 text-[10px] text-slate-500 leading-relaxed text-justify">
-          Gambling involves risk. Please gamble responsibly. PrimeBet is an affiliate website and does not offer real money gambling services. We receive compensation from the companies advertised on this site, which may impact how and where they appear. We do not guarantee the accuracy of information as bonuses and terms can change. Users must be 18+.
+          Gambling involves risk. Please gamble responsibly. Bonusory is an affiliate website and does not offer real money gambling services. We receive compensation from the companies advertised on this site, which may impact how and where they appear. We do not guarantee the accuracy of information as bonuses and terms can change. Users must be 18+.
         </div>
       </div>
     </footer>

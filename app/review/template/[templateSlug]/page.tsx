@@ -167,7 +167,7 @@ export async function generateMetadata({
   const { templateSlug } = await params;
   
   return {
-    title: `Template Preview: ${templateSlug} - PrimeBet`,
+    title: `Template Preview: ${templateSlug} - Bonusory`,
     description: `Preview of the ${templateSlug} casino review template`,
   };
 }

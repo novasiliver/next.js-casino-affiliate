@@ -30,7 +30,12 @@ export async function loadTemplate(
     templateCache[cacheKey] = TemplateComponent;
     
     return TemplateComponent;
-  } catch (error) {
+  } catch (error: any) {
+    // Handle module not found errors gracefully
+    if (error?.code === 'MODULE_NOT_FOUND' || error?.message?.includes('Cannot find module')) {
+      console.warn(`Template ${category}/${componentName} not found, using fallback`);
+      return null;
+    }
     console.error(`Failed to load template ${category}/${componentName}:`, error);
     return null;
   }
