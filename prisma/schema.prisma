@@ -25,7 +25,7 @@ model Casino {
   name        String
   logo        String
   rating      Float
-  data        String   @db.Text // JSON string for flexible structure
+  data        String   @db.LongText // JSON string for flexible structure (LongText supports up to 4GB)
   template    String
   isActive    Boolean  @default(true)
   rank        Int?
