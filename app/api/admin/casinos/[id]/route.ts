@@ -29,7 +29,11 @@ export async function PUT(
     const validated = casinoSchema.parse(body);
 
     const updateData: any = { ...validated };
-    if (validated.data) {
+    // if (validated.data) {
+    //   updateData.data = JSON.stringify(validated.data);
+    // }
+
+    if ("data" in validated) {
       updateData.data = JSON.stringify(validated.data);
     }
 
