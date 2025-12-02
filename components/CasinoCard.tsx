@@ -12,6 +12,7 @@ interface CasinoCardProps {
   isFeatured?: boolean;
   slug: string;
   description?: string;
+  affiliateLink?: string;
 }
 
 export default function CasinoCard({
@@ -25,6 +26,7 @@ export default function CasinoCard({
   isFeatured = false,
   slug,
   description,
+  affiliateLink,
 }: CasinoCardProps) {
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
@@ -99,9 +101,23 @@ export default function CasinoCard({
           </div>
 
           <div className="w-full md:w-auto flex flex-col gap-2 min-w-[160px]">
-            <button className="w-full py-3 rounded-lg bg-white text-slate-950 font-bold text-sm hover:bg-amber-400 transition-colors shadow-lg shadow-white/5">
-              Play Now
-            </button>
+            {affiliateLink ? (
+              <a
+                href={affiliateLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 rounded-lg bg-white text-slate-950 font-bold text-sm hover:bg-amber-400 transition-colors shadow-lg shadow-white/5 text-center"
+              >
+                Play Now
+              </a>
+            ) : (
+              <Link
+                href={`/review/${slug}`}
+                className="w-full py-3 rounded-lg bg-white text-slate-950 font-bold text-sm hover:bg-amber-400 transition-colors shadow-lg shadow-white/5 text-center"
+              >
+                Play Now
+              </Link>
+            )}
             <Link href={`/review/${slug}`} className="text-xs text-center text-slate-500 hover:text-white transition-colors underline decoration-slate-700 underline-offset-4">
               Read Review
             </Link>

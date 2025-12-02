@@ -192,10 +192,13 @@ export default function NewArticlePage() {
             value={formData.excerpt}
             onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
             rows={3}
+            maxLength={5000}
             className="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500/50 resize-none"
             placeholder="Brief summary of the article (shown on listing page)..."
           />
-          <p className="text-xs text-slate-500 mt-1">Optional: Brief summary shown on the article listing page</p>
+          <p className="text-xs text-slate-500 mt-1">
+            Optional: Brief summary shown on the article listing page (max 5,000 characters, ~800-1,000 words)
+          </p>
         </div>
 
         <div>
@@ -222,6 +225,7 @@ export default function NewArticlePage() {
             value={formData.content}
             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
             rows={15}
+            maxLength={50000}
             className={`w-full bg-slate-800 border rounded-lg px-4 py-2 text-white focus:outline-none resize-none font-mono text-sm transition-colors ${
               errors.content
                 ? 'border-rose-500 focus:border-rose-500'
@@ -232,7 +236,9 @@ export default function NewArticlePage() {
           {errors.content && (
             <p className="text-rose-400 text-xs mt-1">{errors.content}</p>
           )}
-          <p className="text-xs text-slate-500 mt-1">Supports markdown-style: ## for headings, &gt; for blockquotes</p>
+          <p className="text-xs text-slate-500 mt-1">
+            Supports markdown-style: ## for headings, &gt; for blockquotes (max 50,000 characters, ~8,000-10,000 words)
+          </p>
         </div>
 
         <div className="flex gap-4">

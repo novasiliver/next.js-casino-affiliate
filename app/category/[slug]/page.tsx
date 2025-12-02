@@ -66,6 +66,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     isFeatured: index === 0,
     slug: casino.slug,
     description: casino.data?.description,
+    affiliateLink: casino.data?.affiliateLink,
   }));
 
   return (

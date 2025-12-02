@@ -27,6 +27,8 @@ export default function ArticlePage() {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [imageError, setImageError] = useState(false);
+  const [activeSection, setActiveSection] = useState('intro');
 
   useEffect(() => {
     fetchArticle();
@@ -41,12 +43,35 @@ export default function ArticlePage() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Track active section for table of contents
+    const handleSectionScroll = () => {
+      const introSection = document.getElementById('intro');
+      const contentSection = document.getElementById('content');
+      const scrollPosition = window.scrollY + 250; // Offset for header
+      
+      if (contentSection && scrollPosition >= contentSection.offsetTop) {
+        setActiveSection('content');
+      } else if (introSection && scrollPosition >= introSection.offsetTop) {
+        setActiveSection('intro');
+      } else {
+        setActiveSection('intro');
+      }
+    };
+    
+    window.addEventListener('scroll', handleSectionScroll);
+    handleSectionScroll(); // Initial check
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleSectionScroll);
+    };
   }, [slug]);
 
   const fetchArticle = async () => {
     try {
       setLoading(true);
+      setImageError(false); // Reset image error when fetching new article
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/articles/${slug}`, {
         cache: 'no-store',
       });
@@ -222,19 +247,33 @@ export default function ArticlePage() {
               {article.imageUrl && (
                 <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 mb-12 group">
                   <div className="absolute inset-0 bg-slate-900/10 z-10"></div>
-                  <Image
-                    src={article.imageUrl}
-                    alt={article.title}
-                    width={1200}
-                    height={675}
-                    className="w-full h-full object-cover"
-                  />
+                  {!imageError ? (
+                    <Image
+                      src={article.imageUrl}
+                      alt={article.title}
+                      width={1200}
+                      height={675}
+                      className="w-full h-full object-cover"
+                      unoptimized={article.imageUrl.startsWith('http')}
+                      onError={() => setImageError(true)}
+                    />
+                  ) : (
+                    <img
+                      src={article.imageUrl}
+                      alt={article.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Hide image if both Next.js Image and regular img fail
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                  )}
                 </div>
               )}
 
               {/* Intro Text */}
               {article.excerpt && (
-                <div className="prose-lg text-lg leading-relaxed font-light text-slate-300 mb-8">
+                <div id="intro" className="prose-lg text-lg leading-relaxed font-light text-slate-300 mb-8 scroll-mt-24">
                   <p className="mb-6 drop-cap first-letter:float-left first-letter:text-5xl first-letter:pr-4 first-letter:font-bold first-letter:text-white">
                     {article.excerpt}
                   </p>
@@ -242,7 +281,7 @@ export default function ArticlePage() {
               )}
 
               {/* Article Content */}
-              <div className="prose prose-invert prose-slate max-w-none">
+              <div id="content" className="prose prose-invert prose-slate max-w-none scroll-mt-24">
                 <div className="text-slate-300 leading-relaxed whitespace-pre-wrap text-lg font-light">
                   {article.content.split('\n').map((paragraph, idx) => {
                     if (paragraph.trim() === '') return <br key={idx} />;
@@ -307,9 +346,12 @@ export default function ArticlePage() {
                 <p className="text-xs text-slate-400 leading-relaxed mb-4">
                   Expert content writer covering {article.category.toLowerCase()} and industry insights for Bonusory.
                 </p>
-                <button className="w-full py-2 rounded-lg border border-white/10 text-xs font-semibold text-white hover:bg-white hover:text-slate-950 transition-all">
-                  Follow Analysis
-                </button>
+                <Link
+                  href="/guides"
+                  className="w-full py-2 rounded-lg border border-white/10 text-xs font-semibold text-white hover:bg-white hover:text-slate-950 transition-all block text-center"
+                >
+                  View More Articles
+                </Link>
               </div>
 
               {/* Table of Contents - Simplified */}
@@ -317,10 +359,38 @@ export default function ArticlePage() {
                 <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">On This Page</h4>
                 <ul className="space-y-0 border-l border-white/10">
                   <li>
-                    <a href="#intro" className="block pl-4 py-2 border-l border-amber-500 -ml-px text-sm font-medium text-amber-500">Introduction</a>
+                    <button
+                      onClick={() => {
+                        const introSection = document.getElementById('intro');
+                        if (introSection) {
+                          introSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                      className={`block w-full text-left pl-4 py-2 border-l -ml-px text-sm font-medium transition-all ${
+                        activeSection === 'intro'
+                          ? 'border-amber-500 text-amber-500'
+                          : 'border-transparent text-slate-500 hover:text-slate-300 hover:border-slate-700'
+                      }`}
+                    >
+                      Introduction
+                    </button>
                   </li>
                   <li>
-                    <a href="#content" className="block pl-4 py-2 border-l border-transparent -ml-px text-sm text-slate-500 hover:text-slate-300 hover:border-slate-700 transition-all">Content</a>
+                    <button
+                      onClick={() => {
+                        const contentSection = document.getElementById('content');
+                        if (contentSection) {
+                          contentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                      className={`block w-full text-left pl-4 py-2 border-l -ml-px text-sm transition-all ${
+                        activeSection === 'content'
+                          ? 'border-amber-500 text-amber-500 font-medium'
+                          : 'border-transparent text-slate-500 hover:text-slate-300 hover:border-slate-700'
+                      }`}
+                    >
+                      Content
+                    </button>
                   </li>
                 </ul>
 

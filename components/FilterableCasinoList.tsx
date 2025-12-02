@@ -113,6 +113,7 @@ export default function FilterableCasinoList({ casinos, filter }: FilterableCasi
           isFeatured={index === 0 && filter === 'trending'}
           slug={casino.slug}
           description={casino.description}
+          affiliateLink={casino.affiliateLink || casino.data?.affiliateLink}
         />
       ))}
     </div>
