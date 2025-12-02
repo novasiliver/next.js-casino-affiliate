@@ -20,17 +20,17 @@ model User {
 }
 
 model Casino {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  logo        String
-  rating      Float
-  data        String   @db.LongText // JSON string for flexible structure (LongText supports up to 4GB)
-  template    String
-  isActive    Boolean  @default(true)
-  rank        Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  logo      String
+  rating    Float
+  data      String   @db.LongText // JSON string for flexible structure (LongText supports up to 4GB)
+  template  String
+  isActive  Boolean  @default(true)
+  rank      Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Template {
@@ -38,7 +38,7 @@ model Template {
   name        String
   slug        String   @unique
   component   String
-  category    String   // "Casino Review Page Template", "Post Page Template", "Game Page Template", "Bonus Page Template"
+  category    String // "Casino Review Page Template", "Post Page Template", "Game Page Template", "Bonus Page Template"
   description String?
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -56,8 +56,8 @@ model Article {
   title       String
   slug        String    @unique
   category    String
-  content     String
-  excerpt     String?
+  content     String    @db.LongText // Supports up to 4GB for long articles
+  excerpt     String?   @db.Text // Supports up to 65KB for excerpts
   imageUrl    String?
   publishedAt DateTime?
   createdAt   DateTime  @default(now())
@@ -65,26 +65,25 @@ model Article {
 }
 
 model Bonus {
-  id            String    @id @default(cuid())
-  title         String
-  slug          String    @unique
-  casinoId      String?   // Optional: can be standalone or linked to casino
-  casinoSlug    String?   // For linking to casino review page
-  casinoName    String
-  casinoLogo    String
-  casinoRating  Float
-  amount        String    // e.g., "$2,500", "100%", "50 Free Spins"
-  type          String    // "welcome", "reload", "cashback", "no-deposit", "free-spins", "crypto", "high-roller"
-  wagering      String?   // e.g., "35x (B+D)", "None", "40x"
-  minDeposit    String?   // e.g., "$20", "$10"
-  code          String?   // Bonus code
-  expiry        DateTime?
-  isExclusive   Boolean   @default(false)
-  isHotPick     Boolean   @default(false)
-  isActive      Boolean   @default(true)
-  provider      String?   // Game provider (e.g., "Pragmatic Play")
-  features      String    @db.Text // JSON array of features like ["Instant Payouts", "Crypto Only"]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id           String    @id @default(cuid())
+  title        String
+  slug         String    @unique
+  casinoId     String? // Optional: can be standalone or linked to casino
+  casinoSlug   String? // For linking to casino review page
+  casinoName   String
+  casinoLogo   String
+  casinoRating Float
+  amount       String // e.g., "$2,500", "100%", "50 Free Spins"
+  type         String // "welcome", "reload", "cashback", "no-deposit", "free-spins", "crypto", "high-roller"
+  wagering     String? // e.g., "35x (B+D)", "None", "40x"
+  minDeposit   String? // e.g., "$20", "$10"
+  code         String? // Bonus code
+  expiry       DateTime?
+  isExclusive  Boolean   @default(false)
+  isHotPick    Boolean   @default(false)
+  isActive     Boolean   @default(true)
+  provider     String? // Game provider (e.g., "Pragmatic Play")
+  features     String    @db.Text // JSON array of features like ["Instant Payouts", "Crypto Only"]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
-
