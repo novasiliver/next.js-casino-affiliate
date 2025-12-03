@@ -28,7 +28,7 @@ export default function AboutPage() {
               Bringing <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">transparency</span> to the<br /> world of online gambling.
             </h1>
             
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
               Bonusory was founded by industry veterans and data scientists with a single mission: to provide the most accurate, data-driven casino reviews on the internet. No fluff, just facts.
             </p>
 
@@ -224,7 +224,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 to-indigo-500/10 rounded-2xl blur-2xl"></div>
                 <div className="relative bg-slate-900 border border-white/10 rounded-2xl p-8 shadow-2xl">
                   <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-                    <span className="text-sm font-mono text-slate-500">AUDIT_LOG_2024.txt</span>
+                    <span className="text-sm font-mono text-slate-500">AUDIT_LOG_2025.txt</span>
                     <div className="flex gap-2">
                       <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
                       <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>

@@ -147,23 +147,6 @@ export default function AdminLayout({
             Bonuses
           </Link>
 
-          <p className="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Templates</p>
-          <Link
-            href="/admin/templates"
-            className={`w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-              isActive('/admin/templates')
-                ? 'text-white bg-white/5'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-              <line x1="3" x2="21" y1="9" y2="9"></line>
-              <line x1="9" x2="9" y1="21" y2="9"></line>
-            </svg>
-            All Templates
-          </Link>
-
           <p className="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Settings</p>
           <Link
             href="/admin/newsletter"

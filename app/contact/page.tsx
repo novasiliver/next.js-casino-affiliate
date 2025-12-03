@@ -44,7 +44,7 @@ export default function ContactPage() {
               <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter mb-4">
                 Get in touch
               </h1>
-              <p className="text-lg text-slate-400 font-light leading-relaxed">
+              <p className="text-lg text-slate-400 leading-relaxed">
                 Have a question about a casino? Found incorrect information? Or just want to say hello? Our team is distributed across 4 time zones to help you.
               </p>
             </div>

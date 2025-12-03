@@ -9,9 +9,9 @@ const casinoSchema = z.object({
   logo: z.string().min(1),
   rating: z.number().min(0).max(5),
   data: z.any(),
-  template: z.string().min(1),
   isActive: z.boolean().optional(),
   rank: z.number().optional(),
+  categories: z.array(z.string()).optional(),
 });
 
 export async function GET(request: NextRequest) {
@@ -54,7 +54,9 @@ export async function POST(request: NextRequest) {
       data: {
         ...validated,
         data: JSON.stringify(validated.data),
+        template: 'template1', // Always use template1
         isActive: validated.isActive ?? true,
+        categories: validated.categories ? JSON.stringify(validated.categories) : null,
       },
     });
 

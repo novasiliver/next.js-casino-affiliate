@@ -4,18 +4,10 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 
-interface Template {
-  id: string;
-  name: string;
-  slug: string;
-  category: string;
-}
-
 export default function EditCasinoPage() {
   const router = useRouter();
   const params = useParams();
   const id = params.id as string;
-  const [templates, setTemplates] = useState<Template[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
@@ -25,7 +17,6 @@ export default function EditCasinoPage() {
     logoUrl: '',
     rating: 2.5,
     votes: 0,
-    template: '',
     description: '',
     isActive: true,
     rank: null as number | null,
@@ -76,6 +67,8 @@ export default function EditCasinoPage() {
     customerSupport: '',
     // Tags
     tags: [] as string[],
+    // Categories
+    categories: [] as string[],
     // Alternatives
     alternatives: [] as Array<{ slug: string; name: string; logo: string; bonus: string }>,
   });
@@ -86,17 +79,10 @@ export default function EditCasinoPage() {
   const [newProvider, setNewProvider] = useState('');
 
   useEffect(() => {
-    // Fetch templates and casino data
-    Promise.all([
-      fetch('/api/admin/templates', { credentials: 'include' }).then(res => res.json()),
-      fetch('/api/admin/casinos', { credentials: 'include' }).then(res => res.json())
-    ]).then(([templateData, casinoData]) => {
-      // Load templates
-      const allTemplates = templateData.templates || [];
-      const casinoTemplates = allTemplates.filter((t: Template) => 
-        t.category === 'Casino Review Page Template'
-      );
-      setTemplates(casinoTemplates);
+    // Fetch casino data
+    fetch('/api/admin/casinos', { credentials: 'include' })
+      .then(res => res.json())
+      .then((casinoData) => {
 
       // Load casino data
       const casino = casinoData.casinos?.find((c: any) => c.id === id);
@@ -109,7 +95,6 @@ export default function EditCasinoPage() {
           logoUrl: (casino.logo && (casino.logo.startsWith('/') || casino.logo.startsWith('http'))) ? casino.logo : '',
           rating: casino.rating || 2.5,
           votes: data.votes || 0,
-          template: casino.template || (casinoTemplates[0]?.slug || ''),
           description: data.description || '',
           isActive: casino.isActive ?? true,
           rank: casino.rank,
@@ -152,10 +137,9 @@ export default function EditCasinoPage() {
           userExperience: data.reviewContent?.userExperience || '',
           customerSupport: data.reviewContent?.customerSupport || '',
           tags: data.tags || [],
+          categories: casino.categories ? (typeof casino.categories === 'string' ? JSON.parse(casino.categories) : (Array.isArray(casino.categories) ? casino.categories : [])) : [],
           alternatives: data.alternatives || [],
         });
-      } else if (casinoTemplates.length > 0) {
-        setFormData(prev => ({ ...prev, template: casinoTemplates[0].slug }));
       }
       setLoading(false);
     }).catch((error) => {
@@ -181,6 +165,7 @@ export default function EditCasinoPage() {
         },
         description: formData.description,
         tags: formData.tags,
+        categories: formData.categories.length > 0 ? formData.categories : undefined,
         votes: formData.votes || undefined,
         established: formData.established ? parseInt(formData.established) : undefined,
         region: formData.region || undefined,
@@ -228,7 +213,6 @@ export default function EditCasinoPage() {
         name: formData.name,
         logo: formData.logoUrl || formData.logo || formData.name.substring(0, 3).toUpperCase(),
         rating: formData.rating,
-        template: formData.template,
         isActive: formData.isActive,
         rank: formData.rank,
         data: casinoDataObj, // Send as object, API will stringify it
@@ -351,42 +335,6 @@ export default function EditCasinoPage() {
                   <span>2.5</span>
                   <span>5.0</span>
                 </div>
-              </div>
-            </div>
-
-            {/* Content Editor */}
-            <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl">
-              <h3 className="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2">Review Content</h3>
-              <div className="border border-white/10 rounded-lg overflow-hidden bg-slate-900">
-                <div className="flex items-center gap-1 p-2 border-b border-white/10 bg-slate-800/50">
-                  <button type="button" className="p-1.5 hover:bg-white/10 rounded text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path>
-                      <path d="M6 12h9"></path>
-                    </svg>
-                  </button>
-                  <button type="button" className="p-1.5 hover:bg-white/10 rounded text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="4" x2="20" y1="12" y2="12"></line>
-                      <path d="M14 6l-6 6 6 6"></path>
-                    </svg>
-                  </button>
-                  <div className="w-px h-4 bg-white/10 mx-1"></div>
-                  <button type="button" className="p-1.5 hover:bg-white/10 rounded text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                      <circle cx="9" cy="9" r="2"></circle>
-                      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                    </svg>
-                  </button>
-                </div>
-                <textarea
-                  rows={12}
-                  value=""
-                  onChange={() => {}}
-                  className="w-full bg-slate-900 p-4 text-white focus:outline-none resize-none"
-                  placeholder="Write the full casino review here..."
-                />
               </div>
             </div>
 
@@ -581,9 +529,9 @@ export default function EditCasinoPage() {
             </div>
 
             {/* Review Content */}
-            <details className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
-              <summary className="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2 cursor-pointer">Review Content</summary>
-              <div className="space-y-4 pt-4">
+            <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
+              <h3 className="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2">Review Content</h3>
+              <div className="space-y-4">
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1">User Experience & Mobile</label>
                   <textarea
@@ -605,7 +553,7 @@ export default function EditCasinoPage() {
                   />
                 </div>
               </div>
-            </details>
+            </div>
 
             {/* Affiliate & SEO */}
             <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
@@ -664,27 +612,6 @@ export default function EditCasinoPage() {
             <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Appearance</h3>
               
-              {/* Template Selector */}
-              <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Page Template *</label>
-                <select
-                  required
-                  value={formData.template}
-                  onChange={(e) => setFormData({ ...formData, template: e.target.value })}
-                  className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
-                >
-                  {templates.length === 0 ? (
-                    <option>Loading templates...</option>
-                  ) : (
-                    templates.map((template) => (
-                      <option key={template.id} value={template.slug}>
-                        {template.name}
-                      </option>
-                    ))
-                  )}
-                </select>
-              </div>
-
               {/* Rank Input */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-1">Rank (Optional)</label>
@@ -1130,6 +1057,48 @@ export default function EditCasinoPage() {
                 </button>
               </div>
             </details>
+
+            {/* Categories */}
+            <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Categories</h3>
+              <p className="text-xs text-slate-400 mb-4">Select one or more categories for this casino. These will appear in the "Browse by Category" section on the homepage.</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {[
+                  { slug: 'slots', name: 'Slots', icon: 'dice-5' },
+                  { slug: 'live-dealer', name: 'Live Dealer', icon: 'users' },
+                  { slug: 'crypto', name: 'Crypto', icon: 'bitcoin' },
+                  { slug: 'crash-games', name: 'Crash Games', icon: 'rocket' },
+                  { slug: 'sportsbook', name: 'Sportsbook', icon: 'trophy' },
+                  { slug: 'poker', name: 'Poker', icon: 'clover' },
+                ].map((category) => {
+                  const isSelected = formData.categories.includes(category.slug);
+                  return (
+                    <label
+                      key={category.slug}
+                      className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                        isSelected
+                          ? 'bg-amber-500/10 border-amber-500/50 text-white'
+                          : 'bg-slate-800 border-white/10 text-slate-300 hover:border-white/20'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData({ ...formData, categories: [...formData.categories, category.slug] });
+                          } else {
+                            setFormData({ ...formData, categories: formData.categories.filter(cat => cat !== category.slug) });
+                          }
+                        }}
+                        className="w-4 h-4 rounded border-white/20 bg-slate-900 text-amber-500 focus:ring-amber-500 focus:ring-offset-slate-900"
+                      />
+                      <span className="text-sm font-medium">{category.name}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Tags */}
             <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">

@@ -18,7 +18,7 @@ export default function CasinoListWithFilters({ casinos }: CasinoListWithFilters
       <FilterBar activeFilter={activeFilter} onFilterChange={setActiveFilter} />
       
       {/* Main Content: Casino Grid */}
-      <section id="top-list" className="py-12 bg-slate-950">
+      <section id="top-list" className="py-12 bg-slate-950 scroll-mt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FilterableCasinoList casinos={casinos} filter={activeFilter} />
         </div>

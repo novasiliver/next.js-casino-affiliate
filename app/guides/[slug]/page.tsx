@@ -273,7 +273,7 @@ export default function ArticlePage() {
 
               {/* Intro Text */}
               {article.excerpt && (
-                <div id="intro" className="prose-lg text-lg leading-relaxed font-light text-slate-300 mb-8 scroll-mt-24">
+                <div id="intro" className="prose-lg text-lg leading-relaxed text-slate-300 mb-8 scroll-mt-24">
                   <p className="mb-6 drop-cap first-letter:float-left first-letter:text-5xl first-letter:pr-4 first-letter:font-bold first-letter:text-white">
                     {article.excerpt}
                   </p>
@@ -282,7 +282,7 @@ export default function ArticlePage() {
 
               {/* Article Content */}
               <div id="content" className="prose prose-invert prose-slate max-w-none scroll-mt-24">
-                <div className="text-slate-300 leading-relaxed whitespace-pre-wrap text-lg font-light">
+                <div className="text-slate-300 leading-relaxed whitespace-pre-wrap text-lg">
                   {article.content.split('\n').map((paragraph, idx) => {
                     if (paragraph.trim() === '') return <br key={idx} />;
                     
@@ -313,7 +313,7 @@ export default function ArticlePage() {
                     
                     // Regular paragraph
                     return (
-                      <p key={idx} className="text-lg text-slate-400 leading-relaxed font-light mb-6">
+                      <p key={idx} className="text-lg text-slate-400 leading-relaxed mb-6">
                         {paragraph}
                       </p>
                     );

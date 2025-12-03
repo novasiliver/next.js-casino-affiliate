@@ -111,7 +111,7 @@ export default function GuidesPage() {
                 Master the game. <br />
                 <span className="text-slate-500">Stay ahead of the curve.</span>
               </h1>
-              <p className="text-slate-400 text-lg leading-relaxed font-light">
+              <p className="text-slate-400 text-lg leading-relaxed">
                 Expert strategies, deep-dive reviews, and breaking news from the global gambling industry.
               </p>
             </div>

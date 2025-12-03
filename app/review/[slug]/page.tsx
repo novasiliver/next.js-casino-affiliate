@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { loadTemplate, loadDefaultTemplate } from "@/lib/template-loader";
+import Template1 from "@/components/templates/casino/template1";
 import { Casino } from "@/types/casino";
 import { prisma } from "@/lib/db";
 
@@ -34,7 +34,6 @@ async function getCasinoBySlug(slug: string): Promise<Casino | null> {
       name: casino.name,
       logo: casino.logo,
       rating: casino.rating,
-      template: casino.template,
       isActive: casino.isActive,
       rank: casino.rank,
       createdAt: casino.createdAt,
@@ -58,29 +57,10 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
     notFound();
   }
 
-  // Load template dynamically
-  let TemplateComponent = null;
-  
-  if (casino.template) {
-    // Try to load the specified template (assuming casino category)
-    TemplateComponent = await loadTemplate('casino', casino.template);
-  }
-  
-  // Fallback to default template if not found
-  if (!TemplateComponent) {
-    TemplateComponent = await loadDefaultTemplate('casino');
-  }
-  
-  // Final fallback - if still no template, show error
-  if (!TemplateComponent) {
-    console.error('No template found for casino:', casino.slug);
-    notFound();
-  }
-
   return (
     <>
       <Navbar currentPage="review" />
-      <TemplateComponent casino={casino} />
+      <Template1 casino={casino} previewMode={false} />
       <Footer />
     </>
   );
@@ -117,7 +97,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const bonusText = casino.bonus?.amount || 'exclusive welcome bonus';
   
   return {
-    title: `${casino.name} Review 2024 - Bonusory`,
+    title: `${casino.name} Review 2025 - Bonusory`,
     description: `Read our comprehensive review of ${casino.name}. ${bonusText}, ${casino.rating}/5 rating, and expert analysis.`,
   };
 }

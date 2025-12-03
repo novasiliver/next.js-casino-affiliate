@@ -9,9 +9,9 @@ const casinoSchema = z.object({
   logo: z.string().min(1).optional(),
   rating: z.number().min(0).max(5).optional(),
   data: z.any().optional(),
-  template: z.string().optional(),
   isActive: z.boolean().optional(),
   rank: z.number().optional(),
+  categories: z.array(z.string()).optional(),
 });
 
 export async function PUT(
@@ -35,6 +35,10 @@ export async function PUT(
 
     if ("data" in validated) {
       updateData.data = JSON.stringify(validated.data);
+    }
+
+    if ("categories" in validated) {
+      updateData.categories = validated.categories ? JSON.stringify(validated.categories) : null;
     }
 
     const casino = await prisma.casino.update({

@@ -149,7 +149,7 @@ export default function BonusesPage() {
                 <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter mb-4">
                   New Casino Bonuses
                 </h1>
-                <p className="text-base text-slate-400 font-light max-w-xl">
+                <p className="text-base text-slate-400 max-w-xl">
                   Explore the latest welcome offers, exclusive no-deposit deals, and free spins added daily. We verify every bonus manually.
                 </p>
           </div>
