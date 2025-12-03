@@ -25,7 +25,7 @@ export default function PrivacyPage() {
                 <div>
                   <div className="flex items-center gap-2 mb-4">
                     <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-bold uppercase tracking-wider border border-amber-500/20">Legal</span>
-                    <span className="text-xs text-slate-500">Last updated: March 15, 2024</span>
+                    <span className="text-xs text-slate-500">Last updated: January 15, 2025</span>
                   </div>
                   <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter">
                     Privacy Policy

@@ -1,69 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-interface Template {
-  id: string;
-  name: string;
-  slug: string;
-}
-
-interface GroupedTemplates {
-  [category: string]: Template[];
-}
+import { useState } from "react";
 
 export default function Navbar({ currentPage = "home" }: { currentPage?: string }) {
-  const [templates, setTemplates] = useState<GroupedTemplates>({});
-  const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
-  const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchTemplates = async () => {
-      try {
-        const res = await fetch('/api/templates', {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache',
-          },
-        });
-        const data = await res.json();
-        console.log('Navbar fetched templates:', data.templates);
-        console.log('Casino Review Page templates:', data.templates?.['Casino Review Page Template']);
-        setTemplates(data.templates || {});
-      } catch (error) {
-        console.error('Error fetching templates:', error);
-      }
-    };
-
-    fetchTemplates();
-    
-    // Refresh templates every 10 seconds to pick up new templates
-    const interval = setInterval(fetchTemplates, 10000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  const categoryOrder = [
-    "Casino Review Page Template",
-    "Post Page Template",
-    "Game Page Template",
-    "Bonus Page Template"
-  ];
-
-  const getTemplateLink = (category: string, templateSlug: string) => {
-    // Map categories to their preview routes
-    const categoryRoutes: Record<string, string> = {
-      "Casino Review Page Template": "/review/template",
-      "Post Page Template": "/guides/template",
-      "Bonus Page Template": "/bonuses/template"
-    };
-    
-    const baseRoute = categoryRoutes[category] || "/";
-    // Link to template preview page with template slug
-    return `${baseRoute}/${templateSlug}`;
-  };
 
   return (
     <nav className="fixed top-0 w-full z-50 border-b border-white/5 glass-panel transition-all duration-300">
@@ -86,84 +27,13 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
               Home
             </Link>
 
-            {/* Casino Review Page with Submenu */}
-            <div 
-              className="relative"
-              onMouseEnter={() => {
-                setIsFeaturesOpen(true);
-                const casinoTemplates = templates["Casino Review Page Template"] || [];
-                if (casinoTemplates.length > 0) {
-                  setActiveSubmenu("Casino Review Page Template");
-                }
-              }}
-              onMouseLeave={() => {
-                setIsFeaturesOpen(false);
-                setActiveSubmenu(null);
-              }}
-            >
-              <button
-                className={`text-sm font-medium transition-colors flex items-center gap-1 ${
-                  currentPage === "review" ? "text-white" : "text-slate-300 hover:text-white"
-                }`}
-              >
-                Casino Review Page
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                  className={`transition-transform ${isFeaturesOpen ? 'rotate-180' : ''}`}
-                >
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-              </button>
-
-              {isFeaturesOpen && templates["Casino Review Page Template"] && templates["Casino Review Page Template"].length > 0 && (
-                <>
-                  {/* Invisible bridge to prevent gap */}
-                  <div 
-                    className="absolute top-full left-0 w-full h-2"
-                    onMouseEnter={() => {
-                      setIsFeaturesOpen(true);
-                      setActiveSubmenu("Casino Review Page Template");
-                    }}
-                  />
-                  <div 
-                    className="absolute top-full left-0 mt-2 w-48 bg-slate-900 border border-white/10 rounded-lg shadow-xl z-50"
-                    onMouseEnter={() => {
-                      setIsFeaturesOpen(true);
-                      setActiveSubmenu("Casino Review Page Template");
-                    }}
-                    onMouseLeave={() => {
-                      setIsFeaturesOpen(false);
-                      setActiveSubmenu(null);
-                    }}
-                  >
-                    {templates["Casino Review Page Template"].map((template) => (
-                      <Link
-                        key={template.id}
-                        href={getTemplateLink("Casino Review Page Template", template.slug)}
-                        className="block px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                      >
-                        {template.name}
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-
             <Link 
               href="/guides" 
               className={`text-sm font-medium transition-colors ${currentPage === "guides" ? "text-white" : "text-slate-300 hover:text-white"}`}
             >
-              Gambling News
+              Guides
             </Link>
+
             <Link 
               href="/bonuses" 
               className={`text-sm font-medium transition-colors ${currentPage === "bonuses" ? "text-white" : "text-slate-300 hover:text-white"}`}
@@ -195,51 +65,12 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
               Home
             </Link>
 
-            {/* Casino Review Page with Submenu */}
-            <div className="space-y-2">
-              <button
-                onClick={() => setActiveSubmenu(activeSubmenu === "mobile-casino-review" ? null : "mobile-casino-review")}
-                className="flex items-center justify-between w-full text-sm font-medium text-slate-300 hover:text-white transition-colors"
-              >
-                Casino Review Page
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                  className={`transition-transform ${activeSubmenu === "mobile-casino-review" ? 'rotate-180' : ''}`}
-                >
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-              </button>
-
-              {activeSubmenu === "mobile-casino-review" && templates["Casino Review Page Template"] && (
-                <div className="pl-4 space-y-1">
-                  {templates["Casino Review Page Template"].map((template) => (
-                    <Link
-                      key={template.id}
-                      href={getTemplateLink("Casino Review Page Template", template.slug)}
-                      className="block pl-4 text-sm text-slate-400 hover:text-white transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {template.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
             <Link 
               href="/guides" 
               className="block text-sm font-medium text-slate-300 hover:text-white transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Gambling News
+              Guides
             </Link>
             <Link 
               href="/bonuses" 

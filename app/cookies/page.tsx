@@ -32,12 +32,12 @@ export default function CookiesPage() {
                   Legal Information
                 </span>
                 <span className="text-slate-600 text-xs">•</span>
-                <span className="text-slate-400 text-xs">Effective: October 24, 2024</span>
+                <span className="text-slate-400 text-xs">Effective: January 15, 2025</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter mb-6">
                 Cookies Policy
               </h1>
-              <p className="text-lg text-slate-400 leading-relaxed font-light">
+              <p className="text-lg text-slate-400 leading-relaxed">
                 We believe in being transparent about how we collect and use data. This policy provides detailed information about how and when we use cookies on Bonusory.
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function CookiesPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">01</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">What are Cookies?</h2>
                   </div>
-                  <div className="space-y-6 text-slate-400 leading-relaxed font-light">
+                  <div className="space-y-6 text-slate-400 leading-relaxed">
                     <p>
                       Cookies are small text files that are placed on your computer or mobile device by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site.
                     </p>
@@ -188,7 +188,7 @@ export default function CookiesPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">03</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Manage Preferences</h2>
                   </div>
-                  <p className="text-slate-400 mb-8 font-light">
+                  <p className="text-slate-400 mb-8">
                     You can choose which cookies you&apos;d like to allow. Please note that blocking some types of cookies may impact your experience on our site.
                   </p>
 
@@ -202,7 +202,7 @@ export default function CookiesPage() {
                           <h3 className="text-white font-semibold text-sm">Strictly Necessary</h3>
                           <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400 border border-white/10">REQUIRED</span>
                         </div>
-                        <p className="text-sm text-slate-500 font-light">These cookies are essential for the website to function properly and cannot be switched off in our systems.</p>
+                        <p className="text-sm text-slate-500">These cookies are essential for the website to function properly and cannot be switched off in our systems.</p>
                       </div>
                       <div className="relative inline-block w-10 h-6 align-middle select-none shrink-0 opacity-50 cursor-not-allowed">
                         <input type="checkbox" checked disabled className="absolute block w-4 h-4 rounded-full bg-white border-4 border-slate-700 appearance-none cursor-not-allowed transition-all duration-300 right-0" />
@@ -214,7 +214,7 @@ export default function CookiesPage() {
                     <div className="p-6 border-b border-white/5 flex items-start justify-between gap-4">
                       <div>
                         <h3 className="text-white font-semibold text-sm mb-2">Analytics & Performance</h3>
-                        <p className="text-sm text-slate-500 font-light">Allow us to count visits and traffic sources so we can measure and improve the performance of our site.</p>
+                        <p className="text-sm text-slate-500">Allow us to count visits and traffic sources so we can measure and improve the performance of our site.</p>
                       </div>
                       <div className="relative inline-block w-10 h-6 align-middle select-none shrink-0">
                         <input 
@@ -237,7 +237,7 @@ export default function CookiesPage() {
                     <div className="p-6 flex items-start justify-between gap-4">
                       <div>
                         <h3 className="text-white font-semibold text-sm mb-2">Marketing & Targeting</h3>
-                        <p className="text-sm text-slate-500 font-light">Used by our advertising partners to build a profile of your interests and show you relevant adverts on other sites.</p>
+                        <p className="text-sm text-slate-500">Used by our advertising partners to build a profile of your interests and show you relevant adverts on other sites.</p>
                       </div>
                       <div className="relative inline-block w-10 h-6 align-middle select-none shrink-0">
                         <input 
@@ -278,7 +278,7 @@ export default function CookiesPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">04</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Third Party Cookies</h2>
                   </div>
-                  <div className="space-y-6 text-slate-400 leading-relaxed font-light">
+                  <div className="space-y-6 text-slate-400 leading-relaxed">
                     <p>
                       In addition to our own cookies, we may also use various third-parties cookies to report usage statistics of the Service, deliver advertisements on and through the Service, and so on.
                     </p>

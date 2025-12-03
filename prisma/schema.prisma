@@ -29,6 +29,7 @@ model Casino {
   template  String
   isActive  Boolean  @default(true)
   rank      Int?
+  categories String? @db.Text // JSON array of category slugs: ["slots", "crypto", "live-dealer"]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

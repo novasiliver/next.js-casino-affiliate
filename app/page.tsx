@@ -226,7 +226,7 @@ export default async function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
             </span>
-            Verified & Trusted Reviews 2024
+            Verified & Trusted Reviews 2025
           </div>
           
           <h1 className="text-5xl md:text-7xl font-semibold text-white tracking-tighter mb-6 leading-[1.1]">
@@ -234,13 +234,16 @@ export default async function Home() {
             Win with style.
           </h1>
           
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
             Curated selection of the world&apos;s most premium gaming destinations. 
             Exclusive bonuses, instant withdrawals, and bank-grade security vetted by experts.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="#top-list" className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-slate-950 font-semibold text-sm hover:bg-slate-200 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] flex items-center justify-center gap-2">
+            <Link 
+              href="#top-list" 
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-slate-950 font-semibold text-sm hover:bg-slate-200 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] flex items-center justify-center gap-2"
+            >
               Explore Top 10
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide="arrow-down" className="lucide lucide-arrow-down w-4 h-4"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
             </Link>
@@ -571,9 +574,9 @@ export default async function Home() {
             ) : (
               // Fallback articles if no articles in database
               [
-                { category: "Strategy", date: "Oct 12, 2024", readTime: "5 min read", title: "Mastering High Volatility Slots: A Comprehensive Guide", gradient: "from-purple-900/50 to-slate-900/50", image: "https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80", slug: "mastering-high-volatility-slots" },
-                { category: "Industry", date: "Oct 10, 2024", readTime: "3 min read", title: "New Crypto Regulations: What It Means for Players", gradient: "from-emerald-900/40 to-slate-900/40", slug: "crypto-regulations" },
-                { category: "Reviews", date: "Oct 08, 2024", readTime: "7 min read", title: "Top 5 Live Dealer Experiences for 2025", gradient: "from-amber-900/40 to-slate-900/40", slug: "top-live-dealer" },
+                { category: "Strategy", date: "Oct 12, 2025", readTime: "5 min read", title: "Mastering High Volatility Slots: A Comprehensive Guide", gradient: "from-purple-900/50 to-slate-900/50", image: "https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&q=80", slug: "mastering-high-volatility-slots" },
+                { category: "Industry", date: "Oct 10, 2025", readTime: "3 min read", title: "New Crypto Regulations: What It Means for Players", gradient: "from-emerald-900/40 to-slate-900/40", slug: "crypto-regulations" },
+                { category: "Reviews", date: "Oct 08, 2025", readTime: "7 min read", title: "Top 5 Live Dealer Experiences for 2025", gradient: "from-amber-900/40 to-slate-900/40", slug: "top-live-dealer" },
               ].map((article, idx) => (
                 <Link key={idx} href={`/guides/${article.slug}`} className="group block">
                   <div className="aspect-video w-full rounded-xl bg-slate-900 mb-4 overflow-hidden border border-white/5 relative">

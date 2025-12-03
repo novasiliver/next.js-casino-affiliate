@@ -13,9 +13,27 @@ const categoryTagMap: Record<string, string[]> = {
   'poker': ['Poker', 'Poker Room'],
 };
 
-function matchesCategory(casinoData: any, category: string): boolean {
-  if (!category || !categoryTagMap[category]) return true;
+function matchesCategory(casino: any, category: string): boolean {
+  if (!category) return true;
   
+  // First check if casino has categories field (new system)
+  if (casino.categories) {
+    try {
+      const categories = typeof casino.categories === 'string' 
+        ? JSON.parse(casino.categories) 
+        : casino.categories;
+      if (Array.isArray(categories) && categories.includes(category)) {
+        return true;
+      }
+    } catch (e) {
+      // If parsing fails, fall back to tag-based matching
+    }
+  }
+  
+  // Fall back to tag-based matching for backward compatibility
+  if (!categoryTagMap[category]) return true;
+  
+  const casinoData = casino.data || {};
   const tags = casinoData?.tags || [];
   const searchTags = categoryTagMap[category];
   
@@ -47,12 +65,13 @@ export async function GET(request: Request) {
     let parsedCasinos = casinos.map((casino) => ({
       ...casino,
       data: JSON.parse(casino.data),
+      categories: casino.categories ? (typeof casino.categories === 'string' ? JSON.parse(casino.categories) : casino.categories) : null,
     }));
 
     // Filter by category if provided
     if (category) {
       parsedCasinos = parsedCasinos.filter((casino) => 
-        matchesCategory(casino.data, category)
+        matchesCategory(casino, category)
       );
     }
 

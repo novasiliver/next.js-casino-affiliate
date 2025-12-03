@@ -48,7 +48,7 @@ export default function Footer() {
             <div className="text-[10px] font-bold text-white">SSL SECURE</div>
           </div>
           <div className="text-xs text-slate-600 text-center md:text-right">
-            <p>© 2024 Bonusory Media. All rights reserved.</p>
+            <p>© 2025 Bonusory Media. All rights reserved.</p>
             <div className="flex gap-4 justify-center md:justify-end mt-2">
               <Link href="/privacy" className="hover:text-slate-400">Privacy</Link>
               <Link href="/terms" className="hover:text-slate-400">Terms</Link>

@@ -60,7 +60,7 @@ export default function SafetyGuidePage() {
               <div className="hidden sm:block w-px h-8 bg-white/10"></div>
               <div className="flex flex-col text-left">
                 <span className="text-xs text-slate-500">Last Updated</span>
-                <span className="text-sm text-slate-300 font-medium">Nov 02, 2024</span>
+                <span className="text-sm text-slate-300 font-medium">Nov 02, 2025</span>
               </div>
               <div className="hidden sm:block w-px h-8 bg-white/10"></div>
               <div className="flex flex-col text-left">
@@ -118,7 +118,7 @@ export default function SafetyGuidePage() {
             <article className="col-span-1 lg:col-span-8">
               
               {/* Intro Text */}
-              <div className="prose-lg text-lg leading-relaxed font-light text-slate-300 mb-8">
+              <div className="prose-lg text-lg leading-relaxed text-slate-300 mb-8">
                 <p className="mb-6 drop-cap first-letter:float-left first-letter:text-5xl first-letter:pr-4 first-letter:font-bold first-letter:text-white">
                   Online gambling should be entertaining, not a source of stress or financial ruin. With the proliferation of new crypto casinos and betting platforms, distinguishing between legitimate operators and predatory sites has become increasingly difficult for the average player.
                 </p>
@@ -191,8 +191,8 @@ export default function SafetyGuidePage() {
 
               {/* H2 Section: Technical Security */}
               <h2 id="technical" className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-12 mb-6">Technical Security Measures</h2>
-              <p className="text-lg text-slate-400 leading-relaxed font-light mb-6">
-                Before creating an account, verify how the casino handles your data. In 2024, standard password protection is not enough. You should prioritize casinos that offer <span className="text-white font-medium">Two-Factor Authentication (2FA)</span> via apps like Google Authenticator or Authy.
+              <p className="text-lg text-slate-400 leading-relaxed mb-6">
+                Before creating an account, verify how the casino handles your data. In 2025, standard password protection is not enough. You should prioritize casinos that offer <span className="text-white font-medium">Two-Factor Authentication (2FA)</span> via apps like Google Authenticator or Authy.
               </p>
 
               {/* Warning Block */}
@@ -211,7 +211,7 @@ export default function SafetyGuidePage() {
               </div>
 
               <h3 id="provably-fair" className="text-xl font-semibold text-white mt-8 mb-4">Provably Fair Technology</h3>
-              <p className="text-lg text-slate-400 leading-relaxed font-light mb-6">
+              <p className="text-lg text-slate-400 leading-relaxed mb-6">
                 For crypto casinos, &quot;Provably Fair&quot; is the gold standard. This technology allows players to verify the randomness of every roll or spin using cryptographic hashes. 
               </p>
 
@@ -239,7 +239,7 @@ export default function SafetyGuidePage() {
               </div>
 
               <h2 id="responsible" className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-12 mb-6">Responsible Gaming Tools</h2>
-              <p className="text-lg text-slate-400 leading-relaxed font-light mb-6">
+              <p className="text-lg text-slate-400 leading-relaxed mb-6">
                 Safety isn&apos;t just about external threats; it&apos;s also about managing your own behavior. Reputable casinos provide a suite of tools to help you stay in control.
               </p>
 
@@ -272,7 +272,7 @@ export default function SafetyGuidePage() {
               {/* Conclusion */}
               <div className="mt-12 pt-8 border-t border-white/5">
                 <h3 className="text-xl font-semibold text-white mb-4">Final Recommendation</h3>
-                <p className="text-lg text-slate-400 leading-relaxed font-light mb-8">
+                <p className="text-lg text-slate-400 leading-relaxed mb-8">
                   If you ever feel that gambling is negatively affecting your life, stop immediately. Use the resources provided in the sidebar to seek professional help. Gambling is a form of entertainment, not a way to make money.
                 </p>
               </div>
@@ -363,9 +363,9 @@ export default function SafetyGuidePage() {
                         <path d="m9 18 6-6-6-6"></path>
                       </svg>
                     </Link>
-                  </div>
-                </div>
-              </div>
+          </div>
+        </div>
+      </div>
 
             </aside>
           </div>

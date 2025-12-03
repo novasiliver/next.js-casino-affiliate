@@ -29,12 +29,12 @@ export default function TermsPage() {
                   Legal Information
                 </span>
                 <span className="text-slate-600 text-xs">•</span>
-                <span className="text-slate-400 text-xs">Last Updated: October 24, 2024</span>
+                <span className="text-slate-400 text-xs">Last Updated: January 15, 2025</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter mb-6">
                 Terms & Conditions
               </h1>
-              <p className="text-lg text-slate-400 leading-relaxed font-light">
+              <p className="text-lg text-slate-400 leading-relaxed">
                 Please read these terms carefully before using our services. They outline the rules and regulations for the use of Bonusory&apos;s Website and services.
               </p>
             </div>
@@ -104,7 +104,7 @@ export default function TermsPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">01</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Introduction</h2>
                   </div>
-                  <div className="space-y-6 text-slate-400 leading-relaxed font-light">
+                  <div className="space-y-6 text-slate-400 leading-relaxed">
                     <p>
                       Welcome to Bonusory (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). By accessing or using our website, you agree to be bound by these Terms and Conditions (&quot;Terms&quot;) and our Privacy Policy. If you do not agree to these Terms, you must not access or use our services.
                     </p>
@@ -122,7 +122,7 @@ export default function TermsPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">02</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Definitions</h2>
                   </div>
-                  <ul className="space-y-4 text-slate-400 leading-relaxed font-light list-none pl-0">
+                  <ul className="space-y-4 text-slate-400 leading-relaxed list-none pl-0">
                     <li className="bg-slate-900/30 p-4 rounded-xl border border-white/5">
                       <strong className="text-white font-medium block mb-1">&quot;Service&quot;</strong>
                       Refers to the Bonusory website, content, and any related features provided by us.
@@ -146,7 +146,7 @@ export default function TermsPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">03</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Eligibility & Access</h2>
                   </div>
-                  <div className="space-y-6 text-slate-400 leading-relaxed font-light">
+                  <div className="space-y-6 text-slate-400 leading-relaxed">
                     <p>
                       You must be at least 18 years of age, or the legal age of majority in your jurisdiction, to use our Service. By using Bonusory, you represent and warrant that you meet this requirement.
                     </p>
@@ -174,7 +174,7 @@ export default function TermsPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">04</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Affiliate Disclosure</h2>
                   </div>
-                  <div className="space-y-6 text-slate-400 leading-relaxed font-light">
+                  <div className="space-y-6 text-slate-400 leading-relaxed">
                     <p>
                       Bonusory operates as an affiliate marketing website. This means we are not a casino operator and do not process any gambling transactions. Instead, we provide reviews and information about third-party gambling platforms.
                     </p>
@@ -195,7 +195,7 @@ export default function TermsPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">05</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Intellectual Property</h2>
                   </div>
-                  <div className="space-y-6 text-slate-400 leading-relaxed font-light">
+                  <div className="space-y-6 text-slate-400 leading-relaxed">
                     <p>
                       The Service and its original content, features, and functionality are and will remain the exclusive property of Bonusory and its licensors. The Service is protected by copyright, trademark, and other laws of both the United States and foreign countries.
                     </p>
@@ -213,7 +213,7 @@ export default function TermsPage() {
                     <span className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-800 text-slate-300 font-mono text-sm border border-white/10">06</span>
                     <h2 className="text-2xl font-semibold text-white tracking-tight m-0">Limitation of Liability</h2>
                   </div>
-                  <div className="space-y-6 text-slate-400 leading-relaxed font-light">
+                  <div className="space-y-6 text-slate-400 leading-relaxed">
                     <p>
                       In no event shall Bonusory, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:
                     </p>

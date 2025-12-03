@@ -4,17 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-interface Template {
-  id: string;
-  name: string;
-  slug: string;
-  component: string;
-  category: string;
-}
-
 export default function NewCasinoPage() {
   const router = useRouter();
-  const [templates, setTemplates] = useState<Template[]>([]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
@@ -24,7 +15,6 @@ export default function NewCasinoPage() {
     logoUrl: '',
     rating: 2.5,
     votes: 0,
-    template: '',
     description: '',
     isActive: true,
     rank: null as number | null,
@@ -76,6 +66,8 @@ export default function NewCasinoPage() {
     customerSupport: '',
     // Tags
     tags: [] as string[],
+    // Categories
+    categories: [] as string[],
     // Alternatives
     alternatives: [] as Array<{ slug: string; name: string; logo: string; bonus: string }>,
   });
@@ -87,27 +79,6 @@ export default function NewCasinoPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    // Fetch templates
-    fetch('/api/admin/templates', { credentials: 'include' })
-      .then((res) => res.json())
-      .then((data) => {
-        const allTemplates = data.templates || [];
-        // Filter for Casino Review Page Templates
-        const casinoTemplates = allTemplates.filter((t: Template) => 
-          t.category === 'Casino Review Page Template'
-        );
-        setTemplates(casinoTemplates);
-        if (casinoTemplates.length > 0) {
-          setFormData(prev => ({ ...prev, template: casinoTemplates[0].component }));
-        } else {
-          setErrors((prev) => ({ ...prev, template: 'No templates available. Please create a template first.' }));
-        }
-      })
-      .catch((error) => {
-        console.error('Error loading templates:', error);
-        setErrors((prev) => ({ ...prev, template: 'Failed to load templates. Please refresh the page.' }));
-      });
-
     // Fetch existing casinos to calculate default rank
     fetch('/api/admin/casinos', { credentials: 'include' })
       .then((res) => res.json())
@@ -166,6 +137,7 @@ export default function NewCasinoPage() {
         },
         description: cleanValue(formData.description),
         tags: formData.tags.length > 0 ? formData.tags : undefined,
+        categories: formData.categories.length > 0 ? formData.categories : undefined,
         votes: formData.votes > 0 ? formData.votes : undefined,
         established: formData.established ? parseInt(formData.established) : undefined,
         region: cleanValue(formData.region),
@@ -215,9 +187,6 @@ export default function NewCasinoPage() {
         validationErrors.name = 'Casino name is required';
       }
 
-      if (!formData.template || formData.template.trim() === '') {
-        validationErrors.template = 'Template is required';
-      }
 
       // Logo is required - check if we have logoUrl, logo, or can generate from name
       const logoValue = formData.logoUrl || formData.logo || (formData.name ? formData.name.substring(0, 3).toUpperCase() : '');
@@ -244,7 +213,6 @@ export default function NewCasinoPage() {
         name: formData.name.trim(),
         logo: logoValue,
         rating: Number(formData.rating), // Ensure it's a number
-        template: formData.template,
         isActive: Boolean(publish),
         rank: formData.rank !== null && formData.rank !== undefined ? Number(formData.rank) : undefined,
         data: casinoDataObj, // Send as object, API will stringify it
@@ -695,9 +663,9 @@ export default function NewCasinoPage() {
             </div>
 
             {/* Review Content */}
-            <details className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
-              <summary className="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2 cursor-pointer">Review Content</summary>
-              <div className="space-y-4 pt-4">
+            <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
+              <h3 className="text-lg font-semibold text-white mb-4 border-b border-white/5 pb-2">Review Content</h3>
+              <div className="space-y-4">
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1">User Experience & Mobile</label>
                   <textarea
@@ -719,7 +687,7 @@ export default function NewCasinoPage() {
                   />
                 </div>
               </div>
-            </details>
+            </div>
 
             {/* Affiliate & SEO */}
             <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
@@ -778,39 +746,6 @@ export default function NewCasinoPage() {
             <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Appearance</h3>
               
-              {/* Template Selector */}
-              <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Page Template *</label>
-                <select
-                  required
-                  data-field="template"
-                  value={formData.template}
-                  onChange={(e) => {
-                    setFormData({ ...formData, template: e.target.value });
-                    clearError('template');
-                  }}
-                  className={`w-full bg-slate-900 border rounded-lg px-3 py-2 text-white focus:outline-none ${
-                    errors.template ? 'border-rose-500 focus:border-rose-500' : 'border-white/10 focus:border-amber-500'
-                  }`}
-                >
-                  {templates.length === 0 ? (
-                    <option value="">Loading templates...</option>
-                  ) : (
-                    <>
-                      <option value="">Select a template</option>
-                      {templates.map((template) => (
-                        <option key={template.id} value={template.component}>
-                          {template.name}
-                        </option>
-                      ))}
-                    </>
-                  )}
-                </select>
-                {errors.template && (
-                  <p className="text-xs text-rose-400 mt-1">{errors.template}</p>
-                )}
-              </div>
-
               {/* Rank Input */}
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-1">Rank (Optional)</label>
@@ -1270,6 +1205,48 @@ export default function NewCasinoPage() {
                 </button>
               </div>
             </details>
+
+            {/* Categories */}
+            <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Categories</h3>
+              <p className="text-xs text-slate-400 mb-4">Select one or more categories for this casino. These will appear in the "Browse by Category" section on the homepage.</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {[
+                  { slug: 'slots', name: 'Slots', icon: 'dice-5' },
+                  { slug: 'live-dealer', name: 'Live Dealer', icon: 'users' },
+                  { slug: 'crypto', name: 'Crypto', icon: 'bitcoin' },
+                  { slug: 'crash-games', name: 'Crash Games', icon: 'rocket' },
+                  { slug: 'sportsbook', name: 'Sportsbook', icon: 'trophy' },
+                  { slug: 'poker', name: 'Poker', icon: 'clover' },
+                ].map((category) => {
+                  const isSelected = formData.categories.includes(category.slug);
+                  return (
+                    <label
+                      key={category.slug}
+                      className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                        isSelected
+                          ? 'bg-amber-500/10 border-amber-500/50 text-white'
+                          : 'bg-slate-800 border-white/10 text-slate-300 hover:border-white/20'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData({ ...formData, categories: [...formData.categories, category.slug] });
+                          } else {
+                            setFormData({ ...formData, categories: formData.categories.filter(cat => cat !== category.slug) });
+                          }
+                        }}
+                        className="w-4 h-4 rounded border-white/20 bg-slate-900 text-amber-500 focus:ring-amber-500 focus:ring-offset-slate-900"
+                      />
+                      <span className="text-sm font-medium">{category.name}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Tags */}
             <div className="bg-slate-900/70 backdrop-blur border border-white/5 p-6 rounded-xl space-y-4">

@@ -111,103 +111,23 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
                   </div>
               </div>
           </div>
+          {/* Casino Description Section */}
+          {(previewMode || casino.description) && (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-white/5">
+              <div className="max-w-4xl">
+                <p className="text-lg text-slate-300 leading-relaxed">
+                  {previewMode ? (
+                    'Ignite Casino is a premier online gaming destination that combines cutting-edge technology with an extensive library of games. Known for its instant withdrawal processing and crypto-friendly approach, it caters to both casual players and high-rollers seeking a premium casino experience.'
+                  ) : (
+                    casino.description || 'A comprehensive review of this casino covering all aspects of gameplay, bonuses, and user experience.'
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                   <div className="lg:col-span-8 space-y-12">
-                      <section>
-                          <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-                              <span data-lucide="gavel" className="w-5 h-5 text-slate-400"></span> Verdict
-                          </h2>
-                          {previewMode ? (
-                            <>
-                              <p className="text-slate-400 leading-relaxed mb-8">
-                                  Ignite Casino has quickly established itself as a market leader, particularly for crypto enthusiasts and players seeking instant withdrawals. With a library exceeding 4,000 games and a user interface that feels modern and snappy, it delivers a premium experience. The welcome bonus is massive, though high-rollers will benefit most from the VIP program.
-                              </p>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                  <div className="bg-slate-900/50 rounded-xl p-6 border border-emerald-500/20">
-                                      <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                          <span data-lucide="thumbs-up" className="w-4 h-4"></span> Hits
-                                      </h3>
-                                      <ul className="space-y-3">
-                                          <li className="flex items-start gap-3 text-sm text-slate-300">
-                                              <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
-                                              Withdrawals processed in under 15 minutes
-                                          </li>
-                                          <li className="flex items-start gap-3 text-sm text-slate-300">
-                                              <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
-                                              Massive 4,000+ slot &amp; table game library
-                                          </li>
-                                          <li className="flex items-start gap-3 text-sm text-slate-300">
-                                              <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
-                                              24/7 Live Chat support with &lt; 1m wait
-                                          </li>
-                                          <li className="flex items-start gap-3 text-sm text-slate-300">
-                                              <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
-                                              High monthly withdrawal limits ($50k+)
-                                          </li>
-                                      </ul>
-                                  </div>
-                                  <div className="bg-slate-900/50 rounded-xl p-6 border border-rose-500/20">
-                                      <h3 className="text-sm font-bold text-rose-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                          <span data-lucide="thumbs-down" className="w-4 h-4"></span> Misses
-                                      </h3>
-                                      <ul className="space-y-3">
-                                          <li className="flex items-start gap-3 text-sm text-slate-300">
-                                              <span data-lucide="x" className="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></span>
-                                              No dedicated mobile app (web app only)
-                                          </li>
-                                          <li className="flex items-start gap-3 text-sm text-slate-300">
-                                              <span data-lucide="x" className="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></span>
-                                              Sportsbook odds are average compared to specialists
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              {casino.verdict && (
-                                <p className="text-slate-400 leading-relaxed mb-8">
-                                    {casino.verdict}
-                                </p>
-                              )}
-                              {casino.prosCons && (casino.prosCons.pros?.length > 0 || casino.prosCons.cons?.length > 0) && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {casino.prosCons.pros && casino.prosCons.pros.length > 0 && (
-                                      <div className="bg-slate-900/50 rounded-xl p-6 border border-emerald-500/20">
-                                          <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                              <span data-lucide="thumbs-up" className="w-4 h-4"></span> Hits
-                                          </h3>
-                                          <ul className="space-y-3">
-                                              {casino.prosCons.pros.map((pro, idx) => (
-                                                <li key={idx} className="flex items-start gap-3 text-sm text-slate-300">
-                                                    <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
-                                                    {pro}
-                                                </li>
-                                              ))}
-                                          </ul>
-                                      </div>
-                                    )}
-                                    {casino.prosCons.cons && casino.prosCons.cons.length > 0 && (
-                                      <div className="bg-slate-900/50 rounded-xl p-6 border border-rose-500/20">
-                                          <h3 className="text-sm font-bold text-rose-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                              <span data-lucide="thumbs-down" className="w-4 h-4"></span> Misses
-                                          </h3>
-                                          <ul className="space-y-3">
-                                              {casino.prosCons.cons.map((con, idx) => (
-                                                <li key={idx} className="flex items-start gap-3 text-sm text-slate-300">
-                                                    <span data-lucide="x" className="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></span>
-                                                    {con}
-                                                </li>
-                                              ))}
-                                          </ul>
-                                      </div>
-                                    )}
-                                </div>
-                              )}
-                            </>
-                          )}
-                      </section>
                       <section>
                           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 p-1">
                               <div className="bg-slate-950 rounded-xl p-6 sm:p-8 relative overflow-hidden">
@@ -667,6 +587,105 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
                   </div>
               </div>
           </div>
+          {/* Verdict Section - Moved to Bottom */}
+          <section className="py-12 border-t border-white/5">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="max-w-4xl">
+                      <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+                          <span data-lucide="gavel" className="w-5 h-5 text-slate-400"></span> Verdict
+                      </h2>
+                      {previewMode ? (
+                        <>
+                          <p className="text-slate-400 leading-relaxed mb-8">
+                              Ignite Casino has quickly established itself as a market leader, particularly for crypto enthusiasts and players seeking instant withdrawals. With a library exceeding 4,000 games and a user interface that feels modern and snappy, it delivers a premium experience. The welcome bonus is massive, though high-rollers will benefit most from the VIP program.
+                          </p>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="bg-slate-900/50 rounded-xl p-6 border border-emerald-500/20">
+                                  <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                      <span data-lucide="thumbs-up" className="w-4 h-4"></span> Hits
+                                  </h3>
+                                  <ul className="space-y-3">
+                                      <li className="flex items-start gap-3 text-sm text-slate-300">
+                                          <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
+                                          Withdrawals processed in under 15 minutes
+                                      </li>
+                                      <li className="flex items-start gap-3 text-sm text-slate-300">
+                                          <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
+                                          Massive 4,000+ slot &amp; table game library
+                                      </li>
+                                      <li className="flex items-start gap-3 text-sm text-slate-300">
+                                          <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
+                                          24/7 Live Chat support with &lt; 1m wait
+                                      </li>
+                                      <li className="flex items-start gap-3 text-sm text-slate-300">
+                                          <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
+                                          High monthly withdrawal limits ($50k+)
+                                      </li>
+                                  </ul>
+                              </div>
+                              <div className="bg-slate-900/50 rounded-xl p-6 border border-rose-500/20">
+                                  <h3 className="text-sm font-bold text-rose-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                      <span data-lucide="thumbs-down" className="w-4 h-4"></span> Misses
+                                  </h3>
+                                  <ul className="space-y-3">
+                                      <li className="flex items-start gap-3 text-sm text-slate-300">
+                                          <span data-lucide="x" className="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></span>
+                                          No dedicated mobile app (web app only)
+                                      </li>
+                                      <li className="flex items-start gap-3 text-sm text-slate-300">
+                                          <span data-lucide="x" className="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></span>
+                                          Sportsbook odds are average compared to specialists
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          {casino.verdict && (
+                            <p className="text-slate-400 leading-relaxed mb-8">
+                                {casino.verdict}
+                            </p>
+                          )}
+                          {casino.prosCons && (casino.prosCons.pros?.length > 0 || casino.prosCons.cons?.length > 0) && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {casino.prosCons.pros && casino.prosCons.pros.length > 0 && (
+                                  <div className="bg-slate-900/50 rounded-xl p-6 border border-emerald-500/20">
+                                      <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                          <span data-lucide="thumbs-up" className="w-4 h-4"></span> Hits
+                                      </h3>
+                                      <ul className="space-y-3">
+                                          {casino.prosCons.pros.map((pro, idx) => (
+                                            <li key={idx} className="flex items-start gap-3 text-sm text-slate-300">
+                                                <span data-lucide="check" className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></span>
+                                                {pro}
+                                            </li>
+                                          ))}
+                                      </ul>
+                                  </div>
+                                )}
+                                {casino.prosCons.cons && casino.prosCons.cons.length > 0 && (
+                                  <div className="bg-slate-900/50 rounded-xl p-6 border border-rose-500/20">
+                                      <h3 className="text-sm font-bold text-rose-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                          <span data-lucide="thumbs-down" className="w-4 h-4"></span> Misses
+                                      </h3>
+                                      <ul className="space-y-3">
+                                          {casino.prosCons.cons.map((con, idx) => (
+                                            <li key={idx} className="flex items-start gap-3 text-sm text-slate-300">
+                                                <span data-lucide="x" className="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></span>
+                                                {con}
+                                            </li>
+                                          ))}
+                                      </ul>
+                                  </div>
+                                )}
+                            </div>
+                          )}
+                        </>
+                      )}
+                  </div>
+              </div>
+          </section>
           <section className="py-12 border-t border-white/5 bg-slate-900/30">
               <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                   <h2 className="text-2xl font-semibold text-white mb-8 text-center">Frequently Asked Questions</h2>
