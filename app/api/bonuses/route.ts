@@ -38,6 +38,7 @@ export async function GET(request: Request) {
       isHotPick: bonus.isHotPick,
       provider: bonus.provider,
       features: bonus.features ? JSON.parse(bonus.features) : [],
+      createdAt: bonus.createdAt.toISOString(),
     }));
 
     // Filter by type if provided

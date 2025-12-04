@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
@@ -26,36 +26,44 @@ interface Bonus {
   isHotPick: boolean;
   provider?: string;
   features: string[];
+  createdAt?: string;
 }
 
 export default function BonusesPage() {
-  const [wagering, setWagering] = useState(35);
-  const [bonusValue, setBonusValue] = useState(500);
-  const [selectedFilter, setSelectedFilter] = useState("all");
+  const [wagering, setWagering] = useState(70); // Default to max to show all
+  const [bonusValue, setBonusValue] = useState(0); // Default to 0 to show all
   const [categories, setCategories] = useState({
     welcome: true,
-    reload: false,
-    cashback: false,
-  });
+    reload: true,
+    cashback: true,
+    'no-deposit': true,
+    'free-spins': true,
+    crypto: true,
+    'high-roller': true,
+  }); // Default all to true to show all
+  const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'highest' | 'lowest'>('newest');
+  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+  const sortButtonRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [bonuses, setBonuses] = useState<Bonus[]>([]);
 
   useEffect(() => {
     fetchBonuses();
-  }, [selectedFilter]);
+  }, []);
 
   const fetchBonuses = async () => {
     try {
       setLoading(true);
-      const typeParam = selectedFilter !== 'all' ? `&type=${selectedFilter}` : '';
-      const res = await fetch(`/api/bonuses?active=true${typeParam}`, {
+      const res = await fetch(`/api/bonuses?active=true`, {
         cache: 'no-store',
       });
       if (!res.ok) {
+        console.error('Failed to fetch bonuses:', res.status, res.statusText);
         setBonuses([]);
         return;
       }
       const data = await res.json();
+      console.log('Fetched bonuses:', data.bonuses?.length || 0, 'bonuses');
       setBonuses(data.bonuses || []);
     } catch (error) {
       console.error('Error fetching bonuses:', error);
@@ -129,6 +137,74 @@ export default function BonusesPage() {
     return colors[type] || 'text-slate-400 bg-slate-800 border-white/10';
   };
 
+  // Extract numeric value from bonus amount string (e.g., "$2,500" -> 2500)
+  const extractBonusValue = (amount: string): number => {
+    const match = amount.match(/[\d,]+/);
+    if (!match) return 0;
+    return parseInt(match[0].replace(/,/g, ''), 10);
+  };
+
+  // Extract numeric value from wagering string (e.g., "35x" -> 35)
+  const extractWageringValue = (wageringStr?: string): number => {
+    if (!wageringStr) return 999; // If no wagering, treat as high (show all)
+    const match = wageringStr.match(/(\d+)/);
+    return match ? parseInt(match[1], 10) : 999;
+  };
+
+  // Filter and sort bonuses
+  const filteredAndSortedBonuses = useMemo(() => {
+    console.log('Filtering bonuses:', bonuses.length, 'total bonuses');
+    const filtered = bonuses.filter((bonus) => {
+      // Filter by category checkboxes - check if this bonus type is enabled
+      if (!categories[bonus.type as keyof typeof categories]) {
+        return false;
+      }
+
+      // Filter by wagering (max wagering) - only apply if slider is not at max (70)
+      if (wagering < 70) {
+        const bonusWagering = extractWageringValue(bonus.wagering);
+        if (bonusWagering > wagering) {
+          return false;
+        }
+      }
+
+      // Filter by bonus value (min bonus value) - only apply if slider is not at 0
+      if (bonusValue > 0) {
+        const bonusAmount = extractBonusValue(bonus.amount);
+        if (bonusAmount < bonusValue) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+    
+    console.log('After filtering:', filtered.length, 'bonuses');
+    
+    return filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'newest':
+          // Sort by createdAt descending (newest first)
+          const aDate = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const bDate = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return bDate - aDate;
+        case 'oldest':
+          // Sort by createdAt ascending (oldest first)
+          const aDateOld = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const bDateOld = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return aDateOld - bDateOld;
+        case 'highest':
+          // Sort by bonus amount descending
+          return extractBonusValue(b.amount) - extractBonusValue(a.amount);
+        case 'lowest':
+          // Sort by bonus amount ascending
+          return extractBonusValue(a.amount) - extractBonusValue(b.amount);
+        default:
+          return 0;
+      }
+    });
+  }, [bonuses, categories, wagering, bonusValue, sortBy]);
+
   return (
     <>
       <Navbar currentPage="bonuses" />
@@ -140,111 +216,19 @@ export default function BonusesPage() {
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"></div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="max-w-3xl">
-                <div className="inline-flex items-center gap-2 mb-4">
-                  <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                  <span className="text-amber-500 text-xs font-semibold tracking-wide uppercase">Live Updates</span>
-                </div>
-                <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter mb-4">
-                  New Casino Bonuses
-                </h1>
-                <p className="text-base text-slate-400 max-w-xl">
-                  Explore the latest welcome offers, exclusive no-deposit deals, and free spins added daily. We verify every bonus manually.
-                </p>
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+              <span className="text-amber-500 text-xs font-semibold tracking-wide uppercase">Live Updates</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter mb-4">
+              New Casino Bonuses
+            </h1>
+            <p className="text-base text-slate-400 max-w-2xl">
+              Explore the latest welcome offers, exclusive no-deposit deals, and free spins added daily. We verify every bonus manually.
+            </p>
           </div>
-
-              {/* Sort Dropdown Trigger (Visual Only) */}
-              <div className="flex items-center gap-3">
-                <span className="text-xs text-slate-500">Sorted by:</span>
-                <button className="flex items-center gap-2 bg-slate-900 border border-white/10 px-4 py-2 rounded-lg text-sm text-white hover:border-white/20 transition-all">
-                  <span>Newest Added</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-slate-400">
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            </div>
         </section>
 
-        {/* Quick Filters (Horizontal Scroll) */}
-        <div className="border-b border-white/5 bg-slate-950 sticky top-16 z-40 backdrop-blur-xl bg-opacity-80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center gap-2 py-4 overflow-x-auto scrollbar-hide">
-              <button 
-                onClick={() => setSelectedFilter("all")}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  selectedFilter === "all" 
-                    ? "bg-amber-500 text-slate-950" 
-                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
-                }`}
-              >
-                All Bonuses
-              </button>
-              <button 
-                onClick={() => setSelectedFilter("no-deposit")}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedFilter === "no-deposit" 
-                    ? "bg-amber-500 text-slate-950" 
-                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
-                }`}
-              >
-                No Deposit
-              </button>
-              <button 
-                onClick={() => setSelectedFilter("free-spins")}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedFilter === "free-spins" 
-                    ? "bg-amber-500 text-slate-950" 
-                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
-                }`}
-              >
-                Free Spins
-              </button>
-              <button 
-                onClick={() => setSelectedFilter("crypto")}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedFilter === "crypto" 
-                    ? "bg-amber-500 text-slate-950" 
-                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
-                }`}
-              >
-                Crypto Exclusive
-              </button>
-              <button 
-                onClick={() => setSelectedFilter("high-roller")}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedFilter === "high-roller" 
-                    ? "bg-amber-500 text-slate-950" 
-                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
-                }`}
-              >
-                High Roller
-              </button>
-              <button 
-                onClick={() => setSelectedFilter("cashback")}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedFilter === "cashback" 
-                    ? "bg-amber-500 text-slate-950" 
-                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
-                }`}
-              >
-                Cashback
-              </button>
-              <button 
-                onClick={() => setSelectedFilter("reload")}
-                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  selectedFilter === "reload" 
-                    ? "bg-amber-500 text-slate-950" 
-                    : "bg-slate-900 border border-white/10 text-slate-300 hover:text-white hover:border-amber-500/50"
-                }`}
-              >
-                Reload
-              </button>
-            </div>
-          </div>
-                    </div>
 
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
@@ -318,86 +302,168 @@ export default function BonusesPage() {
 
                 {/* Categories */}
                 <div className="space-y-3">
-                  <label className="flex items-center gap-3 group cursor-pointer">
-                    <div className="relative flex items-center justify-center w-5 h-5 rounded border border-slate-700 bg-slate-900 group-hover:border-amber-500/50 transition-colors">
-                      <input 
-                        type="checkbox" 
-                        checked={categories.welcome}
-                        onChange={(e) => setCategories({ ...categories, welcome: e.target.checked })}
-                        className="peer appearance-none absolute inset-0 w-full h-full cursor-pointer"
-                      />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`w-3 h-3 text-amber-500 transition-opacity ${categories.welcome ? 'opacity-100' : 'opacity-0'}`}>
-                        <path d="M20 6 9 17l-5-5"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Welcome Bonus</span>
-                    <span className="ml-auto text-xs text-slate-600">124</span>
-                  </label>
-                  <label className="flex items-center gap-3 group cursor-pointer">
-                    <div className="relative flex items-center justify-center w-5 h-5 rounded border border-slate-700 bg-slate-900 group-hover:border-amber-500/50 transition-colors">
-                      <input 
-                        type="checkbox" 
-                        checked={categories.reload}
-                        onChange={(e) => setCategories({ ...categories, reload: e.target.checked })}
-                        className="peer appearance-none absolute inset-0 w-full h-full cursor-pointer"
-                      />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`w-3 h-3 text-amber-500 transition-opacity ${categories.reload ? 'opacity-100' : 'opacity-0'}`}>
-                        <path d="M20 6 9 17l-5-5"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Reload Bonus</span>
-                    <span className="ml-auto text-xs text-slate-600">42</span>
-                  </label>
-                  <label className="flex items-center gap-3 group cursor-pointer">
-                    <div className="relative flex items-center justify-center w-5 h-5 rounded border border-slate-700 bg-slate-900 group-hover:border-amber-500/50 transition-colors">
-                      <input 
-                        type="checkbox" 
-                        checked={categories.cashback}
-                        onChange={(e) => setCategories({ ...categories, cashback: e.target.checked })}
-                        className="peer appearance-none absolute inset-0 w-full h-full cursor-pointer"
-                      />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`w-3 h-3 text-amber-500 transition-opacity ${categories.cashback ? 'opacity-100' : 'opacity-0'}`}>
-                        <path d="M20 6 9 17l-5-5"></path>
-                      </svg>
-                    </div>
-                    <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Cashback</span>
-                    <span className="ml-auto text-xs text-slate-600">18</span>
-                  </label>
+                  {(() => {
+                    const getTypeLabel = (type: string) => {
+                      const labels: Record<string, string> = {
+                        'welcome': 'Welcome Bonus',
+                        'reload': 'Reload Bonus',
+                        'cashback': 'Cashback',
+                        'no-deposit': 'No Deposit',
+                        'free-spins': 'Free Spins',
+                        'crypto': 'Crypto',
+                        'high-roller': 'High Roller',
+                      };
+                      return labels[type] || type;
+                    };
+
+                    const bonusTypes = ['welcome', 'reload', 'cashback', 'no-deposit', 'free-spins', 'crypto', 'high-roller'] as const;
+                    
+                    return (
+                      <>
+                        {bonusTypes.map((type) => {
+                          const count = bonuses.filter(b => b.type === type).length;
+                          const isChecked = categories[type];
+                          
+                          return (
+                            <label key={type} className="flex items-center gap-3 group cursor-pointer">
+                              <div className="relative flex items-center justify-center w-5 h-5 rounded border border-slate-700 bg-slate-900 group-hover:border-amber-500/50 transition-colors">
+                                <input 
+                                  type="checkbox" 
+                                  checked={isChecked}
+                                  onChange={(e) => setCategories({ ...categories, [type]: e.target.checked })}
+                                  className="peer appearance-none absolute inset-0 w-full h-full cursor-pointer"
+                                />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`w-3 h-3 text-amber-500 transition-opacity ${isChecked ? 'opacity-100' : 'opacity-0'}`}>
+                                  <path d="M20 6 9 17l-5-5"></path>
+                                </svg>
+                              </div>
+                              <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">{getTypeLabel(type)}</span>
+                              <span className="ml-auto text-xs text-slate-600">{count}</span>
+                            </label>
+                          );
+                        })}
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
 
-              {/* Ad Unit */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border border-white/5 text-center">
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-white">
-                    <path d="M6 3h12l4 6-10 13L2 9Z"></path>
-                    <path d="M11 3 8 9l4 13 4-13-3-6"></path>
-                    <path d="M2 9h20"></path>
-                  </svg>
-                </div>
-                <h4 className="text-white font-semibold mb-2">VIP Club</h4>
-                <p className="text-xs text-indigo-200 mb-4">Join our exclusive telegram channel for bonuses.</p>
-                <button className="w-full py-2 bg-white text-indigo-950 font-bold text-xs rounded-lg hover:bg-indigo-50 transition-colors">
-                  Join Now
-                </button>
-              </div>
 
             </aside>
 
             {/* Bonus Listings */}
-            <main className="col-span-1 lg:col-span-3 space-y-4">
+            <main className="col-span-1 lg:col-span-3">
+              
+              {/* Sort Dropdown */}
+              <div className="flex justify-end mb-4">
+                <div className="relative" ref={sortButtonRef}>
+                  <button 
+                    onClick={() => {
+                      if (sortButtonRef.current) {
+                        const rect = sortButtonRef.current.getBoundingClientRect();
+                        setSortDropdownOpen(!sortDropdownOpen);
+                      } else {
+                        setSortDropdownOpen(!sortDropdownOpen);
+                      }
+                    }}
+                    className="flex items-center gap-2 bg-slate-900 border border-white/10 px-4 py-2 rounded-lg text-sm text-white hover:border-white/20 transition-all"
+                  >
+                    <span className="text-xs text-slate-500 mr-1">Sort by:</span>
+                    <span>
+                      {sortBy === 'newest' ? 'Newest Added' :
+                       sortBy === 'oldest' ? 'Oldest Added' :
+                       sortBy === 'highest' ? 'Highest Value' : 'Lowest Value'}
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`w-4 h-4 text-slate-400 transition-transform ${sortDropdownOpen ? 'rotate-180' : ''}`}>
+                      <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                  </button>
+                  
+                  {sortDropdownOpen && (
+                    <>
+                      <div 
+                        className="fixed inset-0 z-[55]" 
+                        onClick={() => setSortDropdownOpen(false)}
+                      ></div>
+                      <div 
+                        className="fixed z-[100] bg-slate-900 border border-white/10 rounded-lg shadow-xl overflow-hidden w-[160px]"
+                        style={{
+                          top: sortButtonRef.current ? `${sortButtonRef.current.getBoundingClientRect().bottom + 4}px` : 'auto',
+                          right: sortButtonRef.current ? `${window.innerWidth - sortButtonRef.current.getBoundingClientRect().right}px` : 'auto',
+                        }}
+                      >
+                        <button
+                          onClick={() => {
+                            setSortBy('newest');
+                            setSortDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                            sortBy === 'newest' 
+                              ? 'bg-slate-800 text-white' 
+                              : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                          }`}
+                        >
+                          Newest Added
+                        </button>
+                        <button
+                          onClick={() => {
+                            setSortBy('oldest');
+                            setSortDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                            sortBy === 'oldest' 
+                              ? 'bg-slate-800 text-white' 
+                              : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                          }`}
+                        >
+                          Oldest Added
+                        </button>
+                        <button
+                          onClick={() => {
+                            setSortBy('highest');
+                            setSortDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                            sortBy === 'highest' 
+                              ? 'bg-slate-800 text-white' 
+                              : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                          }`}
+                        >
+                          Highest Value
+                        </button>
+                        <button
+                          onClick={() => {
+                            setSortBy('lowest');
+                            setSortDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                            sortBy === 'lowest' 
+                              ? 'bg-slate-800 text-white' 
+                              : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                          }`}
+                        >
+                          Lowest Value
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-4">
               {loading ? (
                 <div className="text-center py-20">
                   <div className="inline-block w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
                   <p className="text-slate-400 mt-4">Loading bonuses...</p>
                 </div>
-              ) : bonuses.length > 0 ? (
-                bonuses.map((bonus) => (
+              ) : filteredAndSortedBonuses.length > 0 ? (
+                filteredAndSortedBonuses.map((bonus) => (
                   <div key={bonus.id} className="group relative rounded-2xl bg-slate-900/60 border border-white/5 overflow-hidden hover:shadow-[0_0_40px_-10px_rgba(251,191,36,0.1)] hover:border-amber-500/30 transition-all duration-300">
                     {(bonus.isExclusive || bonus.isHotPick) && (
-                      <div className="absolute top-0 right-0 p-3 z-10">
+                      // <div className="absolute top-3 right-3 z-10 flex flex-row gap-2">
+                        <div className="absolute top-40 right-3 md:top-3 md:right-3 z-10 flex flex-row gap-2">
                         {bonus.isExclusive && (
-                          <div className="bg-amber-500 text-slate-950 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide flex items-center gap-1 mb-2">
+                          <div className="bg-amber-500 text-slate-950 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide flex items-center gap-1 shadow-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 fill-slate-950">
                               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                             </svg>
@@ -405,16 +471,16 @@ export default function BonusesPage() {
                           </div>
                         )}
                         {bonus.isHotPick && (
-                          <div className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">
+                          <div className="bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide shadow-lg">
                             Hot Pick
                           </div>
                         )}
                       </div>
                     )}
                     
-                    <div className="flex flex-col md:flex-row p-6 gap-6">
+                    <div className="flex flex-col md:flex-row p-6 gap-16">
                       {/* Casino Logo Area */}
-                      <div className="flex-shrink-0 flex flex-col items-center justify-center gap-3 md:w-32">
+                      <div className="flex-shrink-0 flex flex-col items-center justify-center gap-3 md:w-32 md:pl-10">
                         <CasinoLogo logo={bonus.casinoLogo} name={bonus.casinoName} size="medium" />
                         <div className="flex items-center gap-1">
                           <div className="flex">
@@ -517,12 +583,13 @@ export default function BonusesPage() {
                 </div>
               )}
 
-              {/* SEO Content */}
-              <div className="pt-12 mt-12 border-t border-white/5 prose prose-invert prose-slate max-w-none">
-                <h3 className="text-lg font-semibold text-white">How to find the best new casino bonuses?</h3>
-                <p className="text-sm text-slate-400">
-                  Our team updates this list daily. When looking for a new bonus, always check the <strong>wagering requirements</strong> and <strong>expiration dates</strong>. We prioritize casinos that offer transparent terms and fast payouts. &quot;Exclusive&quot; tags indicate offers you won&apos;t find on other sites.
-                </p>
+                {/* SEO Content */}
+                <div className="pt-12 mt-12 border-t border-white/5 prose prose-invert prose-slate max-w-none">
+                  <h3 className="text-lg font-semibold text-white">How to find the best new casino bonuses?</h3>
+                  <p className="text-sm text-slate-400">
+                    Our team updates this list daily. When looking for a new bonus, always check the <strong>wagering requirements</strong> and <strong>expiration dates</strong>. We prioritize casinos that offer transparent terms and fast payouts. &quot;Exclusive&quot; tags indicate offers you won&apos;t find on other sites.
+                  </p>
+                </div>
               </div>
             </main>
           </div>

@@ -128,7 +128,7 @@ export default function SafetyGuidePage() {
               </div>
 
               {/* Safety Checklist Box */}
-              <div id="checklist" className="my-10 p-6 md:p-8 rounded-xl bg-slate-900/50 border border-white/5 backdrop-blur-sm relative overflow-hidden">
+              <div id="checklist" className="my-10 p-6 md:p-8 rounded-xl bg-slate-900/50 border border-white/5 backdrop-blur-sm relative overflow-hidden scroll-mt-32">
                 <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
                 <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-emerald-500">
@@ -190,7 +190,7 @@ export default function SafetyGuidePage() {
               </div>
 
               {/* H2 Section: Technical Security */}
-              <h2 id="technical" className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-12 mb-6">Technical Security Measures</h2>
+              <h2 id="technical" className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-12 mb-6 scroll-mt-32">Technical Security Measures</h2>
               <p className="text-lg text-slate-400 leading-relaxed mb-6">
                 Before creating an account, verify how the casino handles your data. In 2025, standard password protection is not enough. You should prioritize casinos that offer <span className="text-white font-medium">Two-Factor Authentication (2FA)</span> via apps like Google Authenticator or Authy.
               </p>
@@ -210,7 +210,7 @@ export default function SafetyGuidePage() {
                 </div>
               </div>
 
-              <h3 id="provably-fair" className="text-xl font-semibold text-white mt-8 mb-4">Provably Fair Technology</h3>
+              <h3 id="provably-fair" className="text-xl font-semibold text-white mt-8 mb-4 scroll-mt-32">Provably Fair Technology</h3>
               <p className="text-lg text-slate-400 leading-relaxed mb-6">
                 For crypto casinos, &quot;Provably Fair&quot; is the gold standard. This technology allows players to verify the randomness of every roll or spin using cryptographic hashes. 
               </p>
@@ -238,7 +238,7 @@ export default function SafetyGuidePage() {
                 </p>
               </div>
 
-              <h2 id="responsible" className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-12 mb-6">Responsible Gaming Tools</h2>
+              <h2 id="responsible" className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-12 mb-6 scroll-mt-32">Responsible Gaming Tools</h2>
               <p className="text-lg text-slate-400 leading-relaxed mb-6">
                 Safety isn&apos;t just about external threats; it&apos;s also about managing your own behavior. Reputable casinos provide a suite of tools to help you stay in control.
               </p>
@@ -283,7 +283,7 @@ export default function SafetyGuidePage() {
             <aside className="hidden lg:block lg:col-span-3 space-y-8">
               
               {/* Help Box */}
-              <div id="support" className="rounded-xl border border-rose-500/20 bg-rose-950/10 p-6 relative overflow-hidden">
+              <div id="support" className="rounded-xl border border-rose-500/20 bg-rose-950/10 p-6 relative overflow-hidden scroll-mt-32">
                 <div className="absolute -top-10 -right-10 w-24 h-24 bg-rose-500/20 blur-2xl rounded-full"></div>
                 <h4 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-rose-500">
@@ -328,45 +328,7 @@ export default function SafetyGuidePage() {
                     <a href="#support" className="block pl-4 py-2 border-l border-transparent -ml-px text-sm text-slate-500 hover:text-slate-300 hover:border-slate-700 transition-all">Emergency Support</a>
                   </li>
                 </ul>
-
-                {/* Safe Casino Widget */}
-                <div className="mt-8 rounded-xl bg-slate-900 border border-white/10 p-5">
-                  <div className="flex items-center gap-2 mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-emerald-500">
-                      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-                      <path d="m9 12 2 2 4-4"></path>
-                    </svg>
-                    <h4 className="text-sm font-bold text-white">Verified Safe</h4>
-                  </div>
-                  <div className="space-y-3">
-                    <Link href="/review/ignite-casino" className="flex items-center justify-between p-2 rounded bg-slate-800/50 border border-white/5 hover:border-white/10 transition-colors cursor-pointer">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-xs font-bold">IG</div>
-                        <div>
-                          <div className="text-xs text-white font-medium">Ignite Casino</div>
-                          <div className="text-[10px] text-emerald-400">10/10 Safety</div>
-                        </div>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-slate-600">
-                        <path d="m9 18 6-6-6-6"></path>
-                      </svg>
-                    </Link>
-                    <Link href="/review/royal-fort" className="flex items-center justify-between p-2 rounded bg-slate-800/50 border border-white/5 hover:border-white/10 transition-colors cursor-pointer">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-xs font-bold">RF</div>
-                        <div>
-                          <div className="text-xs text-white font-medium">Royal Fort</div>
-                          <div className="text-[10px] text-emerald-400">9.8/10 Safety</div>
-                        </div>
-                      </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-slate-600">
-                        <path d="m9 18 6-6-6-6"></path>
-                      </svg>
-                    </Link>
-          </div>
-        </div>
-      </div>
-
+              </div>
             </aside>
           </div>
         </div>
