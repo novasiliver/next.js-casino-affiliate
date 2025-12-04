@@ -31,8 +31,9 @@ export default function GuidesPage() {
   const fetchArticles = async () => {
     try {
       setLoading(true);
-      const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/articles?limit=100${categoryParam}`, {
+      // Always fetch all articles, then filter client-side
+      // This allows us to handle "Industry News" which maps to multiple categories
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/articles?limit=100`, {
         cache: 'no-store',
       });
       if (!res.ok) {
@@ -58,7 +59,7 @@ export default function GuidesPage() {
   };
 
   const filteredArticles = selectedCategory && selectedCategory !== 'All Posts'
-    ? articles.filter(a => categoryMap[selectedCategory].includes(a.category))
+    ? articles.filter(a => categoryMap[selectedCategory]?.includes(a.category))
     : articles;
 
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
