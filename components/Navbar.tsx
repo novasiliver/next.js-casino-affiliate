@@ -5,6 +5,15 @@ import { useState } from "react";
 
 export default function Navbar({ currentPage = "home" }: { currentPage?: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      window.location.href = `/casinos?search=${encodeURIComponent(searchQuery)}`;
+    }
+  };
 
   return (
     <nav className="fixed top-0 w-full z-50 border-b border-white/5 glass-panel transition-all duration-300">
@@ -18,8 +27,8 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
             <span className="text-white font-semibold text-lg tracking-tight">BONUS<span className="text-slate-500">ORY</span></span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Centered Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
             <Link 
               href="/" 
               className={`text-sm font-medium transition-colors ${currentPage === "home" ? "text-white" : "text-slate-300 hover:text-white"}`}
@@ -28,10 +37,10 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
             </Link>
 
             <Link 
-              href="/guides" 
-              className={`text-sm font-medium transition-colors ${currentPage === "guides" ? "text-white" : "text-slate-300 hover:text-white"}`}
+              href="/casinos" 
+              className={`text-sm font-medium transition-colors ${currentPage === "casinos" ? "text-white" : "text-slate-300 hover:text-white"}`}
             >
-              Guides
+              Casinos
             </Link>
 
             <Link 
@@ -40,11 +49,65 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
             >
               Bonuses
             </Link>
+
+            <Link 
+              href="/guides" 
+              className={`text-sm font-medium transition-colors ${currentPage === "guides" ? "text-white" : "text-slate-300 hover:text-white"}`}
+            >
+              Guides
+            </Link>
+          </div>
+
+          {/* Search Button (Desktop) */}
+          <div className="hidden md:flex items-center gap-4">
+            {searchOpen ? (
+              <form onSubmit={handleSearch} className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search casinos..."
+                  className="px-4 py-2 bg-slate-800 border border-white/10 rounded-lg text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 w-64"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={() => setSearchOpen(false)}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 6 6 18"></path>
+                    <path d="m6 6 12 12"></path>
+                  </svg>
+                </button>
+              </form>
+            ) : (
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="text-slate-300 hover:text-white transition-colors"
+                aria-label="Search casinos"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </svg>
+              </button>
+            )}
           </div>
 
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Mobile Menu Button & Search */}
+          <div className="md:hidden flex items-center gap-4">
+            <button 
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="text-slate-300"
+              aria-label="Search"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+            </button>
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-slate-300"
@@ -53,6 +116,22 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
             </button>
           </div>
         </div>
+
+        {/* Mobile Search */}
+        {searchOpen && (
+          <div className="md:hidden border-t border-white/5 py-4">
+            <form onSubmit={handleSearch}>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search casinos..."
+                className="w-full px-4 py-2 bg-slate-800 border border-white/10 rounded-lg text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-500"
+                autoFocus
+              />
+            </form>
+          </div>
+        )}
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
@@ -66,18 +145,27 @@ export default function Navbar({ currentPage = "home" }: { currentPage?: string 
             </Link>
 
             <Link 
-              href="/guides" 
+              href="/casinos" 
               className="block text-sm font-medium text-slate-300 hover:text-white transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Guides
+              Casinos
             </Link>
+
             <Link 
               href="/bonuses" 
               className="block text-sm font-medium text-slate-300 hover:text-white transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Bonuses
+            </Link>
+
+            <Link 
+              href="/guides" 
+              className="block text-sm font-medium text-slate-300 hover:text-white transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Guides
             </Link>
 
           </div>

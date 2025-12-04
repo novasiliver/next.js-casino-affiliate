@@ -235,7 +235,7 @@ export default async function Home() {
             Win with style.
           </h1>
           
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
             Curated selection of the world&apos;s most premium gaming destinations. 
             Exclusive bonuses, instant withdrawals, and bank-grade security vetted by experts.
           </p>
@@ -258,81 +258,68 @@ export default async function Home() {
 
       <CasinoListWithFilters casinos={displayCasinos} />
 
-      {/* Browse Categories Section */}
+      {/* Why Choose Us Section */}
       <section className="py-16 bg-slate-950 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-white tracking-tight mb-8">Browse by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="text-center mb-12">
+            <h2 className="text-xl md:text-2xl font-semibold text-white tracking-tight mb-4">Why Choose Bonusory</h2>
+            <p className="text-sm text-slate-400 max-w-2xl mx-auto">
+              Your trusted partner in finding the best online casinos. We do the research so you don&apos;t have to.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: "dice-5", name: "Slots", slug: "slots" },
-              { icon: "users", name: "Live Dealer", slug: "live-dealer" },
-              { icon: "bitcoin", name: "Crypto", slug: "crypto" },
-              { icon: "rocket", name: "Crash Games", slug: "crash-games" },
-              { icon: "trophy", name: "Sportsbook", slug: "sportsbook" },
-              { icon: "clover", name: "Poker", slug: "poker" },
-            ].map((category) => (
-              <Link key={category.name} href={`/category/${category.slug}`} className="group bg-slate-900 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center hover:border-amber-500/50 hover:bg-slate-800 transition-all duration-300">
-                <div className="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-amber-500/20 text-slate-400 group-hover:text-amber-500 flex items-center justify-center mb-3 transition-colors border border-white/5">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide={category.icon} className={`lucide lucide-${category.icon} w-6 h-6`}>
-                    {category.icon === "dice-5" && (
-                      <>
-                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                        <path d="M16 8h.01"></path>
-                        <path d="M8 8h.01"></path>
-                        <path d="M8 16h.01"></path>
-                        <path d="M16 16h.01"></path>
-                        <path d="M12 12h.01"></path>
-                      </>
-                    )}
-                    {category.icon === "users" && (
-                      <>
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                      </>
-                    )}
-                    {category.icon === "bitcoin" && (
-                      <>
-                        <path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-7.943C16.96 9.475 15.655 3.328 10.687 4.195"></path>
-                        <path d="M6 19.5v-15"></path>
-                        <path d="M9.5 4V2.5"></path>
-                        <path d="M10 21.5v-1.8"></path>
-                        <path d="M6 15h4.81"></path>
-                        <path d="M6 9h4"></path>
-                      </>
-                    )}
-                    {category.icon === "rocket" && (
-                      <>
-                        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-                        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-                        <path d="M9 12H4s.55-3.03 2-4c1.62-1.1 4-1 4-1s.38 2.38-1 4z"></path>
-                        <path d="M12 15v5s3.03-.55 4-2c1.1-1.62 1-4 1-4s-2.38-.38-4 1z"></path>
-                      </>
-                    )}
-                    {category.icon === "trophy" && (
-                      <>
-                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-                        <path d="M4 22h16"></path>
-                        <path d="M10 14.66V17"></path>
-                        <path d="M14 14.66V17"></path>
-                        <path d="M18 2h-6c-1.78 0-3 1.6-3 3.83V6.2c0 1.9 1.3 3.4 3 3.4h6c1.7 0 3-1.5 3-3.4V5.8c0-2.2-1.2-3.8-3-3.8Z"></path>
-                      </>
-                    )}
-                    {category.icon === "clover" && (
-                      <>
-                        <path d="M16.17 7.83 2 22"></path>
-                        <path d="M4.02 12a2.828 2.828 0 1 1 4-4 2.828 2.828 0 0 1-4 4Z"></path>
-                        <path d="M10.85 4.02a2.828 2.828 0 1 1 4 4 2.828 2.828 0 0 1-4-4Z"></path>
-                        <path d="M19.98 12a2.828 2.828 0 1 1-4 4 2.828 2.828 0 0 1 4-4Z"></path>
-                        <path d="M13.15 19.98a2.828 2.828 0 1 1-4-4 2.828 2.828 0 0 1 4 4Z"></path>
-                      </>
-                    )}
+              {
+                icon: "shield-check",
+                title: "Expert Reviews",
+                description: "Every casino is thoroughly tested by our team of gaming experts with years of industry experience.",
+                paths: [
+                  "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10",
+                  "m9 12 2 2 4-4"
+                ]
+              },
+              {
+                icon: "badge-check",
+                title: "Verified Licenses",
+                description: "We only feature casinos with valid licenses from reputable authorities like MGA, UKGC, and Curacao.",
+                paths: [
+                  "M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z",
+                  "m9 12 2 2 4-4"
+                ]
+              },
+              {
+                icon: "gift",
+                title: "Exclusive Bonuses",
+                description: "Access special offers and promotions available only through Bonusory, with better terms than standard deals.",
+                paths: [
+                  "M20 12v10H4V12",
+                  "M2 7h20v5H2z",
+                  "M12 22V7",
+                  "M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z",
+                  "M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"
+                ]
+              },
+              {
+                icon: "headphones",
+                title: "Fast Support",
+                description: "Get quick answers to your questions. Our support team responds within hours, not days.",
+                paths: [
+                  "M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"
+                ]
+              },
+            ].map((item, index) => (
+              <div key={index} className="bg-slate-900/50 border border-white/5 rounded-xl p-6 hover:border-amber-500/20 transition-all group">
+                <div className="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-amber-400">
+                    {item.paths.map((path, idx) => (
+                      <path key={idx} d={path}></path>
+                    ))}
                   </svg>
                 </div>
-                <span className="text-sm font-medium text-slate-300 group-hover:text-white">{category.name}</span>
-              </Link>
+                <h3 className="text-base font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed">{item.description}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -351,7 +338,7 @@ export default async function Home() {
                 <div className="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 rounded-full text-xs font-bold tracking-wider mb-4 border border-amber-500/20">
                   EXCLUSIVE OFFER
                 </div>
-                <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-4">
+                <h2 className="text-2xl md:text-4xl font-semibold text-white tracking-tight mb-4">
                   Claim 200% Bonus at <span className="text-amber-400">{featuredCasino.name}</span>
                 </h2>
                 <p className="text-slate-400 text-sm md:text-base mb-8 leading-relaxed max-w-md">
@@ -361,12 +348,12 @@ export default async function Home() {
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   <div className="bg-slate-950/50 p-4 rounded-xl border border-white/5">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide="zap" className="lucide lucide-zap w-5 h-5 text-amber-400 mb-2"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
-                    <div className="text-xl font-bold text-white">15 Min</div>
+                    <div className="text-lg font-bold text-white">15 Min</div>
                     <div className="text-xs text-slate-500">Avg. Payout Time</div>
                   </div>
                   <div className="bg-slate-950/50 p-4 rounded-xl border border-white/5">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" data-lucide="shield" className="lucide lucide-shield w-5 h-5 text-amber-400 mb-2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
-                    <div className="text-xl font-bold text-white">Verified</div>
+                    <div className="text-lg font-bold text-white">Verified</div>
                     <div className="text-xs text-slate-500">License & Security</div>
                   </div>
                 </div>
@@ -403,9 +390,9 @@ export default async function Home() {
                   <div className="absolute inset-0 bg-gradient-to-tr from-slate-800 to-slate-700 rounded-2xl rotate-3 opacity-50"></div>
                   <div className="absolute inset-0 bg-slate-900 rounded-2xl border border-white/10 shadow-2xl flex flex-col items-center justify-center p-8 text-center -rotate-3 hover:rotate-0 transition-transform duration-500">
                     <div className="w-24 h-24 rounded-full bg-slate-800 mb-6 flex items-center justify-center border border-amber-500/20">
-                      <span className="text-3xl font-bold text-white">IGN</span>
+                      <span className="text-2xl font-bold text-white">IGN</span>
                     </div>
-                    <div className="text-4xl font-bold text-white mb-2 tracking-tight">$5,000</div>
+                    <div className="text-3xl font-bold text-white mb-2 tracking-tight">$5,000</div>
                     <div className="text-sm text-slate-400 mb-6 uppercase tracking-widest">Welcome Package</div>
                     <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden mb-2">
                       <div className="w-3/4 h-full bg-amber-500"></div>
@@ -482,7 +469,7 @@ export default async function Home() {
 
             {/* Providers */}
             <div className="bg-slate-900/50 rounded-2xl p-8 border border-white/5 flex flex-col justify-center">
-              <h3 className="text-lg font-medium text-white mb-6">Trusted Software Providers</h3>
+              <h3 className="text-base md:text-lg font-medium text-white mb-6">Trusted Software Providers</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {["NetEnt", "Evolution", "Pragmatic", "Play'n Go", "NoLimit", "Hacksaw"].map((provider) => (
                   <div key={provider} className="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">
@@ -505,7 +492,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mb-2">Latest Insights</h2>
+              <h2 className="text-xl md:text-2xl font-semibold text-white tracking-tight mb-2">Latest Insights</h2>
               <p className="text-slate-400 text-sm">Expert strategies and industry news.</p>
             </div>
             <Link href="/guides" className="text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1">
@@ -566,7 +553,7 @@ export default async function Home() {
                       <span className="w-1 h-1 rounded-full bg-slate-700"></span>
                       <span>{getReadTime(article.content)}</span>
                     </div>
-                    <h3 className="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
+                    <h3 className="text-base md:text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
                       {article.title}
                     </h3>
                   </Link>
@@ -602,7 +589,7 @@ export default async function Home() {
                     <span className="w-1 h-1 rounded-full bg-slate-700"></span>
                     <span>{article.readTime}</span>
                   </div>
-                  <h3 className="text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
+                  <h3 className="text-base md:text-lg font-medium text-white group-hover:text-amber-400 transition-colors leading-snug">
                     {article.title}
                   </h3>
                 </Link>

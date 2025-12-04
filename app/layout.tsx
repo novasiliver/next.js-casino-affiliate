@@ -13,6 +13,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Bonusory - Premium Casino Reviews & Bonuses",
   description: "Curated selection of the world's most premium gaming destinations. Exclusive bonuses, instant withdrawals, and bank-grade security vetted by experts.",
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+  },
 };
 
 export default function RootLayout({

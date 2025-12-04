@@ -220,7 +220,7 @@ export default function BonusesPage() {
               <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
               <span className="text-amber-500 text-xs font-semibold tracking-wide uppercase">Live Updates</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tighter mb-4">
+            <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tighter mb-4">
               New Casino Bonuses
             </h1>
             <p className="text-base text-slate-400 max-w-2xl">
@@ -497,7 +497,7 @@ export default function BonusesPage() {
                             {getTypeLabel(bonus.type)}
                           </span>
                         </div>
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                        <h3 className="text-lg md:text-xl font-bold text-white mb-2">
                           {bonus.title}
                         </h3>
                         <div className="grid grid-cols-3 gap-4 mb-4">
@@ -585,7 +585,7 @@ export default function BonusesPage() {
 
                 {/* SEO Content */}
                 <div className="pt-12 mt-12 border-t border-white/5 prose prose-invert prose-slate max-w-none">
-                  <h3 className="text-lg font-semibold text-white">How to find the best new casino bonuses?</h3>
+                  <h3 className="text-base md:text-lg font-semibold text-white">How to find the best new casino bonuses?</h3>
                   <p className="text-sm text-slate-400">
                     Our team updates this list daily. When looking for a new bonus, always check the <strong>wagering requirements</strong> and <strong>expiration dates</strong>. We prioritize casinos that offer transparent terms and fast payouts. &quot;Exclusive&quot; tags indicate offers you won&apos;t find on other sites.
                   </p>

@@ -31,7 +31,9 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
               </div>
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                   <nav className="flex items-center text-xs text-slate-500 mb-6 gap-2">
-                      <a href="#" className="hover:text-white transition-colors">Home</a>
+                      <a href="/" className="hover:text-white transition-colors">Home</a>
+                      <span data-lucide="chevron-right" className="w-3 h-3"></span>
+                      <a href="/casinos" className="hover:text-white transition-colors">Review</a>
                       <span data-lucide="chevron-right" className="w-3 h-3"></span>
                       <span className="text-amber-500">{previewMode ? 'Ignite Casino' : casino.name}</span>
                   </nav>
@@ -111,20 +113,6 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
                   </div>
               </div>
           </div>
-          {/* Casino Description Section */}
-          {(previewMode || casino.description) && (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-white/5">
-              <div className="max-w-4xl">
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  {previewMode ? (
-                    'Ignite Casino is a premier online gaming destination that combines cutting-edge technology with an extensive library of games. Known for its instant withdrawal processing and crypto-friendly approach, it caters to both casual players and high-rollers seeking a premium casino experience.'
-                  ) : (
-                    casino.description || 'A comprehensive review of this casino covering all aspects of gameplay, bonuses, and user experience.'
-                  )}
-                </p>
-              </div>
-            </div>
-          )}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                   <div className="lg:col-span-8 space-y-12">
@@ -490,9 +478,9 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
                                         <span className="text-slate-500">Established</span>
                                         <span className="text-slate-300">2021</span>
                                     </li>
-                                    <li className="flex justify-between text-sm">
+                                    <li className="flex justify-between items-center text-sm">
                                         <span className="text-slate-500">License</span>
-                                        <span className="text-slate-300 flex items-center gap-1">Curacao <span data-lucide="shield-check" className="w-3 h-3 text-emerald-500"></span></span>
+                                        <span className="text-slate-300 flex items-center gap-1">Curacao</span>
                                     </li>
                                     <li className="flex justify-between text-sm">
                                         <span className="text-slate-500">Owner</span>
@@ -514,10 +502,10 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
                                         <span className="text-slate-300">{casino.casinoInfo.established}</span>
                                     </li>
                                     {casino.casinoInfo.license && (
-                                      <li className="flex justify-between text-sm">
+                                      <li className="flex justify-between items-center text-sm">
                                           <span className="text-slate-500">License</span>
                                           <span className="text-slate-300 flex items-center gap-1">
-                                              {casino.casinoInfo.license} <span data-lucide="shield-check" className="w-3 h-3 text-emerald-500"></span>
+                                              {casino.casinoInfo.license}
                                           </span>
                                       </li>
                                     )}
@@ -686,6 +674,23 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
                   </div>
               </div>
           </section>
+          {/* Casino Description Section - Moved to Bottom */}
+          {(previewMode || casino.description) && (
+            <section className="py-12 border-t border-white/5">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto">
+                  <h2 className="text-xl font-semibold text-white mb-6">About {previewMode ? 'Ignite Casino' : casino.name}</h2>
+                  <p className="text-slate-300 leading-relaxed">
+                    {previewMode ? (
+                      'Ignite Casino is a premier online gaming destination that combines cutting-edge technology with an extensive library of games. Known for its instant withdrawal processing and crypto-friendly approach, it caters to both casual players and high-rollers seeking a premium casino experience.'
+                    ) : (
+                      casino.description || 'A comprehensive review of this casino covering all aspects of gameplay, bonuses, and user experience.'
+                    )}
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
           <section className="py-12 border-t border-white/5 bg-slate-900/30">
               <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                   <h2 className="text-2xl font-semibold text-white mb-8 text-center">Frequently Asked Questions</h2>

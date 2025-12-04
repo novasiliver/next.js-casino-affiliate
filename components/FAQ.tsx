@@ -54,10 +54,10 @@ export default function FAQ() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-slate-400 text-lg">
+          <p className="text-slate-400 text-sm md:text-base">
             Everything you need to know about Bonusory and online casino gaming
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function FAQ() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-6 py-5 flex items-center justify-between text-left transition-colors hover:bg-slate-800/50"
               >
-                <span className="text-lg font-semibold text-white pr-8">
+                <span className="text-sm md:text-base font-semibold text-white pr-8">
                   {faq.question}
                 </span>
                 <svg
@@ -96,7 +96,7 @@ export default function FAQ() {
               
               {openIndex === index && (
                 <div className="px-6 pb-5 pt-0">
-                  <p className="text-slate-300 leading-relaxed">
+                  <p className="text-slate-300 text-sm leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>
