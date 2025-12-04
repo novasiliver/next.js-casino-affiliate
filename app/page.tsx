@@ -3,6 +3,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CasinoListWithFilters from "@/components/CasinoListWithFilters";
+import FAQ from "@/components/FAQ";
 
 export const dynamic = 'force-dynamic';
 
@@ -612,44 +613,7 @@ export default async function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-slate-950 border-t border-white/5">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-white tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
-          
-          <div className="space-y-4">
-            {[
-              {
-                question: "How do I know these casinos are safe?",
-                answer: "We strictly review casinos that hold valid licenses from reputable authorities like the MGA, UKGC, or Curacao eGaming. We also verify their SSL encryption and third-party fair play audits (eCOGRA, iTechLabs)."
-              },
-              {
-                question: "What is the best welcome bonus available?",
-                answer: "Currently, Ignite Casino offers our top-rated exclusive bonus of 200% up to $5,000. However, the \"best\" bonus depends on your playstyle—wager-free spins might be better for casual players."
-              },
-              {
-                question: "Are crypto withdrawals faster than bank transfers?",
-                answer: "Yes, significantly. Crypto withdrawals via Bitcoin, Ethereum, or Litecoin are typically processed within minutes to an hour, whereas traditional bank transfers can take 3-5 business days."
-              },
-              {
-                question: "Can I play on mobile devices?",
-                answer: "Absolutely. All casinos listed on Bonusory are fully optimized for mobile play on iOS and Android browsers. Many also offer dedicated apps for a smoother experience."
-              },
-            ].map((faq, idx) => (
-              <details key={idx} className="group [&_summary::-webkit-details-marker]:hidden">
-                <summary className="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-slate-900 p-4 text-slate-300 border border-white/5 hover:bg-slate-800 transition-colors">
-                  <span className="font-medium text-sm">{faq.question}</span>
-                  <svg className="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
-                </summary>
-                <div className="mt-2 px-4 leading-relaxed text-slate-400 text-sm">
-                  <p>{faq.answer}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FAQ />
 
       <Footer />
     </>
