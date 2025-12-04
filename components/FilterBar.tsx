@@ -18,7 +18,7 @@ export default function FilterBar({ activeFilter, onFilterChange }: FilterBarPro
   return (
     <div className="sticky top-16 z-40 bg-slate-950/90 backdrop-blur border-b border-white/5 py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest">October 2024 Rankings</h2>
+        <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-widest">October 2025 Rankings</h2>
         <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 no-scrollbar">
           {filters.map((filter) => {
             const isActive = activeFilter === filter.id;
