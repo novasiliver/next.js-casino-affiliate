@@ -90,14 +90,14 @@ export default function Template1({ casino, previewMode = false }: Template1Prop
                           </div>
                       </div>
                       <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
-                          <div className="flex-1 sm:text-right px-4 border-l border-white/10 lg:border-none">
+                          <div className="flex-1 text-center sm:text-right px-4 border-l border-white/10 lg:border-none">
                               <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Payout Speed</p>
-                              <p className="text-lg font-bold text-white flex items-center sm:justify-end gap-2">
+                              <p className="text-lg font-bold text-white flex items-center justify-center sm:justify-end gap-2">
                                   <span data-lucide="zap" className="w-4 h-4 text-amber-400"></span> {previewMode ? 'Instant' : (casino.payoutSpeed || 'N/A')}
                               </p>
                           </div>
                           {(previewMode || casino.rtp) && (
-                            <div className="flex-1 sm:text-right px-4 border-l border-white/10">
+                            <div className="flex-1 text-center sm:text-right px-4 border-l border-white/10">
                                 <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Win Rate (RTP)</p>
                                 <p className="text-lg font-bold text-white">{previewMode ? '97.4%' : casino.rtp}</p>
                             </div>
