@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import Template1 from "@/components/templates/casino/template1";
 import { Casino } from "@/types/casino";
 import { prisma } from "@/lib/db";
+import { generateCasinoMetadata } from "@/lib/seo";
+import { getCasinoReviewSchema, getBreadcrumbSchema } from "@/lib/structured-data";
 
 export const dynamic = 'force-dynamic';
 
@@ -57,8 +59,25 @@ export default async function ReviewPage({ params }: { params: Promise<{ slug: s
     notFound();
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bonusory.com';
+  const breadcrumbItems = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Review', url: `${baseUrl}/casinos` },
+    { name: casino.name, url: `${baseUrl}/review/${casino.slug}` }
+  ];
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getCasinoReviewSchema(casino)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getBreadcrumbSchema(breadcrumbItems)) }}
+      />
+      
       <Navbar currentPage="review" />
       <Template1 casino={casino} previewMode={false} />
       <Footer />
@@ -86,19 +105,38 @@ export async function generateStaticParams() {
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const casino = await getCasinoBySlug(slug);
   
-  if (!casino) {
+  try {
+    const casinoDb = await prisma.casino.findUnique({
+      where: { slug },
+    });
+    
+    if (!casinoDb) {
+      return {
+        title: "Casino Not Found - Bonusory",
+      };
+    }
+
+    // Parse the data to get description
+    let parsedData = {};
+    try {
+      parsedData = casinoDb.data ? JSON.parse(casinoDb.data) : {};
+    } catch (error) {
+      console.error('Error parsing casino data for metadata:', error);
+    }
+
+    // Combine casino data with SEO fields
+    const casinoForMetadata = {
+      ...casinoDb,
+      ...parsedData,
+    };
+
+    return generateCasinoMetadata(casinoForMetadata);
+  } catch (error) {
+    console.error('Error generating metadata:', error);
     return {
-      title: "Casino Not Found - Bonusory",
+      title: "Casino Review - Bonusory",
     };
   }
-
-  const bonusText = casino.bonus?.amount || 'exclusive welcome bonus';
-  
-  return {
-    title: `${casino.name} Review 2025 - Bonusory`,
-    description: `Read our comprehensive review of ${casino.name}. ${bonusText}, ${casino.rating}/5 rating, and expert analysis.`,
-  };
 }
 

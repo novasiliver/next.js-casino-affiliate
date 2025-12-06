@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import CasinoCard from "@/components/CasinoCard";
 import Link from "next/link";
 
+// SEO metadata will be added via layout or server component wrapper if needed
+
 interface Casino {
   id: string;
   name: string;
@@ -377,6 +379,7 @@ export default function CasinosPage() {
 
           {/* Casino List */}
           <div className="lg:col-span-3 space-y-4">
+            <h2 className="text-2xl font-semibold text-white mb-4">Browse All Casinos</h2>
             {/* Sort Bar */}
             <div className="flex items-center justify-between mb-2 px-1">
               <span className="text-sm text-slate-400">

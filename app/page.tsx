@@ -4,8 +4,19 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CasinoListWithFilters from "@/components/CasinoListWithFilters";
 import FAQ from "@/components/FAQ";
+import { generatePageMetadata } from "@/lib/seo";
+import { getOrganizationSchema, getWebsiteSchema, getItemListSchema } from "@/lib/structured-data";
 
 export const dynamic = 'force-dynamic';
+
+// Generate SEO metadata
+export async function generateMetadata() {
+  return await generatePageMetadata('home', {
+    title: 'Bonusory - Premium Casino Reviews & Bonuses 2025',
+    description: 'Curated selection of the world\'s most premium gaming destinations. Exclusive bonuses, instant withdrawals, and bank-grade security vetted by experts.',
+    keywords: 'online casino, casino bonus, casino reviews, gambling, slots, live casino, crypto casino, casino games',
+  });
+}
 
 async function getCasinos() {
   try {
@@ -211,6 +222,20 @@ export default async function Home() {
 
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getOrganizationSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebsiteSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getItemListSchema(casinos.slice(0, 10))) }}
+      />
+      
       <Navbar currentPage="home" />
       
       {/* Hero Section */}
@@ -469,7 +494,7 @@ export default async function Home() {
 
             {/* Providers */}
             <div className="bg-slate-900/50 rounded-2xl p-8 border border-white/5 flex flex-col justify-center">
-              <h3 className="text-base md:text-lg font-medium text-white mb-6">Trusted Software Providers</h3>
+              <h2 className="text-base md:text-lg font-medium text-white mb-6">Trusted Software Providers</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {["NetEnt", "Evolution", "Pragmatic", "Play'n Go", "NoLimit", "Hacksaw"].map((provider) => (
                   <div key={provider} className="h-12 rounded bg-slate-900 border border-white/5 flex items-center justify-center text-xs font-bold text-slate-500 uppercase tracking-widest hover:border-amber-500/30 hover:text-white transition-colors cursor-default">

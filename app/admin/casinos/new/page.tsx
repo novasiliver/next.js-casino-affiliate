@@ -22,6 +22,9 @@ export default function NewCasinoPage() {
     seoTitle: '',
     metaDescription: '',
     metaKeywords: '',
+    seoAuthor: 'Bonusory Team',
+    seoCanonical: '',
+    seoRobots: 'index, follow',
     brandColor: '#f59e0b',
     verifiedBadge: true,
     cryptoFriendly: false,
@@ -178,6 +181,9 @@ export default function NewCasinoPage() {
         seoTitle: cleanValue(formData.seoTitle),
         metaDescription: cleanValue(formData.metaDescription),
         metaKeywords: formData.metaKeywords ? formData.metaKeywords.split(',').map(k => k.trim()).filter(k => k) : undefined,
+        seoAuthor: cleanValue(formData.seoAuthor),
+        seoCanonical: cleanValue(formData.seoCanonical),
+        seoRobots: cleanValue(formData.seoRobots),
       };
 
       // Validate required fields before submission
@@ -735,6 +741,42 @@ export default function NewCasinoPage() {
                     className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
                     placeholder="casino, online casino, slots"
                   />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">SEO Author</label>
+                    <input
+                      type="text"
+                      value={formData.seoAuthor}
+                      onChange={(e) => setFormData({ ...formData, seoAuthor: e.target.value })}
+                      placeholder="Bonusory Team"
+                      className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">Robots Meta Tag</label>
+                    <select
+                      value={formData.seoRobots}
+                      onChange={(e) => setFormData({ ...formData, seoRobots: e.target.value })}
+                      className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                    >
+                      <option value="index, follow">index, follow (Default)</option>
+                      <option value="noindex, follow">noindex, follow</option>
+                      <option value="index, nofollow">index, nofollow</option>
+                      <option value="noindex, nofollow">noindex, nofollow</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">Canonical URL (optional)</label>
+                  <input
+                    type="url"
+                    value={formData.seoCanonical}
+                    onChange={(e) => setFormData({ ...formData, seoCanonical: e.target.value })}
+                    placeholder="https://bonusory.com/review/casino-name"
+                    className="w-full bg-slate-900 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">Leave empty to use default URL</p>
                 </div>
               </div>
             </div>

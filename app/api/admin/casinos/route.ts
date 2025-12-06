@@ -12,6 +12,13 @@ const casinoSchema = z.object({
   isActive: z.boolean().optional(),
   rank: z.number().optional(),
   categories: z.array(z.string()).optional(),
+  // SEO fields
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
+  seoKeywords: z.string().optional(),
+  seoAuthor: z.string().optional(),
+  seoCanonical: z.string().optional(),
+  seoRobots: z.string().optional(),
 });
 
 export async function GET(request: NextRequest) {

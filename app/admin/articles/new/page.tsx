@@ -16,6 +16,13 @@ export default function NewArticlePage() {
     excerpt: '',
     imageUrl: '',
     publishedAt: '',
+    // SEO fields
+    seoTitle: '',
+    seoDescription: '',
+    seoKeywords: '',
+    seoAuthor: 'Bonusory Team',
+    seoCanonical: '',
+    seoRobots: 'index, follow',
   });
 
   const generateSlug = (title: string) => {
@@ -239,6 +246,101 @@ export default function NewArticlePage() {
           <p className="text-xs text-slate-500 mt-1">
             Supports markdown-style: ## for headings, &gt; for blockquotes (max 50,000 characters, ~8,000-10,000 words)
           </p>
+        </div>
+
+        {/* SEO Section */}
+        <div className="border-t border-white/10 pt-6">
+          <h3 className="text-lg font-semibold text-white mb-4">SEO Settings</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                SEO Title
+              </label>
+              <input
+                type="text"
+                value={formData.seoTitle}
+                onChange={(e) => setFormData({ ...formData, seoTitle: e.target.value })}
+                maxLength={60}
+                className="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500/50"
+                placeholder="e.g., Best Slots Strategy 2025 - Win More at Online Casinos"
+              />
+              <p className="text-xs text-slate-500 mt-1">{formData.seoTitle.length}/60 characters (optimal: 50-60)</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Meta Description
+              </label>
+              <textarea
+                value={formData.seoDescription}
+                onChange={(e) => setFormData({ ...formData, seoDescription: e.target.value })}
+                rows={3}
+                maxLength={160}
+                className="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500/50 resize-none"
+                placeholder="Brief description that will appear in search results..."
+              />
+              <p className="text-xs text-slate-500 mt-1">{formData.seoDescription.length}/160 characters (optimal: 150-160)</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Meta Keywords
+              </label>
+              <input
+                type="text"
+                value={formData.seoKeywords}
+                onChange={(e) => setFormData({ ...formData, seoKeywords: e.target.value })}
+                className="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500/50"
+                placeholder="casino strategy, slots tips, gambling guide (comma separated)"
+              />
+              <p className="text-xs text-slate-500 mt-1">Comma-separated keywords</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Author
+                </label>
+                <input
+                  type="text"
+                  value={formData.seoAuthor}
+                  onChange={(e) => setFormData({ ...formData, seoAuthor: e.target.value })}
+                  className="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500/50"
+                  placeholder="Bonusory Team"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Robots Meta Tag
+                </label>
+                <select
+                  value={formData.seoRobots}
+                  onChange={(e) => setFormData({ ...formData, seoRobots: e.target.value })}
+                  className="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500/50"
+                >
+                  <option value="index, follow">index, follow (Default)</option>
+                  <option value="noindex, follow">noindex, follow</option>
+                  <option value="index, nofollow">index, nofollow</option>
+                  <option value="noindex, nofollow">noindex, nofollow</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Canonical URL (optional)
+              </label>
+              <input
+                type="url"
+                value={formData.seoCanonical}
+                onChange={(e) => setFormData({ ...formData, seoCanonical: e.target.value })}
+                className="w-full bg-slate-800 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500/50"
+                placeholder="https://bonusory.com/guides/article-slug"
+              />
+              <p className="text-xs text-slate-500 mt-1">Leave empty to use default URL</p>
+            </div>
+          </div>
         </div>
 
         <div className="flex gap-4">
