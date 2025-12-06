@@ -30,6 +30,13 @@ model Casino {
   isActive  Boolean  @default(true)
   rank      Int?
   categories String? @db.Text // JSON array of category slugs: ["slots", "crypto", "live-dealer"]
+  // SEO Fields
+  seoTitle       String? @db.VarChar(255)
+  seoDescription String? @db.Text
+  seoKeywords    String? @db.Text
+  seoAuthor      String? @db.VarChar(255)
+  seoCanonical   String? @db.VarChar(500)
+  seoRobots      String? @default("index, follow") @db.VarChar(100)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -61,6 +68,13 @@ model Article {
   excerpt     String?   @db.Text // Supports up to 65KB for excerpts
   imageUrl    String?
   publishedAt DateTime?
+  // SEO Fields
+  seoTitle       String? @db.VarChar(255)
+  seoDescription String? @db.Text
+  seoKeywords    String? @db.Text
+  seoAuthor      String? @db.VarChar(255)
+  seoCanonical   String? @db.VarChar(500)
+  seoRobots      String? @default("index, follow") @db.VarChar(100)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
@@ -87,4 +101,20 @@ model Bonus {
   features     String    @db.Text // JSON array of features like ["Instant Payouts", "Crypto Only"]
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+}
+
+model SeoSettings {
+  id          String   @id @default(cuid())
+  pageKey     String   @unique // e.g., "home", "casinos", "bonuses", "guides", "about", "privacy", "terms", "cookies"
+  pageName    String // Human-readable name
+  seoTitle       String? @db.VarChar(255)
+  seoDescription String? @db.Text
+  seoKeywords    String? @db.Text
+  seoAuthor      String? @db.VarChar(255)
+  seoPublisher   String? @db.VarChar(255)
+  seoCanonical   String? @db.VarChar(500)
+  seoRobots      String? @default("index, follow") @db.VarChar(100)
+  ogImage        String? @db.VarChar(500) // Open Graph image
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

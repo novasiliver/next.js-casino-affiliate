@@ -11,6 +11,13 @@ const articleSchema = z.object({
   excerpt: z.string().optional(),
   imageUrl: z.string().optional(),
   publishedAt: z.string().optional(),
+  // SEO fields
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
+  seoKeywords: z.string().optional(),
+  seoAuthor: z.string().optional(),
+  seoCanonical: z.string().optional(),
+  seoRobots: z.string().optional(),
 });
 
 export async function GET(request: NextRequest) {
