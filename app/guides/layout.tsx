@@ -1,5 +1,7 @@
 import { generatePageMetadata } from "@/lib/seo";
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata() {
   return await generatePageMetadata('guides', {
     title: 'Casino Guides & Strategy - Expert Tips | Bonusory',

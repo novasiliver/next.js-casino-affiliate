@@ -1,5 +1,7 @@
 import { generatePageMetadata } from "@/lib/seo";
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata() {
   return await generatePageMetadata('casinos', {
     title: 'Top Rated Online Casinos 2025 - Reviews & Bonuses | Bonusory',
